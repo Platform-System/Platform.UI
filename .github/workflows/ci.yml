@@ -3,15 +3,11 @@ name: Platform.UI CI
 on:
   push:
     branches: [ "main", "develop" ]
-    paths:
-      - 'Platform.UI/**'
   pull_request:
     branches: [ "main", "develop" ]
-    paths:
-      - 'Platform.UI/**'
 
 jobs:
   build:
     uses: Platform-System/Platform.CI-CD/.github/workflows/nextjs-ci-template.yml@main
     with:
-      working-directory: './'
+      working-directory: '.'
