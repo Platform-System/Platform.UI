@@ -4,6 +4,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { useChatStore } from '@/store/chatStore';
 import ChatWindow from './ChatWindow';
+import Image from 'next/image';
 
 const FloatingChatContainer = () => {
   const { activeChats, minimizedChats, closeChat, minimizeChat, toggleChat } = useChatStore();
@@ -31,9 +32,15 @@ const FloatingChatContainer = () => {
             {/* Ảnh đại diện người chat - Click để mở lại cửa sổ */}
             <button
               onClick={() => toggleChat(chat)}
-              className="w-12 h-12 rounded-full border-2 border-white dark:border-[#242526] shadow-lg overflow-hidden hover:scale-110 transition-transform bg-white dark:bg-[#242526]"
+              className="w-12 h-12 rounded-full border-2 border-white dark:border-[#242526] shadow-lg overflow-hidden hover:scale-110 transition-transform bg-white dark:bg-[#242526] relative"
             >
-              <img src={chat.avatar} className="w-full h-full object-cover" alt="Chat Bubble" />
+              <Image 
+                src={chat.avatar} 
+                fill 
+                unoptimized 
+                className="object-cover" 
+                alt="Chat Bubble" 
+              />
             </button>
             {/* Nút đóng nhanh bong bóng chat khi hover vào */}
             <button

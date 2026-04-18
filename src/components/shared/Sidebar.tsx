@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 import { CURRENT_USER, CHATS } from '@/data/mockData';
 import { useChatStore } from '@/store/chatStore';
 import Image from 'next/image';
-import { User, ChatSession } from '@/types/chat';
+import { ChatSession } from '@/types/chat';
 
 // --- Styles ---
 const MENU_BTN_STYLE = "w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-[#323334] text-slate-900 dark:text-[#e4e6eb] hover:bg-slate-200 dark:hover:bg-[#4e4f50] transition-colors relative";
@@ -17,7 +17,7 @@ const ACTION_ICON_STYLE = "w-8 h-8 flex items-center justify-center rounded-full
 
 // --- Sub-components ---
 interface ChatItemProps {
-  chat: any; // Using any for compatibility with CHATS constant structure
+  chat: ChatSession;
   onClick: () => void;
 }
 

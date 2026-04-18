@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Image from 'next/image';
 // --- Styles ---
 const ACTION_BTN_STYLE = "flex-1 flex items-center justify-center gap-2 py-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors text-slate-600 dark:text-[#b0b3b8] font-semibold text-sm";
 const STAT_TEXT_STYLE = "hover:underline cursor-pointer";
@@ -41,7 +42,14 @@ const PostCard = ({ post }: { post: Post }) => {
       {/* Header bài viết: Avatar, Tên tác giả, Thời gian */}
       <div className="p-3 px-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={post.author.avatar} className="w-10 h-10 rounded-full border dark:border-white/10 shadow-sm" alt="" />
+          <Image 
+            src={post.author.avatar} 
+            width={40} 
+            height={40} 
+            unoptimized
+            className="w-10 h-10 rounded-full border dark:border-white/10 shadow-sm" 
+            alt="Author" 
+          />
           <div>
             <h3 className="font-semibold dark:text-gray-100 hover:underline cursor-pointer leading-tight">{post.author.name}</h3>
             <div className="flex items-center gap-1 text-[12px] text-slate-500 dark:text-[#b0b3b8]">
@@ -63,12 +71,13 @@ const PostCard = ({ post }: { post: Post }) => {
         </p>
       </div>
 
-      {/* Nội dung hình ảnh/video đi kèm bài viết */}
       {post.content && (
-        <div className="bg-slate-100 dark:bg-[#18191a] flex items-center justify-center">
-          <img 
+        <div className="bg-slate-100 dark:bg-[#18191a] flex items-center justify-center relative min-h-[200px]">
+          <Image 
             src={post.content} 
-            className="w-full h-auto object-contain max-h-[612px]" 
+            fill
+            unoptimized
+            className="object-contain max-h-[612px]" 
             alt="Post content" 
           />
         </div>

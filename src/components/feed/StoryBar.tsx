@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 
@@ -23,10 +24,10 @@ interface StoryBarProps {
 
 const StoryCard = ({ story }: { story: Story }) => (
   <div className="w-[112px] h-[200px] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] border dark:border-white/5 relative group cursor-pointer overflow-hidden shrink-0 transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.2)] active:scale-95">
-    <img src={story.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="" />
+    <Image src={story.image} fill unoptimized className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={story.user} />
     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40 group-hover:from-black/20 transition-all"></div>
     <div className={`absolute top-3 left-3 w-9 h-9 rounded-full border-[2.5px] ${story.unread ? 'border-[#0084ff]' : 'border-white/40'} p-0.5 overflow-hidden z-10 shadow-lg backdrop-blur-sm`}>
-      <img src={story.avatar} className="w-full h-full rounded-full object-cover" alt="" />
+      <Image src={story.avatar} width={36} height={36} unoptimized className="w-full h-full rounded-full object-cover" alt={story.user} />
     </div>
     <span className="absolute bottom-2.5 left-3 right-3 text-white text-[12.5px] font-semibold leading-tight drop-shadow-lg z-10 tracking-tight">
       {story.user}
@@ -51,8 +52,14 @@ const StoryBar: React.FC<StoryBarProps> = ({ stories }) => {
         {/* Khối 'Tạo tin mới' cho người dùng hiện tại */}
         <SwiperSlide className="!w-auto">
           <div className="w-[112px] h-[200px] bg-white dark:bg-[#242526] rounded-xl shadow-md border dark:border-white/5 relative group cursor-pointer overflow-hidden flex flex-col shrink-0 transition-all duration-300 active:scale-95">
-            <div className="h-[145px] overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=600&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
+            <div className="h-[145px] overflow-hidden relative">
+              <Image 
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=600&fit=crop" 
+                fill 
+                unoptimized 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
+                alt="Create Story" 
+              />
             </div>
             <div className="absolute top-[128px] left-1/2 -translate-x-1/2 w-9 h-9 bg-[#0084ff] hover:bg-[#0073e6] rounded-full border-[3.5px] border-white dark:border-[#242526] flex items-center justify-center z-20 shadow-lg transition-transform hover:scale-105">
               <Icon icon="solar:add-bold" className="text-white" width="20" />
