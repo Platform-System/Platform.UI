@@ -18,7 +18,7 @@ const CreatePost: React.FC = () => {
       />
       {/* Ô nhập liệu giả bộ (nơi click để mở modal) */}
       <div className="flex-1 bg-slate-100 dark:bg-[#3a3b3c] hover:bg-slate-200 dark:hover:bg-[#4e4f50] rounded-full py-2 px-4 cursor-pointer transition-colors text-slate-500 dark:text-[#b0b3b8] text-[16px] truncate">
-        {CURRENT_USER.name}, what's on your mind?
+        {CURRENT_USER.name}, what&apos;s on your mind?
       </div>
       {/* Các nút chức năng nhanh (Live, Gallery, Feeling) */}
       <div className="flex items-center gap-1 shrink-0">

@@ -29,6 +29,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     // Đọc Theme đã lưu từ lần trước
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     if (savedTheme) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setThemeState(savedTheme);
     }
 

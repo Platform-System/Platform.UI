@@ -3,8 +3,10 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 
+import { User } from '@/types/chat';
+
 interface ChatHeaderProps {
-  user: any;
+  user: User;
   onClose: () => void;
   onMinimize: () => void;
 }

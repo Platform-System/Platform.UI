@@ -4,14 +4,16 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { CURRENT_USER } from '@/data/mockData';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function TopNav() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
+  // Avoid hydration mismatch - standardized pattern for Next.js
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -69,9 +71,12 @@ export default function TopNav() {
         {/* Khối Profile người dùng: Avatar và Tên */}
         <button title="Account Settings" className="flex items-center gap-3 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 transition-all pr-4 border border-transparent hover:border-slate-200 dark:hover:border-white/10 group text-left">
           <div className="relative">
-            <img 
+            <Image 
               src={CURRENT_USER.avatar} 
               alt={CURRENT_USER.name} 
+              width={36}
+              height={36}
+              unoptimized
               className="w-9 h-9 rounded-full object-cover border border-slate-200 dark:border-white/10 group-hover:border-cyan-500/50 transition-colors"
             />
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white dark:border-[#0a0a0f] rounded-full"></div>

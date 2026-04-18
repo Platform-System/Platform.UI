@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { STORIES, POSTS } from '@/data/mockData';
+/* Loại bỏ imports không dùng đến để tránh cảnh báo ESLint */
+
 
 // Components
 import LeftSidebar from '@/components/layout/LeftSidebar';

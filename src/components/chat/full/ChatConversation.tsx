@@ -4,9 +4,11 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
 
+import { ChatSession, Message } from '@/types/chat';
+
 interface ChatConversationProps {
-  activeChat: any;
-  messages: any[];
+  activeChat: ChatSession;
+  messages: Message[];
   isTyping: boolean;
 }
 

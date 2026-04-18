@@ -6,21 +6,35 @@ import { Icon } from '@iconify/react';
 const ACTION_BTN_STYLE = "flex-1 flex items-center justify-center gap-2 py-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition-colors text-slate-600 dark:text-[#b0b3b8] font-semibold text-sm";
 const STAT_TEXT_STYLE = "hover:underline cursor-pointer";
 
+import { Post } from '@/types/feed';
+
 // --- Sub-components ---
-const PostAction = ({ icon, label, onClick }: any) => (
+interface PostActionProps {
+  icon: string;
+  label: string;
+  onClick?: () => void;
+}
+
+const PostAction = ({ icon, label, onClick }: PostActionProps) => (
   <button onClick={onClick} className={ACTION_BTN_STYLE}>
     <Icon icon={icon} width="22" />
     <span>{label}</span>
   </button>
 );
 
-const ReactionBadge = ({ icon, bgColor, zIndex }: any) => (
+interface ReactionBadgeProps {
+  icon: string;
+  bgColor: string;
+  zIndex: string;
+}
+
+const ReactionBadge = ({ icon, bgColor, zIndex }: ReactionBadgeProps) => (
   <div className={`w-5 h-5 ${bgColor} rounded-full flex items-center justify-center border-2 border-white dark:border-[#242526] ${zIndex}`}>
     <Icon icon={icon} className="text-white" width="10" />
   </div>
 );
 
-const PostCard = ({ post }: any) => {
+const PostCard = ({ post }: { post: Post }) => {
   return (
     /* Khung bài viết (Post Card) trên News Feed */
     <div className="bg-white dark:bg-[#242526] rounded-xl shadow-sm mb-3 ring-1 ring-black/5 dark:ring-white/5 overflow-hidden">

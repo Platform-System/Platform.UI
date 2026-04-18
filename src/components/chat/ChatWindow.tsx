@@ -5,25 +5,28 @@ import ChatHeader from './ChatHeader';
 import ChatMessageList from './ChatMessageList';
 import ChatFooter from './ChatFooter';
 
+import { User, Message } from '@/types/chat';
+
 interface ChatWindowProps {
-  user: any;
+  user: User;
   onClose: () => void;
   onMinimize: () => void;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ user, onClose, onMinimize }) => {
   /* Quản lý danh sách tin nhắn nội bộ của cửa sổ chat */
-  const [messages, setMessages] = useState([
-    { id: 1, body: "Hello!", sender: "them" },
-    { id: 2, body: "How can I help you?", sender: "them" },
+  const [messages, setMessages] = useState<Message[]>([
+    { id: '1', text: "Hello!", sender: "other", time: "10:00" },
+    { id: '2', text: "How can I help you?", sender: "other", time: "10:01" },
   ]);
 
   /* Hàm xử lý khi người dùng nhấn gửi tin nhắn */
   const handleSendMessage = (text: string) => {
     const newMessage = {
-      id: messages.length + 1,
-      body: text,
-      sender: "me"
+      id: Date.now().toString(),
+      text: text,
+      sender: "me" as const,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setMessages([...messages, newMessage]);
   };

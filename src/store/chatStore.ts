@@ -37,8 +37,8 @@ export const useChatStore = create<ChatStore>((set) => ({
       return { minimizedChats: newMinimized };
     }
 
-    let nextActive = [...state.activeChats];
-    let finalMinimized = [...newMinimized];
+    const nextActive = [...state.activeChats];
+    const finalMinimized = [...newMinimized];
 
     if (nextActive.length >= 3) {
       const removed = nextActive.shift();

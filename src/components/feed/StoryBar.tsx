@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Icon } from '@iconify/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -36,16 +35,6 @@ const StoryCard = ({ story }: { story: Story }) => (
 );
 
 const StoryBar: React.FC<StoryBarProps> = ({ stories }) => {
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
-
-  const onBeforeInit = (Swiper: SwiperType) => {
-    if (typeof Swiper.params.navigation !== 'boolean' && Swiper.params.navigation) {
-      Swiper.params.navigation.prevEl = prevRef.current;
-      Swiper.params.navigation.nextEl = nextRef.current;
-    }
-  };
-
   return (
     /* Thanh hiển thị tin (Stories) sử dụng Swiper để lướt ngang */
     <div className="relative mb-4 group/bar">
@@ -53,10 +42,9 @@ const StoryBar: React.FC<StoryBarProps> = ({ stories }) => {
         modules={[Navigation]}
         spaceBetween={10}
         slidesPerView="auto"
-        onBeforeInit={onBeforeInit}
         navigation={{
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
+          prevEl: '.story-prev',
+          nextEl: '.story-next',
         }}
         className="story-swiper !static"
       >
@@ -85,17 +73,15 @@ const StoryBar: React.FC<StoryBarProps> = ({ stories }) => {
 
       {/* Nút điều hướng (Trái/Phải) khi hover vào thanh Story */}
       <button
-        ref={prevRef}
         title="Previous"
-        className="absolute left-[-12px] top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-white/80 dark:bg-[#4e4f50]/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition-all duration-500 opacity-0 group-hover/bar:opacity-100 pointer-events-none group-hover/bar:pointer-events-auto hover:scale-110 hover:bg-white dark:hover:bg-[#5e5f60] text-slate-800 dark:text-white"
+        className="story-prev absolute left-[-12px] top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-white/80 dark:bg-[#4e4f50]/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition-all duration-500 opacity-0 group-hover/bar:opacity-100 pointer-events-none group-hover/bar:pointer-events-auto hover:scale-110 hover:bg-white dark:hover:bg-[#5e5f60] text-slate-800 dark:text-white"
       >
         <Icon icon="solar:alt-arrow-left-bold" width="18" />
       </button>
 
       <button
-        ref={nextRef}
         title="Next"
-        className="absolute right-[-12px] top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-white/80 dark:bg-[#4e4f50]/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition-all duration-500 opacity-0 group-hover/bar:opacity-100 pointer-events-none group-hover/bar:pointer-events-auto hover:scale-110 hover:bg-white dark:hover:bg-[#5e5f60] text-slate-800 dark:text-white"
+        className="story-next absolute right-[-12px] top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-white/80 dark:bg-[#4e4f50]/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.15)] flex items-center justify-center transition-all duration-500 opacity-0 group-hover/bar:opacity-100 pointer-events-none group-hover/bar:pointer-events-auto hover:scale-110 hover:bg-white dark:hover:bg-[#5e5f60] text-slate-800 dark:text-white"
       >
         <Icon icon="solar:alt-arrow-right-bold" width="18" />
       </button>
