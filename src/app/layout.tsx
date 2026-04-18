@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/components/providers/QueryProvider";
-import Script from "next/script";
+import ThemeProvider from "@/components/providers/ThemeProvider";
 import Sidebar from "@/components/shared/Sidebar";
-import TopNav from "@/components/shared/TopNav";
-import MediaPlayer from "@/components/shared/MediaPlayer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,34 +26,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <Script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" strategy="beforeInteractive" />
-      </head>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0a0a0f] text-slate-50 overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen overflow-hidden bg-background text-foreground transition-colors duration-300`}
       >
-        <QueryProvider>
-          <div className="flex h-screen overflow-hidden bg-[#0a0a0f] text-slate-50 relative">
-            {/* Background Glow effects */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none"></div>
+        <ThemeProvider>
+          <QueryProvider>
+            <div className="flex flex-col h-screen w-screen bg-background text-foreground transition-colors duration-300">
+              {/* Background Glow effects */}
+              <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none dark:opacity-100 opacity-30 z-0"></div>
+              <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none dark:opacity-100 opacity-30 z-0"></div>
 
-            <Sidebar />
+              <Sidebar /> {/* Now Floating TopNav */}
 
-            <div className="flex-1 flex flex-col min-w-0 relative z-10">
-              <TopNav />
-              
-              {/* Main Scrollable Area */}
-              <main className="flex-1 overflow-y-auto pb-32 md:pb-24 pt-4 scroll-smooth no-scrollbar">
-                {children}
+              <main className="flex-1 h-[calc(100vh-3.5rem)] overflow-y-auto scroll-smooth transition-all duration-300 z-10 custom-scrollbar">
+                 {children}
               </main>
             </div>
-
-            {/* Global Media Player */}
-            <MediaPlayer />
-          </div>
-        </QueryProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
