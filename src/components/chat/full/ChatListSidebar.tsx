@@ -3,6 +3,7 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { CHATS } from '@/data/mockData';
 
 interface ChatListSidebarProps {
@@ -43,7 +44,14 @@ const ChatListSidebar: React.FC<ChatListSidebarProps> = ({ activeChatId, onSelec
             
             {/* Avatar người dùng và chấm trạng thái online */}
             <div className="relative shrink-0">
-              <img src={chat.avatar} alt={chat.name} className="w-12 h-12 rounded-full object-cover border border-white/10" />
+              <Image 
+                src={chat.avatar} 
+                width={48} 
+                height={48} 
+                unoptimized
+                alt={chat.name} 
+                className="w-12 h-12 rounded-full object-cover border border-white/10" 
+              />
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#0a0a0f] rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
             </div>
             

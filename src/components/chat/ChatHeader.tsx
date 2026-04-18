@@ -3,6 +3,8 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 
+import Image from 'next/image';
+
 import { User } from '@/types/chat';
 
 interface ChatHeaderProps {
@@ -18,7 +20,14 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ user, onClose, onMinimize }) =>
       {/* Thông tin người đang chat cùng (Avatar & Tên) */}
       <div className="flex items-center gap-2 cursor-pointer hover:bg-white/5 p-1 rounded-lg flex-1 min-w-0">
         <div className="relative shrink-0">
-          <img src={user.avatar} className="w-8 h-8 rounded-full object-cover" alt="Avatar" />
+          <Image 
+            src={user.avatar} 
+            width={32} 
+            height={32} 
+            unoptimized
+            className="w-8 h-8 rounded-full object-cover" 
+            alt="Avatar" 
+          />
           <div className="absolute bottom-[-0.5px] right-[-0.5px] w-3 h-3 bg-[#42b72a] border-[2px] border-[#1c1c1e] rounded-full"></div>
         </div>
         <div className="flex flex-col min-w-0">

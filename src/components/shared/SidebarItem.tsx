@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Image from 'next/image';
 
 /* Định nghĩa kiểu dữ liệu (Props) cho từng mục sidebar */
 interface SidebarItemProps {
@@ -23,7 +24,14 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, color, avatar, o
     {/* Hiển thị Avatar nếu có, ngược lại hiển thị Icon */}
     {avatar ? (
       <div className="relative shrink-0">
-        <img src={avatar} className="w-9 h-9 rounded-full border dark:border-white/10 shadow-sm" alt="Profile" />
+        <Image 
+          src={avatar} 
+          width={36} 
+          height={36} 
+          unoptimized
+          className="w-9 h-9 rounded-full border dark:border-white/10 shadow-sm" 
+          alt="Profile" 
+        />
         {/* Chấm xanh biểu thị trạng thái Online */}
         <div className="absolute bottom-0.5 right-0.5 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-[#18191a] rounded-full"></div>
       </div>

@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import { Icon } from '@iconify/react';
 import { CURRENT_USER, CHATS } from '@/data/mockData';
 import { useChatStore } from '@/store/chatStore';
+import Image from 'next/image';
+import { User, ChatSession } from '@/types/chat';
 
 // --- Styles ---
 const MENU_BTN_STYLE = "w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-[#323334] text-slate-900 dark:text-[#e4e6eb] hover:bg-slate-200 dark:hover:bg-[#4e4f50] transition-colors relative";
@@ -14,13 +16,25 @@ const FILTER_BTN_STYLE = "px-3 py-1.5 rounded-full text-[15px] font-semibold tra
 const ACTION_ICON_STYLE = "w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors";
 
 // --- Sub-components ---
-const ChatItem = ({ chat, onClick }: any) => (
+interface ChatItemProps {
+  chat: any; // Using any for compatibility with CHATS constant structure
+  onClick: () => void;
+}
+
+const ChatItem = ({ chat, onClick }: ChatItemProps) => (
   <div
     onClick={onClick}
     className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 transition-colors cursor-pointer group"
   >
     <div className="relative shrink-0">
-      <img src={chat.avatar} className="w-14 h-14 rounded-full object-cover shadow-sm" alt={chat.name} />
+      <Image 
+        src={chat.avatar} 
+        width={56} 
+        height={56} 
+        unoptimized
+        className="w-14 h-14 rounded-full object-cover shadow-sm" 
+        alt={chat.name} 
+      />
       <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-[3px] border-white dark:border-[#242526] rounded-full"></div>
     </div>
     <div className="flex-1 min-w-0 pr-2">
@@ -36,7 +50,12 @@ const ChatItem = ({ chat, onClick }: any) => (
   </div>
 );
 
-const HeaderActionButton = ({ icon, width = "20" }: any) => (
+interface HeaderActionButtonProps {
+  icon: string;
+  width?: string;
+}
+
+const HeaderActionButton = ({ icon, width = "20" }: HeaderActionButtonProps) => (
   <button className={ACTION_ICON_STYLE}>
     <Icon icon={icon} width={width} className="text-slate-600 dark:text-[#b0b3b8]" />
   </button>
@@ -202,8 +221,14 @@ export default function SidebarNav() {
 
           {/* Khối Profile người dùng và Menu thu gọn */}
           <Link href="/profile" title="Profile" className="relative group/profile ml-1">
-            <div className="w-10 h-10 rounded-full border border-transparent hover:border-cyan-500/50 transition-all overflow-hidden shrink-0 shadow-sm">
-              <img src={CURRENT_USER.avatar} className="w-full h-full object-cover" alt="Profile" />
+            <div className="w-10 h-10 rounded-full border border-transparent hover:border-cyan-500/50 transition-all overflow-hidden shrink-0 shadow-sm relative">
+              <Image 
+                src={CURRENT_USER.avatar} 
+                fill
+                unoptimized
+                className="object-cover" 
+                alt="Profile" 
+              />
             </div>
             <div className="absolute bottom-0 right-[-2px] w-4 h-4 bg-slate-200 dark:bg-[#444546] rounded-full flex items-center justify-center border-2 border-white dark:border-[#242526] shadow-sm">
               <Icon icon="solar:alt-arrow-down-bold" width="8" className="text-slate-900 dark:text-white" />

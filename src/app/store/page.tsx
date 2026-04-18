@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Image from 'next/image';
 import { PRODUCTS } from '@/data/mockData';
 
 export default function StoreView() {
@@ -10,9 +11,11 @@ export default function StoreView() {
       
       {/* Featured Banner - Neon Style */}
       <section className="relative w-full h-[350px] md:h-[450px] rounded-[2rem] overflow-hidden bg-[#0a0a0f] border border-white/10 shadow-[0_0_50px_rgba(168,85,247,0.15)] group cursor-pointer">
-        <img 
+        <Image 
           src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80" 
           alt="Sale Banner" 
+          fill
+          unoptimized
           className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 group-hover:opacity-40 transition-all duration-700" 
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent"></div>
@@ -45,7 +48,7 @@ export default function StoreView() {
           {PRODUCTS.map(product => (
             <div key={product.id} className="group flex flex-col glass-card rounded-[1.5rem] p-3 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(34,211,238,0.15)] hover:border-cyan-500/30">
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-900 mb-5">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
+                <Image src={product.image} alt={product.name} fill unoptimized className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent opacity-60"></div>
                 
                 {/* Overlay actions */}

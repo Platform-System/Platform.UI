@@ -3,6 +3,7 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 import { ChatSession, Message } from '@/types/chat';
 
@@ -24,7 +25,14 @@ const ChatConversation: React.FC<ChatConversationProps> = ({ activeChat, message
       {/* Header của cuộc hội thoại: Thông tin người chat và các nút Call/Video */}
       <div className="h-20 border-b border-white/5 bg-[#0a0a0f]/60 backdrop-blur-xl px-6 flex items-center justify-between shrink-0 z-10">
         <div className="flex items-center gap-4">
-          <img src={activeChat.avatar} alt={activeChat.name} className="w-12 h-12 rounded-full object-cover border border-white/10" />
+          <Image 
+            src={activeChat.avatar} 
+            width={48} 
+            height={48} 
+            unoptimized
+            alt={activeChat.name} 
+            className="w-12 h-12 rounded-full object-cover border border-white/10" 
+          />
           <div>
             <h3 className="font-bold text-white text-lg">{activeChat.name}</h3>
             <div className="text-xs text-green-400 font-medium flex items-center gap-1.5">
