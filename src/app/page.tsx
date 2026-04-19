@@ -16,7 +16,7 @@ export default function HomePage() {
       
       {/* 2. Slogan với hiệu ứng nhịp thở (Pulse) */}
       <p className="text-xs font-black uppercase tracking-[0.6em] text-zinc-500 mb-8 animate-pulse">
-        Nyx's Radiance
+        Nyx&apos;s Radiance
       </p>
 
       {/* 3. Đoạn giới thiệu triết lý thương hiệu */}

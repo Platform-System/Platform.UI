@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { PRODUCTS } from '@/data/mockData';
 
 // Import các Component đã được tách nhỏ
@@ -66,8 +66,8 @@ export default function StoreView() {
       {/* 2. Trang sản phẩm (Product Grid): Hiển thị lưới sản phẩm đã được lọc */}
       <StoreSection isOverflowHidden className="z-20 flex flex-col justify-center">
         <div className="max-w-[1360px] mx-auto w-full pl-[120px] pr-[40px] grid grid-cols-6 gap-10">
-          {/* Card lớn nổi bật bên trái */}
-          <FeaturedCarousel products={filteredProducts} />
+          {/* Card lớn nổi bật bên trái - Tự động reset index khi đổi danh mục nhờ key */}
+          <FeaturedCarousel key={selectedCategory} products={filteredProducts} />
           {/* Lưới sản phẩm nhỏ bên phải */}
           <ScrollingGrid products={filteredProducts} />
         </div>

@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Icon } from '@iconify/react';
-import Image from 'next/image';
 
 /**
  * Props cho MegaMenu Component

@@ -74,7 +74,7 @@ export const HeroBanner = () => {
       <div className="relative z-10 flex flex-col items-center px-6">
         <div className="overflow-hidden mb-2">
           <p className="text-[10px] font-black uppercase tracking-[0.8em] text-cyan-400/80 animate-slide-up opacity-0 [animation-fill-mode:forwards]">
-            Nyx's Radiance
+            Nyx&apos;s Radiance
           </p>
         </div>
 

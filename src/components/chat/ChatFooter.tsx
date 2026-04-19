@@ -12,7 +12,6 @@ const ACTION_ICON_STYLE = "p-1.5 text-[#0084ff] hover:bg-white/10 rounded-full f
 
 const ChatFooter: React.FC<ChatFooterProps> = ({ onSendMessage }) => {
   const [message, setMessage] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
   
   /** 
    * Trạng thái Expand (Kéo dãn): 
@@ -69,8 +68,6 @@ const ChatFooter: React.FC<ChatFooterProps> = ({ onSendMessage }) => {
               type="text"
               placeholder="Aa"
               value={message}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
               onChange={(e) => setMessage(e.target.value)}
               className="flex-1 bg-transparent border-none outline-none text-[15px] text-gray-100 placeholder-[#b0b3b8] min-w-0 h-full"
             />

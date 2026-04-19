@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { ProductSmallCard } from './ProductSmallCard';
 import { Product } from '@/types/store';
 import { GridPagination } from './GridPagination';
@@ -37,7 +37,7 @@ export const ScrollingGrid = ({ products }: { products: Product[] }) => {
     setActivePage(Math.round(e.currentTarget.scrollTop / e.currentTarget.clientHeight));
   };
 
-  const handleDotsDrag = (clientY: number) => {
+  const handleDotsDrag = useCallback((clientY: number) => {
     if (!dotsContainerRef.current || !gridRef.current) return;
     const rect = dotsContainerRef.current.getBoundingClientRect();
     const target = Math.min(totalPages - 1, Math.floor(((clientY - rect.top) / rect.height) * totalPages));
@@ -45,7 +45,7 @@ export const ScrollingGrid = ({ products }: { products: Product[] }) => {
       gridRef.current.scrollTo({ top: target * gridRef.current.clientHeight, behavior: 'auto' });
       setActivePage(target);
     }
-  };
+  }, [totalPages, activePage]);
 
   const handlePageClick = (p: number) => {
     gridRef.current?.scrollTo({ top: p * (gridRef.current.clientHeight), behavior: 'smooth' });
@@ -63,7 +63,7 @@ export const ScrollingGrid = ({ products }: { products: Product[] }) => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseup', onUp);
     };
-  }, [isDraggingDots, activePage, totalPages]);
+  }, [isDraggingDots, handleDotsDrag]);
 
   return (
     <div className="col-span-4 h-[480px] relative group/grid flex flex-row-reverse gap-8 pr-8">

@@ -23,11 +23,6 @@ export const FeaturedCarousel = ({ products }: { products: Product[] }) => {
     return () => clearInterval(timer);
   }, [cycleCount]);
 
-  // 2. 🟢 RESET index về 0 khi danh sách sản phẩm thay đổi (nhảy Category)
-  useEffect(() => {
-    setFeaturedIndex(0);
-  }, [products]);
-
   return (
     <div className="col-span-2 group relative animate-reveal-card h-[480px] overflow-hidden">
       {products.slice(0, 5).map((product, idx) => (

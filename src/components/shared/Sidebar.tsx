@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Icon } from '@iconify/react';
 import { HeaderNav } from '@/components/layout/HeaderNav';
 import { HeaderActions } from '@/components/layout/HeaderActions';
 
@@ -26,8 +24,8 @@ export default function SidebarNav() {
               <span className="text-black font-black text-lg -rotate-12 group-hover:[animation:reverse-spin-infinite_4s_linear_infinite]">N</span>
             </div>
             <div className="flex items-center gap-4 hidden lg:flex">
-              <span className="text-[20px] text-zinc-100 italic mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" style={{ fontFamily: "'Allura', cursive" }}>
-                Nyx's Radiance
+              <span className="text-[20px] text-zinc-100 italic mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] font-allura">
+                Nyx&apos;s Radiance
               </span>
             </div>
           </Link>
