@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { HeaderNav } from '@/components/layout/HeaderNav';
 import { HeaderActions } from '@/components/layout/HeaderActions';
@@ -20,27 +21,19 @@ export default function SidebarNav() {
         
         {/* KHU VỰC BÊN TRÁI: Logo thương hiệu & Ô tìm kiếm nhanh */}
         <div className="flex items-center gap-2 flex-1">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform shrink-0">
-              <Icon icon="solar:gamepad-bold" className="text-white text-2xl" />
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 via-cyan-300 to-indigo-600 rounded-lg rotate-12 flex items-center justify-center shadow-[0_0_15px_rgba(34,211,238,0.4)] group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all duration-500 ease-in-out shrink-0 group-hover:[animation:spin-infinite_4s_linear_infinite]">
+              <span className="text-black font-black text-lg -rotate-12 group-hover:[animation:reverse-spin-infinite_4s_linear_infinite]">N</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent hidden lg:block">
-              Nexus
-            </span>
+            <div className="flex items-center gap-4 hidden lg:flex">
+              <span className="text-[20px] text-zinc-100 italic mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" style={{ fontFamily: "'Allura', cursive" }}>
+                Nyx's Radiance
+              </span>
+            </div>
           </Link>
-
-          {/* Ô tìm kiếm tiêu chuẩn (Chỉ hiện từ màn hình tablet trở lên) */}
-          <div className="hidden md:flex items-center relative flex-1 max-w-[280px] ml-4">
-            <Icon icon="solar:magnifer-linear" className="absolute left-3 text-slate-400" width="18" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full bg-slate-100 dark:bg-[#3a3b3c] border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-cyan-500/50 transition-all outline-none dark:text-[#e4e6eb] dark:placeholder-[#b0b3b8]"
-            />
-          </div>
         </div>
 
-        {/* KHU VỰC TRUNG TÂM: Thanh điều hướng Tab chính (Home, Social, Shop...) */}
+        {/* KHU VỰC GIỮA: Điều hướng (Thanh menu chính) */}
         <HeaderNav />
 
         {/* KHU VỰC BÊN PHẢI: Các nút hành động, Messenger và Profile người dùng */}
