@@ -6,15 +6,19 @@ import { useChatStore } from '@/store/chatStore';
 import ChatWindow from './ChatWindow';
 import Image from 'next/image';
 
+/**
+ * FloatingChatContainer: Quản lý toàn bộ hệ thống cửa sổ chat nổi trên ứng dụng.
+ * Bao gồm các cửa sổ đang mở (Active) và các bong bóng chat thu gọn (Minimized).
+ */
 const FloatingChatContainer = () => {
   const { activeChats, minimizedChats, closeChat, minimizeChat, toggleChat } = useChatStore();
 
   return (
-    /* Container chính chứa toàn bộ hệ thống Chat nổi, nằm cố định ở góc dưới bên phải */
+    /* Container cố định ở góc dưới bên phải, không cản trở tương tác với các phần khác (pointer-events-none) */
     <div className="fixed bottom-0 right-5 flex items-end gap-1.5 z-[100] pointer-events-none">
       
-      {/* Khối hiển thị các cửa sổ Chat đang hoạt động (không bị thu nhỏ) */}
-      <div className="flex items-end gap-3 mr-2">
+      {/* KHỐI 1: Các cửa sổ Chat đang hiển thị nội dung (ChatWindows) */}
+      <div className="flex items-end gap-3 mr-2 pointer-events-auto">
         {activeChats.map((chat) => (
           <ChatWindow
             key={chat.id}
@@ -25,11 +29,11 @@ const FloatingChatContainer = () => {
         ))}
       </div>
 
-      {/* Khối hiển thị các bong bóng Chat thu gọn (Icons tròn bên phải) */}
+      {/* KHỐI 2: Cột các bong bóng Chat thu gọn (Icons tròn bên phải) */}
       <div className="flex flex-col gap-1 items-center pb-4 pointer-events-auto">
         {minimizedChats.map((chat) => (
           <div key={chat.id} className="relative group/bubble">
-            {/* Ảnh đại diện người chat - Click để mở lại cửa sổ */}
+            {/* Ảnh đại diện người chat: Click để mở lại cửa sổ chat đó */}
             <button
               onClick={() => toggleChat(chat)}
               className="w-12 h-12 rounded-full border-2 border-white dark:border-[#242526] shadow-lg overflow-hidden hover:scale-110 transition-transform bg-white dark:bg-[#242526] relative"
@@ -42,7 +46,7 @@ const FloatingChatContainer = () => {
                 alt="Chat Bubble" 
               />
             </button>
-            {/* Nút đóng nhanh bong bóng chat khi hover vào */}
+            {/* Nút đóng nhanh (X) hiện lên khi hover vào bong bóng chat */}
             <button
               title="Close"
               onClick={(e) => { e.stopPropagation(); closeChat(chat.id, true); }}
@@ -53,7 +57,7 @@ const FloatingChatContainer = () => {
           </div>
         ))}
 
-        {/* Nút soạn tin nhắn mới (Soạn thư nhanh) */}
+        {/* Nút Soạn tin nhắn mới (Màu xám/đen cuối cột) */}
         <div className="relative group/compose mt-1">
           <button title="New Message" className="w-12 h-12 rounded-full bg-white dark:bg-[#323334] shadow-xl flex items-center justify-center text-slate-600 dark:text-white hover:bg-slate-100 dark:hover:bg-[#4e4f50] transition-colors">
             <Icon icon="solar:pen-new-square-bold" width="24" />
