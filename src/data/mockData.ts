@@ -80,25 +80,25 @@ export const CHATS = [
 ];
 
 export const PRODUCTS = [
-  { id: 1, name: "NYXORIS Genesis Headphones", price: 299.99, category: "Audio", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80", rating: 4.8 },
-  { id: 2, name: "Cyber-key Mechanical Keyboard", price: 159.00, category: "Tech", image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800&q=80", rating: 4.9 },
+  { id: 1, name: "NYXORIS Genesis Headphones", price: 299.99, category: "Audio", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80", rating: 4.8, isBestSeller: true },
+  { id: 2, name: "Cyber-key Mechanical Keyboard", price: 159.00, category: "Tech", image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800&q=80", rating: 4.9, isBestSeller: true },
   { id: 3, name: "Neon Glow Mousepad", price: 35.50, category: "Accessories", image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=800&q=80", rating: 4.5 },
   { id: 4, name: "Hologram Watch v2", price: 450.00, category: "Wearables", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80", rating: 4.7 },
-  { id: 5, name: "Quantum VR Headset", price: 599.00, category: "Tech", image: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&q=80", rating: 4.9 },
+  { id: 5, name: "Quantum VR Headset", price: 599.00, category: "Tech", image: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=800&q=80", rating: 4.9, isBestSeller: true },
   { id: 6, name: "Sonic Wave Speaker", price: 120.00, category: "Audio", image: "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=800&q=80", rating: 4.6 },
   { id: 7, name: "Titan Gaming Chair", price: 350.00, category: "Furniture", image: "https://images.unsplash.com/photo-1598550476439-6847785fce66?w=800&q=80", rating: 4.8 },
   { id: 8, name: "Lumina Desk Lamp", price: 45.00, category: "Home", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80", rating: 4.4 },
-  { id: 9, name: "Neural Link Controller", price: 899.00, category: "Tech", image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=800&q=80", rating: 5.0 },
+  { id: 9, name: "Neural Link Controller", price: 899.00, category: "Tech", image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=800&q=80", rating: 5.0, isBestSeller: true },
   { id: 10, name: "Atmosphere Purifier", price: 210.00, category: "Home", image: "https://images.unsplash.com/photo-1585336139118-89ce320d7be7?w=800&q=80", rating: 4.7 },
   { id: 11, name: "Prism Smartphone", price: 1200.00, category: "Tech", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80", rating: 4.9 },
   { id: 12, name: "Carbon Fiber Wallet", price: 85.00, category: "Accessories", image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80", rating: 4.6 },
-  { id: 13, name: "Echo Pulse Earbuds", price: 180.00, category: "Audio", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80", rating: 4.8 },
+  { id: 13, name: "Echo Pulse Earbuds", price: 180.00, category: "Audio", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80", rating: 4.8, isBestSeller: true },
   { id: 14, name: "Zenith Smart Glasses", price: 650.00, category: "Wearables", image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80", rating: 4.7 },
   { id: 15, name: "Obsidian Monitor Arm", price: 140.00, category: "Tech", image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80", rating: 4.5 },
   { id: 16, name: "Void-Black Water Bottle", price: 40.00, category: "Accessories", image: "https://images.unsplash.com/photo-1602143307185-84e05439755e?w=800&q=80", rating: 4.9 },
   { id: 17, name: "Apex Drone Pro", price: 1450.00, category: "Tech", image: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80", rating: 4.8 },
   { id: 18, name: "Velvety Night Desk Mat", price: 60.00, category: "Accessories", image: "https://images.unsplash.com/photo-1616419012574-e9ecb2b1bc01?w=800&q=80", rating: 4.7 },
-  { id: 19, name: "Gravity E-Bike", price: 2500.00, category: "Tech", image: "https://images.unsplash.com/photo-1571068316344-75ad76712e0c?w=800&q=80", rating: 4.9 }
+  { id: 19, name: "Gravity E-Bike", price: 2500.00, category: "Tech", image: "https://images.unsplash.com/photo-1571068316344-75ad76712e0c?w=800&q=80", rating: 4.9, isBestSeller: true }
 ];
 
 export const BANNER_SLIDES = [

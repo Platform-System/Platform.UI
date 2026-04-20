@@ -14,9 +14,10 @@ interface SideNavigationProps {
 export const SideNavigation = ({ activeSection, onScroll }: SideNavigationProps) => {
   // Danh sách các phần của trang
   const sections = [
-    { id: 0, label: 'Atelier' },
-    { id: 1, label: 'Collection' },
-    { id: 2, label: 'System' }
+    { id: 0, label: 'Premier' },
+    { id: 1, label: 'Atelier' },
+    { id: 2, label: 'Best Sellers' },
+    { id: 3, label: 'System' }
   ];
 
   return (

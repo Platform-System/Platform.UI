@@ -35,7 +35,16 @@ export const MegaPanel = ({
         <div className="space-y-6">
           <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-zinc-400">Featured</h4>
           <ul className="space-y-4 text-sm font-bold">
-            <li className="hover:text-cyan-600 cursor-pointer">Best Sellers</li>
+            <li 
+              onClick={() => {
+                onSelectCategory('Best Sellers');
+                setIsMegaMenuOpen(false);
+                scrollToSection(2);
+              }}
+              className={`hover:text-cyan-600 cursor-pointer ${selectedCategory === 'Best Sellers' ? 'text-cyan-600' : ''}`}
+            >
+              Best Sellers
+            </li>
             <li className="hover:text-cyan-600 cursor-pointer">New Arrivals</li>
             <li className="hover:text-cyan-600 cursor-pointer">Member Exclusive</li>
           </ul>
@@ -51,7 +60,7 @@ export const MegaPanel = ({
                 onClick={() => {
                   onSelectCategory(cat);
                   setIsMegaMenuOpen(false);
-                  scrollToSection(1); // Khi chọn category, cuộn thẳng xuống Grid sản phẩm
+                  scrollToSection(2); // Khi chọn category, cuộn thẳng xuống Grid sản phẩm (Section 2 mới)
                 }}
                 className={`cursor-pointer hover:text-cyan-600 ${selectedCategory === cat ? 'text-cyan-600' : ''}`}
               >

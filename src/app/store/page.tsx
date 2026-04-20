@@ -13,6 +13,8 @@ import { StoreFooter } from '@/components/store/StoreFooter';
 import { StoreBackground } from '@/components/store/StoreBackground';
 import { StoreSection } from '@/components/store/StoreSection';
 
+import { ProductIntro } from '@/components/store/ProductIntro';
+
 // Hooks
 import { useStoreScroll } from '@/hooks/store/useStoreScroll';
 import { useStoreFilter } from '@/hooks/store/useStoreFilter';
@@ -58,13 +60,18 @@ export default function StoreView() {
       {/* C. Thành phần nền với hiệu ứng Cosmic và Noise Texture */}
       <StoreBackground />
 
-      {/* 1. Trang đầu (Hero Section): Hiển thị Banner quảng cáo chạy tự động */}
+      {/* 1. Trang mở đầu (Premier Section): Giới thiệu sản phẩm mũi nhọn */}
       <StoreSection className="z-10">
+        <ProductIntro />
+      </StoreSection>
+
+      {/* 2. Trang Banner (Hero Section): Hiển thị Banner quảng cáo chạy tự động */}
+      <StoreSection className="z-20">
         <BannerCarousel />
       </StoreSection>
 
-      {/* 2. Trang sản phẩm (Product Grid): Hiển thị lưới sản phẩm đã được lọc */}
-      <StoreSection isOverflowHidden className="z-20 flex flex-col justify-center">
+      {/* 3. Trang sản phẩm (Product Grid): Hiển thị lưới sản phẩm đã được lọc */}
+      <StoreSection isOverflowHidden className="z-30 flex flex-col justify-center">
         <div className="max-w-[1360px] mx-auto w-full pl-[120px] pr-[40px] grid grid-cols-6 gap-10">
           {/* Card lớn nổi bật bên trái - Tự động reset index khi đổi danh mục nhờ key */}
           <FeaturedCarousel key={selectedCategory} products={filteredProducts} />
@@ -73,7 +80,7 @@ export default function StoreView() {
         </div>
       </StoreSection>
 
-      {/* 3. Chân trang (Footer): Thông tin bản quyền và liên kết hệ thống */}
+      {/* 4. Chân trang (Footer): Thông tin bản quyền và liên kết hệ thống */}
       <StoreFooter />
 
       {/* D. CSS ANIMATIONS TÙY CHỈNH */}

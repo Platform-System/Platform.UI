@@ -22,12 +22,12 @@ export const useStoreFilter = (allProducts: Product[]) => {
 
   /**
    * filteredProducts: Mảng sản phẩm đã được lọc theo selectedCategory.
-   * Nếu chọn 'All' thì trả về tất cả, ngược lại chỉ trả về sản phẩm khớp category.
+   * Nếu chọn 'Best Sellers' sẽ lọc theo thuộc tính isBestSeller.
    */
   const filteredProducts = useMemo(() => {
-    return selectedCategory === 'All'
-      ? allProducts
-      : allProducts.filter(p => p.category === selectedCategory);
+    if (selectedCategory === 'All') return allProducts;
+    if (selectedCategory === 'Best Sellers') return allProducts.filter(p => p.isBestSeller);
+    return allProducts.filter(p => p.category === selectedCategory);
   }, [allProducts, selectedCategory]);
 
   return { selectedCategory, setSelectedCategory, categories, filteredProducts };
