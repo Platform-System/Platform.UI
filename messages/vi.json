@@ -1,0 +1,21 @@
+{
+  "Hero": {
+    "ecosystem": "HỆ SINH THÁI NYXORIS",
+    "imagine": "Khởi tạo",
+    "future": "TƯƠNG LAI.",
+    "description": "Trải nghiệm thị trường kỹ thuật số tiên tiến nhất cho tài sản và quản lý danh tính đa dịch vụ.",
+    "getStarted": "Bắt Đầu",
+    "viewDocs": "Tài Liệu"
+  },
+  "Navigation": {
+    "home": "Trang chủ",
+    "social": "Mạng xã hội",
+    "store": "Cửa hàng",
+    "chat": "Trò chuyện",
+    "library": "Thư viện"
+  },
+  "Common": {
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi"
+  }
+}

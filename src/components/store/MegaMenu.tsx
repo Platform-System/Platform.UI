@@ -39,7 +39,10 @@ export const MegaMenu = ({
       className="fixed top-[55px] left-0 w-full z-[100] transition-all duration-300"
       onMouseLeave={() => setIsMegaMenuOpen(false)}
     >
-      <StoreSubHeader setIsMegaMenuOpen={setIsMegaMenuOpen} />
+      <StoreSubHeader 
+        setIsMegaMenuOpen={setIsMegaMenuOpen} 
+        scrollToSection={scrollToSection}
+      />
       <MegaPanel 
         {...{ 
           isMegaMenuOpen, 

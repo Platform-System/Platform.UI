@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { HeaderNav } from '@/components/layout/HeaderNav';
 import { HeaderActions } from '@/components/layout/HeaderActions';
 
@@ -14,7 +14,10 @@ import { HeaderActions } from '@/components/layout/HeaderActions';
  */
 export default function SidebarNav() {
   return (
-    <header className="sticky top-0 z-[100] w-full bg-white/80 dark:bg-[#242526]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 h-14 px-4 overflow-visible">
+    <header 
+      style={{ viewTransitionName: 'global-header' } as React.CSSProperties}
+      className="sticky top-0 z-[100] w-full bg-white/80 dark:bg-[#242526]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 h-14 px-4 overflow-visible"
+    >
       <div className="max-w-full mx-auto h-full flex items-center justify-between gap-4">
         
         {/* KHU VỰC BÊN TRÁI: Logo thương hiệu & Ô tìm kiếm nhanh */}

@@ -4,13 +4,13 @@ import React, { useEffect, useRef } from 'react';
 import { Icon } from '@iconify/react';
 
 /**
- * HeroBanner: Phiên bản banner tĩnh với hiệu tượng theo dõi chuột (Mouse Tracking).
- * Tạo cảm giác chiều sâu (Parallax) khi người dùng di chuyển chuột trên màn hình.
+ * HeroBanner: Static banner version with Mouse Tracking effect.
+ * Creates depth (Parallax) as the user moves the mouse.
+ * Cleaned version - English only.
  */
 export const HeroBanner = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Logic theo dõi vị trí chuột để cập nhật biến CSS (--mouse-x, --mouse-y)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -38,7 +38,7 @@ export const HeroBanner = () => {
         '--mouse-y': '0.5',
       } as React.CSSProperties}
     >
-      {/* 1. Lớp ánh sáng nền: Di chuyển theo tỷ lệ chuột */}
+      {/* 1. Background Glow Layers */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div 
           className="absolute w-[800px] h-[800px] bg-indigo-600/20 blur-[150px] rounded-full transition-transform duration-1000 ease-out"
@@ -61,7 +61,7 @@ export const HeroBanner = () => {
       {/* Background Text: BEYOND */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0">
         <h2 
-          className="text-[25vw] font-black text-white/[0.03] uppercase tracking-[-0.05em] leading-none animate-reveal-bg"
+          className="text-[18vw] font-black text-white/[0.03] uppercase tracking-[-0.05em] leading-none animate-reveal-bg whitespace-nowrap"
           style={{
             transform: 'translate(calc(var(--mouse-x) * 20px - 10px), calc(var(--mouse-y) * 20px - 10px))',
           }}
@@ -74,7 +74,7 @@ export const HeroBanner = () => {
       <div className="relative z-10 flex flex-col items-center px-6">
         <div className="overflow-hidden mb-2">
           <p className="text-[10px] font-black uppercase tracking-[0.8em] text-cyan-400/80 animate-slide-up opacity-0 [animation-fill-mode:forwards]">
-            Nyx&apos;s Radiance
+            Experience the Radiance
           </p>
         </div>
 
@@ -92,21 +92,20 @@ export const HeroBanner = () => {
           </span>
         </h1>
 
-        <div className="max-w-xl overflow-hidden mb-12">
+        <div className="max-w-2xl overflow-hidden mb-12">
           <p className="text-zinc-400 text-sm md:text-lg font-medium leading-relaxed animate-slide-up opacity-0 [animation-fill-mode:forwards] [animation-delay:600ms]">
-            Step into a world where technology becomes invisible and elegance becomes absolute. 
-            Experience the next generation of sensory hardware.
+            Join the most advanced ecosystem for developers and creators. Unleash your potential with Nyxoris.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-6 animate-fade-in opacity-0 [animation-fill-mode:forwards] [animation-delay:800ms]">
           <button className="group relative px-12 py-5 bg-white text-black font-black uppercase text-xs tracking-[0.2em] rounded-full overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]">
-            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">Start Exploring</span>
+            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">Explore Now</span>
             <div className="absolute inset-0 bg-cyan-400 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
           </button>
           
           <button className="group px-12 py-5 bg-white/5 border border-white/10 text-white font-black uppercase text-xs tracking-[0.2em] rounded-full transition-all duration-500 hover:bg-white/10 hover:border-white/30 backdrop-blur-xl active:scale-95 flex items-center gap-2">
-            Collection
+            View Collection
             <Icon icon="solar:arrow-right-up-linear" className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
@@ -114,7 +113,7 @@ export const HeroBanner = () => {
 
       {/* Decorative Bottom Left Link */}
       <div className="absolute bottom-12 left-12 z-20 animate-fade-in opacity-0 [animation-fill-mode:forwards] [animation-delay:1000ms]">
-        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group cursor-pointer hover:border-cyan-400/50 transition-all duration-500 backdrop-blur-md hover:bg-white/5">
+        <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group cursor-pointer hover:border-cyan-500/50 transition-all duration-500 backdrop-blur-md hover:bg-white/5 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
           <span className="text-sm font-black group-hover:text-cyan-400 transition-colors pt-0.5 tracking-tighter">NX</span>
         </div>
       </div>

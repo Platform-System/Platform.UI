@@ -9,7 +9,7 @@ import { FOOTER_LINKS } from '@/data/mockData';
  */
 export const StoreFooter = () => {
   return (
-    <footer className="h-full w-full snap-start snap-always shrink-0 flex items-center bg-black border-t border-white/5 px-10 z-30">
+    <footer className="w-full flex items-center bg-black border-t border-white/5 px-10 z-30 py-20 lg:py-0 h-full">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12">
         {/* Cột 1 & 2: Brand Identity */}
         <div className="lg:col-span-2 space-y-6">

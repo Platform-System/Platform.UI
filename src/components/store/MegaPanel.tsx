@@ -39,7 +39,7 @@ export const MegaPanel = ({
               onClick={() => {
                 onSelectCategory('Best Sellers');
                 setIsMegaMenuOpen(false);
-                scrollToSection(2);
+                scrollToSection(1);
               }}
               className={`hover:text-cyan-600 cursor-pointer ${selectedCategory === 'Best Sellers' ? 'text-cyan-600' : ''}`}
             >
@@ -60,7 +60,7 @@ export const MegaPanel = ({
                 onClick={() => {
                   onSelectCategory(cat);
                   setIsMegaMenuOpen(false);
-                  scrollToSection(2); // Khi chọn category, cuộn thẳng xuống Grid sản phẩm (Section 2 mới)
+                  scrollToSection(1); // Khi chọn category, cuộn thẳng xuống Grid sản phẩm (Section 1 mới)
                 }}
                 className={`cursor-pointer hover:text-cyan-600 ${selectedCategory === cat ? 'text-cyan-600' : ''}`}
               >

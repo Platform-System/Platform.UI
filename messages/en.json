@@ -1,0 +1,21 @@
+{
+  "Hero": {
+    "ecosystem": "NYXORIS ECOSYSTEM",
+    "imagine": "Imagine",
+    "future": "THE FUTURE.",
+    "description": "Experience the most advanced digital marketplace for cross-service assets and identity management.",
+    "getStarted": "Get Started",
+    "viewDocs": "View Docs"
+  },
+  "Navigation": {
+    "home": "Home",
+    "social": "Social",
+    "store": "Store",
+    "chat": "Chat",
+    "library": "Library"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "An error occurred"
+  }
+}

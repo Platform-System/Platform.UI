@@ -107,7 +107,7 @@ export const BANNER_SLIDES = [
     title: "'HURT FEELINGS'",
     subtitle: "LeBron XXII Elite",
     description: "After falling down 3-1 in the 2016 NBA finals, on-court trash talk spilled off-court — but only one King had the last laugh.",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-basketball-player-practicing-dribbling-in-a-court-4841-large.mp4",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     cta1: "Show Now",
     cta2: "Learn More",
     theme: "dark"
@@ -117,7 +117,7 @@ export const BANNER_SLIDES = [
     title: "AIR MAX DN",
     subtitle: "Feel the Unreal",
     description: "The next generation of Air technology is here. Step into the future of comfort and style with the all-new Dynamic Air.",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-running-on-the-treadmill-in-slow-motion-42289-large.mp4",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     cta1: "Shop Air Max",
     cta2: "Explore Tech",
     theme: "light"
@@ -127,7 +127,7 @@ export const BANNER_SLIDES = [
     title: "ATELIER NYX",
     subtitle: "Precision Engineering",
     description: "Experience the ultimate fusion of luxury aesthetics and performance-driven design in our latest hardware collection.",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-high-tech-circuit-board-close-up-v2-42998-large.mp4",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
     cta1: "Discover Now",
     cta2: "View Manifesto",
     theme: "dark"

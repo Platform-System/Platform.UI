@@ -1,117 +1,124 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
+import { useTranslations } from 'next-intl';
 
 /**
- * ProductIntro: Trang giới thiệu sản phẩm (Showcase Section).
- * Hiển thị hình ảnh sản phẩm định dạng Cinematic với các hiệu ứng chuyển động cao cấp.
+ * ProductIntro: Chapter I - Introducing the Nyxoris Era.
+ * Updated version - Multi-language support enabled.
  */
 export const ProductIntro = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [points, setPoints] = useState<any[]>([]);
+  const t = useTranslations('Hero');
+
+  useEffect(() => {
+    // Generate random points only on client side to avoid hydration mismatch
+    const newPoints = [...Array(6)].map((_, i) => ({
+      top: `${10 + Math.random() * 80}%`,
+      left: `${10 + Math.random() * 80}%`,
+      delay: `${i * 1.5}s`
+    }));
+    setPoints(newPoints);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <div className="relative w-full h-full bg-[#020205] flex items-center justify-center overflow-hidden">
-      {/* 1. Background Image với hiệu ứng mờ ảo (Cinematic Backdrop) */}
+    <section className="relative w-full h-full flex items-center justify-center overflow-hidden">
+      
+      {/* Background: Digital Architecture */}
       <div className="absolute inset-0 z-0">
-        <Image 
-          src="/images/hero-product.png" 
-          alt="Nyxoris Prestige" 
-          fill 
-          className="object-cover opacity-50 scale-105 animate-pulse-slow" 
-        />
-        {/* Layer phủ gradient để làm nổi bật text */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#020205]/60 to-[#020205]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(34,211,238,0.05)_0%,_transparent_70%)] opacity-60" />
+        <div className="w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat opacity-[0.02] pointer-events-none" />
       </div>
 
-      {/* 2. Nội dung chính: Căn giữa và dịch lên trên để sát Header hơn */}
-      <div className="relative z-10 text-center px-6 max-w-4xl -mt-20">
-        {/* Tag nhỏ giới thiệu */}
-        <div className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md animate-fade-down">
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400">Introducing</span>
-        </div>
+      <div className="relative z-10 w-full h-full max-w-[1500px] mx-auto px-12 md:px-24 flex flex-col justify-center gap-16 select-none">
         
-        {/* Tiêu đề lớn với hiệu ứng Reveal và Gradient */}
-        <h1 className="text-white text-6xl md:text-9xl font-black italic uppercase tracking-tighter mb-8 leading-none animate-reveal-text">
-          NYXORIS <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">PRESTIGE</span>
-        </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            {/* Left: Manifesto */}
+            <div className="lg:col-span-7 space-y-10 animate-in fade-in slide-in-from-left-10 duration-1000">
+                <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.8em]">{t('ecosystem')}</span>
+                        <div className="h-[1px] w-12 bg-white/10" />
+                    </div>
+                    <h1 className="text-white text-6xl md:text-8xl lg:text-[7rem] font-serif italic tracking-tighter leading-[0.85]">
+                      {t('imagine')} <br/>
+                      <span className="font-sans font-black not-italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500">{t('future')}</span>
+                    </h1>
+                </div>
+                
+                <p className="max-w-md text-zinc-500 text-[11px] font-bold uppercase tracking-[0.3em] leading-loose pl-10 border-l border-cyan-500/20 italic">
+                    {t('description')}
+                </p>
 
-        {/* Đoạn mô tả ngắn gọn, sang trọng */}
-        <p className="text-zinc-400 text-sm md:text-xl font-medium max-w-2xl mx-auto leading-relaxed mb-12 animate-fade-in">
-          Trải nghiệm sự giao thoa giữa nghệ thuật chế tác và công nghệ tương lai. 
-          Mỗi chi tiết đều được tối ưu hóa để mang lại cảm giác quyền năng tối thượng cho chủ sở hữu.
-        </p>
+                <div className="flex items-center gap-10 pt-4 cursor-pointer group">
+                    <div className="px-10 py-5 bg-white text-black text-[10px] font-black uppercase tracking-widest group-hover:bg-cyan-400 transition-all">
+                       {t('getStarted')}
+                    </div>
+                    <div className="flex items-center gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                       <span className="text-[9px] font-black uppercase tracking-widest">{t('viewDocs')}</span>
+                       <Icon icon="solar:alt-arrow-right-linear" />
+                    </div>
+                </div>
+            </div>
 
-        {/* Nhóm các nút tương tác (Video, Tech Specs) */}
-        <div className="flex justify-center gap-10 animate-fade-up">
-          <div className="flex flex-col items-center gap-2 group cursor-pointer">
-            <div className="w-14 h-14 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg flex items-center justify-center group-hover:border-cyan-500 group-hover:text-cyan-400 transition-all duration-500 group-hover:scale-110">
-              <Icon icon="solar:play-bold" width="22" />
+            {/* Right: The Nexus Core */}
+            <div 
+              className="lg:col-span-5 hidden lg:flex justify-center transition-transform duration-1000"
+              style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}
+            >
+                <div className="relative w-96 h-96 flex items-center justify-center">
+                   <div className="absolute inset-0 border border-white/5 rounded-full animate-spin-slow" />
+                   <div className="absolute inset-10 border border-cyan-400/10 rounded-full animate-spin-slow [animation-direction:reverse]" />
+                   
+                   <div className="relative w-48 h-48 border border-white/10 bg-zinc-950/50 backdrop-blur-3xl flex items-center justify-center">
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10" />
+                      <div className="relative z-10 flex flex-col items-center gap-4">
+                         <div className="flex gap-1">
+                            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" />
+                            <div className="w-1 h-1 bg-white/20 rounded-full" />
+                            <div className="w-1 h-1 bg-purple-500 rounded-full animate-pulse [animation-delay:0.5s]" />
+                         </div>
+                         <Icon icon="solar:link-circle-linear" width="60" className="text-white/20" />
+                         <span className="text-[7px] font-black text-white/40 tracking-[0.5em] uppercase">LINKED_SYSTEM</span>
+                      </div>
+                   </div>
+
+                   {/* Floating Datapoints */}
+                   {points.map((p, i) => (
+                     <div 
+                       key={i} 
+                       className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-float shadow-[0_0_10px_cyan]" 
+                       style={{ 
+                         top: p.top, 
+                         left: p.left,
+                         animationDelay: p.delay
+                       }} 
+                     />
+                   ))}
+                </div>
             </div>
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors">Watch Film</span>
-          </div>
-          <div className="flex flex-col items-center gap-2 group cursor-pointer">
-            <div className="w-14 h-14 rounded-full border border-white/10 bg-white/5 backdrop-blur-lg flex items-center justify-center group-hover:border-cyan-500 group-hover:text-cyan-400 transition-all duration-500 group-hover:scale-110">
-              <Icon icon="solar:globus-linear" width="22" />
-            </div>
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition-colors">Explore Tech</span>
-          </div>
         </div>
+
       </div>
 
-      {/* 3. Chỉ báo cuộn xuống (Vertical Scroll Indicator) */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-bounce-slow">
-        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-white/30 [writing-mode:vertical-lr] rotate-180">Scroll</span>
-        <div className="w-px h-16 bg-gradient-to-b from-cyan-400/50 to-transparent" />
-      </div>
-
-      <style jsx>{`
-        @keyframes reveal-text {
-          from { clip-path: inset(0 0 100% 0); transform: translateY(50px); }
-          to { clip-path: inset(0 0 0 0); transform: translateY(0); }
-        }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.4; transform: scale(1.05); }
-          50% { opacity: 0.6; transform: scale(1.1); }
-        }
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0) translateX(-50%); }
-          50% { transform: translateY(-15px) translateX(-50%); }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fade-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-down {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-reveal-text {
-          animation: reveal-text 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 8s ease-in-out infinite;
-        }
-        .animate-bounce-slow {
-          animation: bounce-slow 3s ease-in-out infinite;
-        }
-        .animate-fade-in {
-          animation: fade-in 2s ease-out 0.5s forwards;
-          opacity: 0;
-        }
-        .animate-fade-up {
-          animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-          opacity: 0;
-        }
-        .animate-fade-down {
-          animation: fade-down 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+      <style jsx global>{`
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: spin-slow 30s linear infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); opacity: 0.2; } 50% { transform: translateY(-30px); opacity: 1; } }
+        .animate-float { animation: float 5s ease-in-out infinite; }
       `}</style>
-    </div>
+    </section>
   );
 };

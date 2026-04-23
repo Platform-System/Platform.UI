@@ -1,4 +1,4 @@
-name: UI CI
+name: CI
 
 on:
   push:
@@ -11,3 +11,4 @@ jobs:
     uses: Platform-System/Platform.CI-CD/.github/workflows/nextjs-ci-template.yml@main
     with:
       working-directory: '.'
+
