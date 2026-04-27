@@ -27,18 +27,12 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
 
   /* Effect xử lý việc áp dụng class 'dark' vào thẻ html và lắng nghe thay đổi từ hệ điều hành */
   React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    if (savedTheme) {
-      setThemeState(savedTheme);
-    }
-
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     const applyTheme = () => {
-      const currentTheme = localStorage.getItem('theme') as Theme || 'system';
       const isDark = 
-        currentTheme === 'dark' || 
-        (currentTheme === 'system' && mediaQuery.matches);
+        theme === 'dark' || 
+        (theme === 'system' && mediaQuery.matches);
       
       if (isDark) {
         document.documentElement.classList.add('dark');

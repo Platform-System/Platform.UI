@@ -19,7 +19,6 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const cookieStore = await cookies();
-  const theme = cookieStore.get('theme')?.value || 'dark';
 
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as Locale)) {

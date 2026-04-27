@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { Icon } from '@iconify/react';
@@ -26,8 +26,8 @@ export default function LocaleSwitcher() {
     };
 
     // Nếu trình duyệt hỗ trợ View Transitions
-    if (typeof document !== 'undefined' && (document as any).startViewTransition) {
-      (document as any).startViewTransition(() => {
+    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+      (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(() => {
         performNavigation();
       });
     } else {

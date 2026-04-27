@@ -37,6 +37,8 @@ const TypewriterText = ({ text }: { text: string }) => {
   );
 };
 
+import { ISourceOptions } from "@tsparticles/engine";
+
 /**
  * Section 2: Social Platform Introduction.
  * "WOW" Version: Nexus Connection Aura.
@@ -113,7 +115,7 @@ export const ChapterSocial = () => {
       {init && (
         <Particles
           id="social-particles"
-          options={particlesOptions as any}
+          options={particlesOptions as ISourceOptions}
           className="absolute inset-0 z-0 pointer-events-none opacity-40"
         />
       )}

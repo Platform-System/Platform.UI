@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
-import { useTranslations } from 'next-intl';
 import clsx from 'clsx';
 import { CURRENT_USER } from '@/data/mockData';
 import { ChatDropdown } from '@/features/chat/ui/ChatDropdown';

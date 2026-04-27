@@ -30,7 +30,7 @@ export default function SidebarNav() {
             </div>
             <div className="flex items-center gap-4 hidden lg:flex">
               <span className="text-[20px] text-zinc-100 italic mt-1 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] font-allura tracking-wider">
-                Nyx's Radiance
+                Nyx&apos;s Radiance
               </span>
             </div>
           </Link>

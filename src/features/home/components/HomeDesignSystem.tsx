@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { loadEmittersPlugin } from "@tsparticles/plugin-emitters";
 import { loadAbsorbersPlugin } from "@tsparticles/plugin-absorbers";
 import { motion, useSpring, useMotionValue } from 'framer-motion';
-import { cn } from '@/core/utils';
+import { ISourceOptions } from "@tsparticles/engine";
 import { Icon } from '@iconify/react';
 
 /**
@@ -121,7 +121,7 @@ export const GlobalAtmosphere = () => {
         <div className="absolute bottom-1/4 right-1/4 w-[60%] h-[60%] bg-[#8B5CF6]/5 blur-[180px] rounded-full animate-pulse" style={{ animationDelay: '3s' }} />
       </div>
 
-      <Particles id="tsparticles" options={options as any} />
+      <Particles id="tsparticles" options={options as ISourceOptions} />
     </div>
   );
 };
