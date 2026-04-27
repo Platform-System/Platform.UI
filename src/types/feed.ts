@@ -10,6 +10,7 @@ export interface Post {
   id: number;
   author: {
     name: string;
+    handle: string;
     avatar: string;
   };
   caption: string;

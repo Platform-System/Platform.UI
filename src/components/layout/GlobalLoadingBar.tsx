@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 
 export const GlobalLoadingBar = ({ isPending }: { isPending?: boolean }) => {
   const pathname = usePathname();
@@ -11,7 +11,7 @@ export const GlobalLoadingBar = ({ isPending }: { isPending?: boolean }) => {
   // HOẶC khi pathname thay đổi (phòng hờ cho các điều hướng khác)
   useEffect(() => {
     if (isPending) {
-        setLoading(true);
+        setTimeout(() => setLoading(true), 0);
     } else {
         const timeout = setTimeout(() => setLoading(false), 500);
         return () => clearTimeout(timeout);

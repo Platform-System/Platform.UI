@@ -1,21 +1,22 @@
 {
-  "Hero": {
-    "ecosystem": "NYXORIS ECOSYSTEM",
-    "imagine": "Imagine",
-    "future": "THE FUTURE.",
-    "description": "Experience the most advanced digital marketplace for cross-service assets and identity management.",
-    "getStarted": "Get Started",
-    "viewDocs": "View Docs"
-  },
-  "Navigation": {
-    "home": "Home",
-    "social": "Social",
-    "store": "Store",
-    "chat": "Chat",
-    "library": "Library"
-  },
-  "Common": {
-    "loading": "Loading...",
-    "error": "An error occurred"
+  "Home": {
+    "eyebrow": "WELCOME TO NYX'S RADIANCE",
+    "headline": "All for you",
+    "description": "Entertainment, connection, shopping, and discovery — all in one space.",
+    "scrollDiscover": "SCROLL TO DISCOVER",
+    "social": {
+      "eyebrow": "SOCIAL PLATFORM",
+      "title": "Connect Your World",
+      "description": "Share moments, meet new people, and build communities around what you love.",
+      "cta": "Explore Social",
+      "profileBio": "Happy to meet you here! Let's create something beautiful together.",
+      "profileShard": "So glad our paths crossed in this digital world! ✨"
+    },
+    "store": {
+      "eyebrow": "STORE",
+      "title": "Shop and Sell",
+      "description": "Explore products from the platform and community, or join as a seller to share your own creations.",
+      "cta": "Explore Store"
+    }
   }
 }

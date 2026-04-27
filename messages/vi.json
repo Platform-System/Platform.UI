@@ -1,21 +1,22 @@
 {
-  "Hero": {
-    "ecosystem": "HỆ SINH THÁI NYXORIS",
-    "imagine": "Khởi tạo",
-    "future": "TƯƠNG LAI.",
-    "description": "Trải nghiệm thị trường kỹ thuật số tiên tiến nhất cho tài sản và quản lý danh tính đa dịch vụ.",
-    "getStarted": "Bắt Đầu",
-    "viewDocs": "Tài Liệu"
-  },
-  "Navigation": {
-    "home": "Trang chủ",
-    "social": "Mạng xã hội",
-    "store": "Cửa hàng",
-    "chat": "Trò chuyện",
-    "library": "Thư viện"
-  },
-  "Common": {
-    "loading": "Đang tải...",
-    "error": "Đã xảy ra lỗi"
+  "Home": {
+    "eyebrow": "CHÀO MỪNG ĐẾN NYX'S RADIANCE",
+    "headline": "Tất cả vì bạn",
+    "description": "Giải trí, kết nối, mua sắm và khám phá — tất cả trong cùng một không gian.",
+    "scrollDiscover": "CUỘN ĐỂ KHÁM PHÁ",
+    "social": {
+      "eyebrow": "NỀN TẢNG XÃ HỘI",
+      "title": "Kết Nối Thế Giới Của Bạn",
+      "description": "Chia sẻ khoảnh khắc, gặp gỡ mọi người và xây dựng cộng đồng quanh những điều bạn yêu thích.",
+      "cta": "Khám phá Social",
+      "profileBio": "Rất vui được gặp bạn! Hãy cùng nhau tạo nên những điều tuyệt vời.",
+      "profileShard": "Thật vui vì chúng ta đã tìm thấy nhau trong thế giới này! ✨"
+    },
+    "store": {
+      "eyebrow": "CỬA HÀNG",
+      "title": "Mua Sắm & Bán Hàng",
+      "description": "Khám phá sản phẩm từ nền tảng và cộng đồng, hoặc tham gia bán hàng để chia sẻ sáng tạo của riêng bạn.",
+      "cta": "Khám phá cửa hàng"
+    }
   }
 }

@@ -1,0 +1,60 @@
+'use client';
+
+import React from 'react';
+import { GlobalAtmosphere } from '../components/HomeDesignSystem';
+import { ChapterWeb } from '../components/ChapterWeb';
+import { ChapterSocial } from '../components/ChapterSocial';
+import { ChapterStore } from '../components/ChapterStore';
+
+/**
+ * HomeView: The main orchestrator for the homepage.
+ * Fixed: Exported as default to match page.tsx expectations.
+ */
+const HomeView = () => {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = React.useState(false);
+
+  // Restore scroll position on mount
+  React.useEffect(() => {
+    const savedScroll = sessionStorage.getItem('home-scroll-pos');
+    if (savedScroll && scrollRef.current) {
+      // Restore instantly before enabling smooth scroll
+      scrollRef.current.scrollTop = parseInt(savedScroll, 10);
+    }
+    // Small delay to ensure the browser has finished the instant jump
+    const timer = setTimeout(() => setIsReady(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (!isReady) return; // Don't save if we're still initializing
+    const target = e.currentTarget;
+    sessionStorage.setItem('home-scroll-pos', target.scrollTop.toString());
+  };
+
+  return (
+    <div className="relative w-full h-full bg-[#0B0F14] selection:bg-[#22D3EE]/30">
+
+      {/* 1. Global Atmosphere (Fixed Background) */}
+      <GlobalAtmosphere />
+
+      {/* 2. Main Content Sections */}
+      <div 
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className={`relative z-10 w-full snap-y snap-mandatory h-[calc(100vh-3.5rem)] overflow-y-auto custom-scrollbar ${isReady ? 'scroll-smooth' : 'scroll-auto'}`}
+      >
+        {/* Section 1: Introduction */}
+        <ChapterWeb />
+
+        {/* Section 2: Social Nexus */}
+        <ChapterSocial />
+
+        {/* Section 3: Marketplace Hub */}
+        <ChapterStore />
+      </div>
+    </div>
+  );
+};
+
+export default HomeView;
