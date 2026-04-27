@@ -9,7 +9,6 @@ import { useTranslations } from 'next-intl';
  * Section 1: Platform Introduction.
  * Refined with Premium Staggered Animations.
  */
-import { motion } from 'framer-motion';
 
 import Typewriter from 'typewriter-effect';
 

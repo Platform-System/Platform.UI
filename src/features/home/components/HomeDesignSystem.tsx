@@ -138,7 +138,7 @@ export const AbstractRadiance = () => {
   const rotateY = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
     const handleMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       const x = (clientX / window.innerWidth - 0.5) * 20;
@@ -236,7 +236,15 @@ export const AbstractRadiance = () => {
   );
 };
 
-export const ProductCard = ({ name, price, rating, seller, category }: any) => (
+interface ProductCardProps {
+  name: string;
+  price: string;
+  rating: string;
+  seller: string;
+  category: string;
+}
+
+export const ProductCard = ({ name, price, rating, seller, category }: ProductCardProps) => (
   <motion.div 
     whileHover={{ y: -12, scale: 1.02 }} 
     className="group relative bg-[#1A1D23]/60 backdrop-blur-2xl border border-white/5 rounded-3xl p-6 space-y-5 cursor-pointer hover:border-cyan-500/30 transition-all duration-500 overflow-hidden shadow-2xl"
@@ -271,7 +279,15 @@ export const ProductCard = ({ name, price, rating, seller, category }: any) => (
   </motion.div>
 );
 
-export const SocialPost = ({ user, handle, content, likes, comments }: any) => (
+interface SocialPostProps {
+  user: string;
+  handle: string;
+  content: string;
+  likes: string | number;
+  comments: string | number;
+}
+
+export const SocialPost = ({ user, handle, content, likes, comments }: SocialPostProps) => (
   <motion.div 
     whileHover={{ scale: 1.01 }}
     className="group relative bg-[#1A1D23]/60 backdrop-blur-2xl border border-white/5 rounded-[2.5rem] p-8 space-y-6 hover:border-blue-500/30 transition-all duration-500 shadow-[0_30px_60px_rgba(0,0,0,0.4)]"

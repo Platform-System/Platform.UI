@@ -18,7 +18,7 @@ import {
  * Giải quyết triệt để vấn đề icon bị nạp lại khi chuyển ngôn ngữ.
  */
 export const HeaderIcon = ({ icon, className = "w-6 h-6" }: { icon: string; className?: string }) => {
-  const iconMap: Record<string, any> = {
+  const iconMap: Record<string, React.ElementType> = {
     'home-linear': Home,
     'home-bold': Home,
     'users-linear': Users,

@@ -18,7 +18,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const cookieStore = await cookies();
 
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as Locale)) {
