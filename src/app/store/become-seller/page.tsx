@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/features/store/components/ui/button"
-import { Input } from "@/features/store/components/ui/input"
+import { Button } from "@/features/components/ui/button"
+import { Input } from "@/features/components/ui/input"
 import { ShieldCheck, Rocket, Percent, CheckCircle2 } from "lucide-react"
 
 export default function BecomeSellerPage() {

@@ -1,12 +1,8 @@
-'use client';
-
-import React from 'react';
-import { StoreShowcase } from '@/features/store/ui/StoreShowcase';
+import { redirect } from '@/i18n/navigation';
 
 /**
- * AllProductsPage: Trang hiển thị toàn bộ danh mục sản phẩm (/store/all).
- * Đã được thiết kế lại thành StoreShowcase để có trải nghiệm Narrative Premium.
+ * Legacy alias for the marketplace listing.
  */
 export default function AllProductsPage() {
-  return <StoreShowcase />;
+  redirect('/store/marketplace');
 }

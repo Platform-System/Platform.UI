@@ -1,9 +1,9 @@
-import { Header } from "@/features/store/components/layout/header"
-import { Footer } from "@/features/store/components/layout/footer"
-import { CartProvider } from "@/features/store/context/CartContext"
-import { WishlistProvider } from "@/features/store/context/WishlistContext"
-import { Toaster } from "@/features/store/components/ui/toaster"
-import { CartDrawer } from "@/features/store/components/cart/cart-drawer"
+import { Header } from "@/features/components/shell/header"
+import { Footer } from "@/features/components/shell/footer"
+import { CartProvider } from "@/features/context/CartContext"
+import { WishlistProvider } from "@/features/context/WishlistContext"
+import { Toaster } from "@/features/components/ui/toaster"
+import { CartDrawer } from "@/features/components/cart/cart-drawer"
 
 
 /**

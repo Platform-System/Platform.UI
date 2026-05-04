@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import { Link } from "@/i18n/navigation"
 import {
   Star,
   MapPin,
@@ -22,19 +23,20 @@ import {
   featuredProducts,
   trendingProducts,
   newArrivals,
-} from "@/features/store/lib/data"
-import { ProductCard, type Product } from "@/features/store/components/product/product-card"
-import { Button } from "@/features/store/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/features/store/components/ui/tabs"
+} from "@/features/lib/data"
+import { ProductCard, type Product } from "@/features/components/product/product-card"
+import { Button } from "@/features/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/features/components/ui/tabs"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/features/store/components/ui/dropdown-menu"
-import { FilterBar } from "@/features/store/components/ui/filter-bar"
-import { RatingStars } from "@/features/store/components/ui/rating-stars"
-import { cn } from "@/features/store/lib/utils"
+} from "@/features/components/ui/dropdown-menu"
+import { FilterBar } from "@/features/components/ui/filter-bar"
+import { RatingStars } from "@/features/components/ui/rating-stars"
+import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/features/components/ui/empty"
+import { cn } from "@/features/lib/utils"
 
 type SellerReview = {
   id: number
@@ -277,9 +279,10 @@ export default function SellerStorefrontPage() {
   const router = useRouter()
   const slug = params?.slug as string
 
-  const seller = popularSellers.find((item) => item.slug === slug) || popularSellers[0]
-  const sellerMeta = sellerMetaBySlug[seller.slug] || sellerMetaBySlug["luxe-leather-co"]
-  const sellerProducts = mapSellerProducts(seller.slug)
+  const seller = popularSellers.find((item) => item.slug === slug)
+  const safeSeller = seller ?? popularSellers[0]
+  const sellerMeta = sellerMetaBySlug[safeSeller.slug] || sellerMetaBySlug["luxe-leather-co"]
+  const sellerProducts = mapSellerProducts(safeSeller.slug)
 
   const [isFollowing, setIsFollowing] = React.useState(false)
   const [gridCols, setGridCols] = React.useState<3 | 4>(4)
@@ -287,6 +290,40 @@ export default function SellerStorefrontPage() {
   const [activeCategory, setActiveCategory] = React.useState("Tất cả")
   const [activeTab, setActiveTab] = React.useState("products")
   const [searchQuery, setSearchQuery] = React.useState("")
+
+  if (!seller) {
+    return (
+      <div className="relative z-10 min-h-screen bg-transparent pb-28 pt-32 text-foreground">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="store-surface-panel rounded-[32px] px-6 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]">
+            <Empty className="border-none bg-transparent p-0">
+              <EmptyMedia
+                variant="icon"
+                className="store-surface-soft store-muted-text mx-auto flex h-20 w-20 items-center justify-center rounded-full"
+              >
+                <Users className="h-10 w-10" />
+              </EmptyMedia>
+              <EmptyTitle className="mt-5 text-xl font-semibold text-foreground">
+                Không tìm thấy nhà bán hàng
+              </EmptyTitle>
+              <EmptyDescription className="store-muted-text mt-3 max-w-md leading-7">
+                Gian hàng này không còn tồn tại hoặc đường dẫn bạn mở không chính xác.
+              </EmptyDescription>
+            </Empty>
+
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button asChild className="store-accent-button rounded-full px-8">
+                <Link href="/store/sellers">Xem danh sách nhà bán hàng</Link>
+              </Button>
+              <Button asChild variant="outline" className="rounded-full px-8">
+                <Link href="/store/marketplace">Quay lại cửa hàng</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const sortedProducts = [...sellerProducts].sort((a, b) => {
     if (sortBy === "price-low") return a.price - b.price

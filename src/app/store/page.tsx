@@ -1,8 +1,8 @@
-import { redirect } from '@/i18n/navigation';
+import { Store } from '@/features/screens/Store';
 
 /**
- * StoreHome: Redirects to the main store landing page.
+ * StoreHome: Canonical store landing page.
  */
 export default function StoreHome() {
-  redirect('/store/home');
+  return <Store />;
 }

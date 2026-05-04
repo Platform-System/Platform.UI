@@ -21,22 +21,23 @@ import {
   MessageCircle,
 } from "lucide-react"
 import { Link } from "@/i18n/navigation"
-import { ProductCard } from "@/features/store/components/product/product-card"
-import { Button } from "@/features/store/components/ui/button"
-import { useCart } from "@/features/store/context/CartContext"
-import { useWishlist } from "@/features/store/context/WishlistContext"
-import { toast } from "@/features/store/hooks/use-toast"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/features/store/components/ui/tabs"
-import { Calendar } from "@/features/store/components/ui/calendar"
-import { RatingStars } from "@/features/store/components/ui/rating-stars"
+import { ProductCard } from "@/features/components/product/product-card"
+import { Button } from "@/features/components/ui/button"
+import { useCart } from "@/features/context/CartContext"
+import { useWishlist } from "@/features/context/WishlistContext"
+import { toast } from "@/features/hooks/use-toast"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/features/components/ui/tabs"
+import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/features/components/ui/empty"
+import { Calendar } from "@/features/components/ui/calendar"
+import { RatingStars } from "@/features/components/ui/rating-stars"
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/features/store/components/ui/chart"
-import { featuredProducts, trendingProducts, newArrivals } from "@/features/store/lib/data"
-import { cn } from "@/features/store/lib/utils"
+} from "@/features/components/ui/chart"
+import { featuredProducts, trendingProducts, newArrivals } from "@/features/lib/data"
+import { cn } from "@/features/lib/utils"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 const reviews = [
@@ -97,28 +98,29 @@ export default function ProductDetailPage() {
   const id = params?.id as string
 
   const allProducts = [...featuredProducts, ...trendingProducts, ...newArrivals]
-  const baseProduct = allProducts.find((item) => item.id === id) || featuredProducts[0]
+  const baseProduct = allProducts.find((item) => item.id === id)
+  const safeBaseProduct = baseProduct ?? featuredProducts[0]
 
   const product = {
-    ...baseProduct,
+    ...safeBaseProduct,
     description:
       "Được chế tác từ loại da Ý tốt nhất, chiếc túi tote cao cấp này kết hợp vẻ đẹp sang trọng vượt thời gian với tính năng hiện đại. Hoàn hảo cho những chuyên gia tinh tế, những người coi trọng cả phong cách và chất lượng.",
     images:
-      baseProduct.images && baseProduct.images.length > 0
-        ? [baseProduct.image, ...baseProduct.images]
+      safeBaseProduct.images && safeBaseProduct.images.length > 0
+        ? [safeBaseProduct.image, ...safeBaseProduct.images]
         : [
-            baseProduct.image,
+            safeBaseProduct.image,
             "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=1000&fit=crop",
             "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&h=1000&fit=crop",
             "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&h=1000&fit=crop",
           ],
     seller: {
-      ...baseProduct.seller,
-      slug: baseProduct.seller.name.toLowerCase().replace(/\s+/g, "-"),
-      avatar: baseProduct.seller.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
-      rating: baseProduct.seller.rating || 4.9,
-      productCount: baseProduct.seller.productCount || 156,
-      location: baseProduct.seller.location || "Milan, Ý",
+      ...safeBaseProduct.seller,
+      slug: safeBaseProduct.seller.name.toLowerCase().replace(/\s+/g, "-"),
+      avatar: safeBaseProduct.seller.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
+      rating: safeBaseProduct.seller.rating || 4.9,
+      productCount: safeBaseProduct.seller.productCount || 156,
+      location: safeBaseProduct.seller.location || "Milan, Ý",
       responseTime: "Thường phản hồi trong vòng 2 giờ",
     },
     variants: {
@@ -140,11 +142,11 @@ export default function ProductDetailPage() {
     ],
     stock: 12,
     category:
-      baseProduct.category === "fashion"
+      safeBaseProduct.category === "fashion"
         ? "Túi xách"
-        : baseProduct.category === "home"
+        : safeBaseProduct.category === "home"
           ? "Trang trí"
-          : baseProduct.category === "electronics"
+          : safeBaseProduct.category === "electronics"
             ? "Điện tử"
             : "Phụ kiện",
   }
@@ -156,7 +158,7 @@ export default function ProductDetailPage() {
     accessories: "Bảo quản trong hộp trang sức hoặc túi mềm để tránh trầy xước. Tránh tiếp xúc với nước hoa, mỹ phẩm và hóa chất để giữ độ sáng bóng.",
   }
 
-  const currentCare = careInstructions[baseProduct.category as keyof typeof careInstructions] || careInstructions.fashion
+  const currentCare = careInstructions[safeBaseProduct.category as keyof typeof careInstructions] || careInstructions.fashion
 
   const [currentImage, setCurrentImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
@@ -170,6 +172,40 @@ export default function ProductDetailPage() {
   const { addToCart, setIsOpen: setIsCartOpen } = useCart()
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
   const isWishlisted = isInWishlist(Number(product.id))
+
+  if (!baseProduct) {
+    return (
+      <main className="relative min-h-screen bg-transparent pt-32 pb-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="store-surface-panel rounded-[32px] px-6 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]">
+            <Empty className="border-none bg-transparent p-0">
+              <EmptyMedia
+                variant="icon"
+                className="store-surface-soft store-muted-text mx-auto flex h-20 w-20 items-center justify-center rounded-full"
+              >
+                <ShoppingBag className="h-10 w-10" />
+              </EmptyMedia>
+              <EmptyTitle className="mt-5 text-xl font-semibold text-foreground">
+                Không tìm thấy sản phẩm
+              </EmptyTitle>
+              <EmptyDescription className="store-muted-text mt-3 max-w-md leading-7">
+                Liên kết này không còn hợp lệ hoặc sản phẩm đã được gỡ khỏi gian hàng.
+              </EmptyDescription>
+            </Empty>
+
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+                <Link href="/store/marketplace">Quay lại cửa hàng</Link>
+              </Button>
+              <Button asChild variant="outline" className="rounded-full px-8">
+                <Link href="/store/home">Về trang chủ store</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -213,7 +249,7 @@ export default function ProductDetailPage() {
       image: product.images[0],
       rating: product.rating,
       reviews: product.reviewCount,
-      category: baseProduct.category,
+      category: safeBaseProduct.category,
     })
   }
 
