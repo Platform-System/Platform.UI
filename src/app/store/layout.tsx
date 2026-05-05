@@ -11,7 +11,7 @@ import viMessages from "@/../messages/vi.json"
  */
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
-    <I18nProvider locale="vi" messages={viMessages}>
+    <I18nProvider locale="vi" messages={viMessages as any}>
       <div className="store-theme relative h-full w-full bg-background text-foreground selection:bg-primary/25 selection:text-charcoal">
         {/* Premium Background Effects */}
         <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,rgb(var(--store-surface-strong-rgb)/0.82)_0%,rgb(247_245_242/0.97)_42%,rgb(241_244_246)_100%)]" />
