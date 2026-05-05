@@ -1,7 +1,7 @@
 import { Header } from "@/shared/components/shell/header"
 import { Footer } from "@/shared/components/shell/footer"
 import { CartDrawer } from "@/features/cart"
-import { Toaster } from "@/shared/components/ui/toaster"
+import { Toaster } from "@/shared/components/ui/sonner"
 import I18nProvider from "@/core/providers/I18nProvider"
 import viMessages from "@/../messages/vi.json"
 
@@ -31,7 +31,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
           <Footer />
         </main>
         <CartDrawer />
-        <Toaster />
+        <Toaster position="bottom-right" closeButton richColors />
       </div>
     </I18nProvider>
   );

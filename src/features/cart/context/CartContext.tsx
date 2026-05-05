@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { toast } from "@/shared/hooks/use-toast"
+import { toast } from "sonner"
 import { useCartStore } from "../store/cart-store"
 
 export interface CartItem {
@@ -44,8 +44,7 @@ export function useCart() {
   const addToCart = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     const nextQuantity = Math.max(1, item.quantity ?? 1)
 
-    toast({
-      title: t("toastTitle"),
+    toast.success(t("toastTitle"), {
       description:
         nextQuantity > 1
           ? t("addedToCart", { quantity: nextQuantity, name: item.name })

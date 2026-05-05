@@ -10,6 +10,7 @@ import { Textarea } from "@/shared/components/ui/textarea"
 import { Link } from "@/i18n/navigation"
 import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/shared/components/ui/empty"
 import { useCheckout } from "../hooks/use-checkout"
+import { OrderSuccessScreen } from "./OrderSuccessScreen"
 
 export function CheckoutScreen() {
   const t = useTranslations("Checkout")
@@ -29,7 +30,12 @@ export function CheckoutScreen() {
     taxAmount,
     grandTotal,
     handlePlaceOrder,
+    orderSuccess,
   } = useCheckout()
+
+  if (orderSuccess) {
+    return <OrderSuccessScreen order={orderSuccess} />
+  }
 
   React.useLayoutEffect(() => {
     const container = document.getElementById("store-scroll-container")

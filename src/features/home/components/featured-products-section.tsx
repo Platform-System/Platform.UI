@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ProductCard } from "@/features/product"
+import { ProductCard, ProductGridSkeleton } from "@/features/product"
 import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
 import { cn } from "@/shared/lib/utils"
+import { useEffect } from "react"
 
 const tabs = [
   { id: "featured", label: "Nổi bật", products: featuredProducts },
@@ -16,7 +17,14 @@ import { SectionFooter } from "./section-header"
 
 export function FeaturedProductsSection() {
   const [activeTab, setActiveTab] = useState("featured")
+  const [isLoading, setIsLoading] = useState(true)
   const currentProducts = tabs.find((t) => t.id === activeTab)?.products || featuredProducts
+
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = setTimeout(() => setIsLoading(false), 500)
+    return () => clearTimeout(timer)
+  }, [activeTab])
 
   return (
     <section className="py-24 bg-muted/30">
@@ -66,18 +74,22 @@ export function FeaturedProductsSection() {
 
         {/* Lưới sản phẩm */}
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
-          >
-            {currentProducts.slice(0, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </motion.div>
+          {isLoading ? (
+            <ProductGridSkeleton key="skeleton" count={8} className="gap-4 sm:gap-6" />
+          ) : (
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+            >
+              {currentProducts.slice(0, 8).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </motion.div>
+          )}
         </AnimatePresence>
 
         {/* Nút xem tất cả */}

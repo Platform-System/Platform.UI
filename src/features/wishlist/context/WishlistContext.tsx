@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { toast } from "@/shared/hooks/use-toast"
+import { toast } from "sonner"
 import { useWishlistStore } from "../store/wishlist-store"
 
 export interface WishlistItem {
@@ -25,8 +25,7 @@ export function useWishlist() {
   }, [])
 
   const addToWishlist = (item: WishlistItem) => {
-    toast({
-      title: t("toastTitle"),
+    toast.success(t("toastTitle"), {
       description: t("addedToWishlist", { name: item.name }),
     })
     addItem(item)
@@ -35,8 +34,7 @@ export function useWishlist() {
   const removeFromWishlist = (id: number) => {
     const item = items.find((i) => i.id === id)
     if (item) {
-      toast({
-        title: t("toastTitle"),
+      toast.info(t("toastTitle"), {
         description: t("removedFromWishlist", { name: item.name }),
       })
     }

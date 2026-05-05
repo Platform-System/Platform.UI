@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl"
 import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
-import { toast } from "@/shared/hooks/use-toast"
+import { toast } from "sonner"
 import { CARE_INSTRUCTIONS, getEnhancedProduct } from "../constants"
 
 export function useProductDetail(id: string) {
@@ -79,13 +79,11 @@ export function useProductDetail(id: string) {
     const shareUrl = `${window.location.origin}/store/product/${product.id}`
     try {
       await navigator.clipboard.writeText(shareUrl)
-      toast({
-        title: t("share.copied"),
+      toast.success(t("share.copied"), {
         description: t("share.copiedDesc"),
       })
     } catch {
-      toast({
-        title: t("share.copyError"),
+      toast.error(t("share.copyError"), {
         description: t("share.copyErrorDesc"),
       })
     }

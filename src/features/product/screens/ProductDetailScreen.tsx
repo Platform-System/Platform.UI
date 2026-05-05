@@ -34,7 +34,7 @@ import {
 } from "@/shared/components/ui/chart"
 import { cn } from "@/shared/lib/utils"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { ProductCard } from "../components/product-card"
+import { ProductCard, ProductDetailSkeleton } from "../index"
 import { useProductDetail } from "../hooks/use-product-detail"
 import { REVIEWS, PRICE_HISTORY, PRICE_CHART_CONFIG } from "../constants"
 
@@ -44,6 +44,7 @@ export function ProductDetailScreen() {
   const t = useTranslations("Product")
   const ts = useTranslations("Seller")
 
+  const [isLoading, setIsLoading] = React.useState(true)
   const {
     baseProduct,
     product,
@@ -65,6 +66,15 @@ export function ProductDetailScreen() {
     handleWishlistToggle,
     handleShare,
   } = useProductDetail(id)
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 600)
+    return () => clearTimeout(timer)
+  }, [id])
+
+  if (isLoading) {
+    return <ProductDetailSkeleton />
+  }
 
   if (!baseProduct) {
     return (

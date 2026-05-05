@@ -184,12 +184,18 @@ export function Header() {
                 className="relative text-foreground hover:store-accent-text"
                 onClick={() => setIsCartOpen(true)}
               >
-                <ShoppingBag className="h-5 w-5" />
-                {cartCount > 0 && (
-                  <Badge className="store-accent-button absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-none p-0 text-[10px] font-semibold shadow-sm">
-                    {cartCount}
-                  </Badge>
-                )}
+                <motion.div
+                  key={cartCount}
+                  animate={cartCount > 0 ? { scale: [1, 1.2, 1] } : {}}
+                  transition={{ duration: 0.4, ease: "backOut" }}
+                >
+                  <ShoppingBag className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <Badge className="store-accent-button absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-none p-0 text-[10px] font-semibold shadow-sm">
+                      {cartCount}
+                    </Badge>
+                  )}
+                </motion.div>
                 <span className="sr-only">Giỏ hàng</span>
               </Button>
 

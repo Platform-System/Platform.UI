@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react"
+import { X, Plus, Minus, Trash2, ShoppingBag, Truck } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useCart } from "../context/CartContext"
@@ -32,40 +32,12 @@ import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
 export function CartDrawer() {
   const t = useTranslations("Cart")
   const { isOpen, setIsOpen, cartItems, removeFromCart, updateQuantity, updateItemVariant, cartTotal, cartCount, clearCart } = useCart()
-  const [headerBottom, setHeaderBottom] = useState(64)
-  const drawerTop = Math.max(0, Math.ceil(headerBottom) - 1)
-
-  useEffect(() => {
-    if (!isOpen) return
-
-    const updatePosition = () => {
-      const headerEl = document.querySelector('#store-header')
-      if (headerEl) {
-        setHeaderBottom(headerEl.getBoundingClientRect().bottom)
-      }
-    }
-
-    updatePosition()
-
-    const scrollContainer = document.getElementById('store-scroll-container')
-    scrollContainer?.addEventListener('scroll', updatePosition)
-    window.addEventListener('resize', updatePosition)
-
-    return () => {
-      scrollContainer?.removeEventListener('scroll', updatePosition)
-      window.removeEventListener('resize', updatePosition)
-    }
-  }, [isOpen])
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent 
         side="right" 
-        className="store-surface-panel-strong z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-2xl [&>button]:hidden"
-        style={{ 
-          top: `${drawerTop}px`, 
-          height: `calc(100vh - ${drawerTop}px)` 
-        }}
+        className="store-surface-panel-strong z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-[-20px_0_40px_rgba(0,0,0,0.1)] [&>button]:hidden rounded-l-[32px] border-l border-white/10 overflow-hidden"
       >
         <SheetTitle className="sr-only">{t("title")}</SheetTitle>
             {/* Header */}
@@ -117,6 +89,30 @@ export function CartDrawer() {
                   <X className="h-5 w-5" />
                 </Button>
               </div>
+            </div>
+
+            {/* Free Shipping Progress */}
+            <div className="bg-muted/30 px-6 py-4 border-b border-border/50">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  {cartTotal >= 200 ? "Chúc mừng! Bạn đã được Freeship" : `Mua thêm $${(200 - cartTotal).toLocaleString()} để được Freeship`}
+                </span>
+                <span className="text-[11px] font-bold text-foreground">
+                  {Math.min(100, Math.round((cartTotal / 200) * 100))}%
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-border/40 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-primary transition-all duration-700 ease-out"
+                  style={{ width: `${Math.min(100, (cartTotal / 200) * 100)}%` }}
+                />
+              </div>
+              {cartTotal >= 200 && (
+                <div className="mt-2 flex items-center gap-1.5 text-[10px] text-primary font-medium">
+                  <Truck className="h-3 w-3" />
+                  <span>Đã áp dụng ưu đãi vận chuyển cao cấp</span>
+                </div>
+              )}
             </div>
 
             {/* List items */}

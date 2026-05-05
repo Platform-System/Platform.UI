@@ -1,6 +1,6 @@
 import React from "react"
 import { useCart } from "@/features/cart"
-import { toast } from "@/shared/hooks/use-toast"
+import { toast } from "sonner"
 import { StoreOrder } from "@/types/store"
 import { 
   CheckoutFormData, 
@@ -24,6 +24,7 @@ export function useCheckout() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [formData, setFormData] = React.useState<CheckoutFormData>(DEFAULT_FORM_DATA)
   const [formError, setFormError] = React.useState<string | null>(null)
+  const [orderSuccess, setOrderSuccess] = React.useState<StoreOrder | null>(null)
 
   const shippingFee = deliveryMethod === "express" ? 12 : 0
   const taxAmount = Math.round(cartTotal * 0.08)
@@ -91,8 +92,7 @@ export function useCheckout() {
     const validationError = validateForm()
     if (validationError) {
       setFormError(validationError)
-      toast({
-        title: "Thông tin chưa đầy đủ",
+      toast.error("Thông tin chưa đầy đủ", {
         description: validationError,
       })
       return
@@ -107,14 +107,14 @@ export function useCheckout() {
       const parsedOrders: StoreOrder[] = existingOrders ? JSON.parse(existingOrders) : []
       window.localStorage.setItem(STORE_ORDERS_KEY, JSON.stringify([orderPayload, ...parsedOrders]))
 
+      setOrderSuccess(orderPayload)
       clearCart()
       setIsSubmitting(false)
       setFormError(null)
-      toast({
-        title: "Đặt hàng thành công",
-        description: `Đơn ${orderPayload.id} đã được tạo. Flow này đã sẵn để map sang API đặt hàng.`,
+      toast.success("Đặt hàng thành công", {
+        description: `Đơn ${orderPayload.id} đã được tạo.`,
       })
-    }, 600)
+    }, 1000)
   }
 
   return {
@@ -132,5 +132,6 @@ export function useCheckout() {
     taxAmount,
     grandTotal,
     handlePlaceOrder,
+    orderSuccess,
   }
 }
