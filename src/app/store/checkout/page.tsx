@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import { CheckoutPage } from "@/features/screens/CheckoutPage"
+import { CheckoutScreen } from "@/features/checkout"
 
 export default function StoreCheckoutPage() {
-  return <CheckoutPage />
+  return <CheckoutScreen />
 }

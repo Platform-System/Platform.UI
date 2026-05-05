@@ -1,8 +1,8 @@
-import { Store } from '@/features/screens/Store';
+import { HomeScreen } from "@/features/home"
 
 /**
  * StoreHome: Canonical store landing page.
  */
 export default function StoreHome() {
-  return <Store />;
+  return <HomeScreen />
 }

@@ -1,0 +1,383 @@
+"use client"
+
+import { useState, useLayoutEffect } from "react"
+import { useSearchParams } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
+import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown } from "lucide-react"
+import { ProductCard } from "@/features/product"
+import { FilterSidebar } from "../components/filter-sidebar"
+import { Button } from "@/shared/components/ui/button"
+import { Input } from "@/shared/components/ui/input"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/components/ui/dropdown-menu"
+import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
+import { cn } from "@/shared/lib/utils"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/shared/components/ui/pagination"
+
+const allProducts = [...featuredProducts, ...trendingProducts, ...newArrivals]
+
+const sortOptions = [
+  { value: "featured", label: "Nổi bật" },
+  { value: "newest", label: "Mới nhất" },
+  { value: "price-low", label: "Giá: Thấp đến cao" },
+  { value: "price-high", label: "Giá: Cao đến thấp" },
+  { value: "rating", label: "Đánh giá cao nhất" },
+  { value: "popular", label: "Phổ biến nhất" },
+]
+
+export function MarketplaceScreen() {
+  const searchParams = useSearchParams()
+  const categoryParam = searchParams.get("category")
+  const searchParam = searchParams.get("search") ?? ""
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [gridCols, setGridCols] = useState<2 | 3 | 4 | 5 | 6>(4)
+  const [sortBy, setSortBy] = useState("featured")
+  const [searchQuery, setSearchQuery] = useState(searchParam)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    categoryParam ? [categoryParam] : []
+  )
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
+  const [selectedRating, setSelectedRating] = useState<number | null>(null)
+  const [selectedSellers, setSelectedSellers] = useState<string[]>([])
+  const [verifiedOnly, setVerifiedOnly] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = gridCols === 6 ? 24 : 16
+
+  useLayoutEffect(() => {
+    const container = document.getElementById("store-scroll-container")
+    if (container) {
+      container.scrollTo({ top: 0, behavior: "instant" })
+    }
+  }, [])
+
+  const clearAllFilters = () => {
+    setSearchQuery("")
+    setSelectedCategories([])
+    setPriceRange([0, 1000])
+    setSelectedRating(null)
+    setSelectedSellers([])
+    setVerifiedOnly(false)
+    setCurrentPage(1)
+  }
+
+  const handleSearchQueryChange = (value: string) => {
+    setSearchQuery(value)
+    setCurrentPage(1)
+  }
+
+  const handleSelectedCategoriesChange = (value: string[]) => {
+    setSelectedCategories(value)
+    setCurrentPage(1)
+  }
+
+  const handlePriceRangeChange = (value: [number, number]) => {
+    setPriceRange(value)
+    setCurrentPage(1)
+  }
+
+  const handleSelectedRatingChange = (value: number | null) => {
+    setSelectedRating(value)
+    setCurrentPage(1)
+  }
+
+  const handleSelectedSellersChange = (value: string[]) => {
+    setSelectedSellers(value)
+    setCurrentPage(1)
+  }
+
+  const handleVerifiedOnlyChange = (value: boolean) => {
+    setVerifiedOnly(value)
+    setCurrentPage(1)
+  }
+
+  const handleGridColsChange = (value: 2 | 3 | 4 | 5 | 6) => {
+    setGridCols(value)
+    setCurrentPage(1)
+  }
+
+  const handleSortChange = (value: string) => {
+    setSortBy(value)
+    setCurrentPage(1)
+  }
+
+  const filteredProducts = allProducts.filter((product) => {
+    if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false
+    }
+    if (selectedCategories.length > 0 && (!product.category || !selectedCategories.includes(product.category))) {
+      return false
+    }
+    if (product.price < priceRange[0] || product.price > priceRange[1]) {
+      return false
+    }
+    if (selectedRating !== null && product.rating < selectedRating) {
+      return false
+    }
+    if (selectedSellers.length > 0) {
+      const sellerSlug = product.seller.name.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "")
+      if (!selectedSellers.includes(sellerSlug)) {
+        return false
+      }
+    }
+    if (verifiedOnly && !product.seller.verified) {
+      return false
+    }
+    return true
+  })
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "newest":
+        return 0
+      case "price-low":
+        return a.price - b.price
+      case "price-high":
+        return b.price - a.price
+      case "rating":
+        return b.rating - a.rating
+      default:
+        return 0
+    }
+  })
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
+  const paginatedProducts = sortedProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
+
+  return (
+    <div className="min-h-screen bg-transparent">
+      <section className="relative overflow-hidden pt-32 pb-8">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-transparent" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="py-12 text-center"
+          >
+            <h1 className="mb-4 font-serif text-4xl font-semibold tracking-[0.18em] text-foreground sm:text-5xl">
+              CỬA HÀNG
+            </h1>
+            <p className="store-muted-text mx-auto max-w-2xl">
+              Khám phá hàng nghìn sản phẩm chọn lọc từ các nhà bán hàng đã xác minh.
+              Mua sắm an tâm, chất lượng được ưu tiên.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mx-auto max-w-2xl"
+          >
+            <div className="relative">
+              <Search className="store-muted-text absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2" />
+              <Input
+                type="text"
+                placeholder="Tìm sản phẩm..."
+                value={searchQuery}
+                onChange={(e) => handleSearchQueryChange(e.target.value)}
+                className="store-surface-panel h-14 rounded-full pl-12 text-base text-foreground placeholder:text-[rgb(var(--store-muted-rgb))]"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-8">
+        <div className="mx-auto max-w-[1600px] px-4">
+          <div className="flex gap-10">
+            <div className="sticky top-18 hidden h-fit w-64 shrink-0 lg:block">
+              <FilterSidebar
+                isOpen
+                onClose={() => {}}
+                priceRange={priceRange}
+                onPriceRangeChange={handlePriceRangeChange}
+                selectedCategories={selectedCategories}
+                onSelectedCategoriesChange={handleSelectedCategoriesChange}
+                selectedRating={selectedRating}
+                onSelectedRatingChange={handleSelectedRatingChange}
+                selectedSellers={selectedSellers}
+                onSelectedSellersChange={handleSelectedSellersChange}
+                verifiedOnly={verifiedOnly}
+                onVerifiedOnlyChange={handleVerifiedOnlyChange}
+                onClearAll={clearAllFilters}
+              />
+            </div>
+
+            <div className="flex-1">
+              <div className="mb-6 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsFilterOpen(true)}
+                    className="lg:hidden"
+                  >
+                    <SlidersHorizontal className="mr-2 h-4 w-4" />
+                    Bộ lọc
+                  </Button>
+
+                  <p className="text-sm text-muted-foreground">
+                    Hiện có <span className="font-medium text-foreground">{sortedProducts.length}</span> sản phẩm
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="hidden items-center gap-1 rounded-lg bg-muted p-1 md:flex">
+                    <button
+                      onClick={() => handleGridColsChange(6)}
+                      className={cn(
+                        "rounded-md p-2 transition-colors",
+                        gridCols === 6 ? "bg-background shadow-sm" : "hover:bg-background/50"
+                      )}
+                    >
+                      <Grid3X3 className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleGridColsChange(4)}
+                      className={cn(
+                        "rounded-md p-2 transition-colors",
+                        gridCols === 4 ? "bg-background shadow-sm" : "hover:bg-background/50"
+                      )}
+                    >
+                      <LayoutGrid className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="min-w-[160px] justify-between">
+                        {sortOptions.find((option) => option.value === sortBy)?.label}
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-[160px]">
+                      {sortOptions.map((option) => (
+                        <DropdownMenuItem
+                          key={option.value}
+                          onClick={() => handleSortChange(option.value)}
+                          className={cn(sortBy === option.value && "bg-muted")}
+                        >
+                          {option.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
+
+              {paginatedProducts.length > 0 ? (
+                <div
+                  className={cn(
+                    "grid gap-4 sm:gap-6",
+                    gridCols === 4 && "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+                    gridCols === 6 && "grid-cols-2 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6"
+                  )}
+                >
+                  <AnimatePresence mode="popLayout">
+                    {paginatedProducts.map((product) => (
+                      <motion.div
+                        layout
+                        key={product.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                      >
+                        <ProductCard product={product} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <div className="py-20 text-center">
+                  <p className="text-muted-foreground">Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại.</p>
+                  <Button variant="outline" className="mt-4" onClick={clearAllFilters}>
+                    Xóa bộ lọc
+                  </Button>
+                </div>
+              )}
+
+              {paginatedProducts.length > 0 && totalPages > 1 && (
+                <Pagination className="mt-12 select-none">
+                  <PaginationContent>
+                    <PaginationItem>
+                    <PaginationPrevious
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        className={cn(
+                          "store-surface-soft store-strong-text cursor-pointer rounded-xl transition-all duration-200 hover:bg-[rgb(var(--store-surface-rgb))] hover:text-foreground",
+                          currentPage === 1 && "pointer-events-none opacity-30"
+                        )}
+                      />
+                    </PaginationItem>
+
+                    {[...Array(totalPages)].map((_, index) => {
+                      const page = index + 1
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(page)}
+                            isActive={currentPage === page}
+                            className={cn(
+                              "cursor-pointer rounded-xl transition-all duration-200",
+                              currentPage === page
+                                ? "store-accent-button border-none font-semibold"
+                                : "store-surface-soft store-muted-text hover:bg-[rgb(var(--store-surface-rgb))] hover:text-foreground"
+                            )}
+                          >
+                            {page}
+                          </PaginationLink>
+                        </PaginationItem>
+                      )
+                    })}
+
+                    <PaginationItem>
+                      <PaginationNext
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        className={cn(
+                          "store-surface-soft store-strong-text cursor-pointer rounded-xl transition-all duration-200 hover:bg-[rgb(var(--store-surface-rgb))] hover:text-foreground",
+                          currentPage === totalPages && "pointer-events-none opacity-30"
+                        )}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FilterSidebar
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        isMobile
+        priceRange={priceRange}
+        onPriceRangeChange={handlePriceRangeChange}
+        selectedCategories={selectedCategories}
+        onSelectedCategoriesChange={handleSelectedCategoriesChange}
+        selectedRating={selectedRating}
+        onSelectedRatingChange={handleSelectedRatingChange}
+        selectedSellers={selectedSellers}
+        onSelectedSellersChange={handleSelectedSellersChange}
+        verifiedOnly={verifiedOnly}
+        onVerifiedOnlyChange={handleVerifiedOnlyChange}
+        onClearAll={clearAllFilters}
+      />
+    </div>
+  )
+}

@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import { Marketplace } from "@/features/screens/Marketplace"
+import { MarketplaceScreen } from "@/features/marketplace"
 
 export default function MarketplacePage() {
-  return <Marketplace />
+  return <MarketplaceScreen />
 }

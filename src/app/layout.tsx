@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono, Allura, Playfair_Display } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono, Allura, Playfair_Display, Cormorant_Garamond, Great_Vibes } from "next/font/google";
 import QueryProvider from "@/core/providers/QueryProvider";
 import { GlobalLoadingBar } from "@/shared/layout/GlobalLoadingBar";
 import "./globals.css";
@@ -19,6 +19,19 @@ const allura = Allura({
   weight: '400',
   subsets: ['latin', 'vietnamese'],
   variable: '--font-allura',
+});
+
+const cormorant = Cormorant_Garamond({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin', 'vietnamese'],
+  style: ['italic', 'normal'],
+  variable: '--font-cormorant',
+});
+
+const greatVibes = Great_Vibes({
+  weight: '400',
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-great-vibes',
 });
 
 const playfair = Playfair_Display({
@@ -41,7 +54,7 @@ export default async function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body
-        className={`${plusJakarta.variable} ${geistMono.variable} ${allura.variable} ${playfair.variable} antialiased h-screen overflow-hidden bg-background text-foreground transition-colors duration-300`}
+        className={`${plusJakarta.variable} ${geistMono.variable} ${allura.variable} ${playfair.variable} ${cormorant.variable} ${greatVibes.variable} antialiased h-screen overflow-hidden bg-background text-foreground transition-colors duration-300`}
       >
         <QueryProvider>
           <div className="fixed top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-white/8 blur-[120px] pointer-events-none opacity-100 z-0" />

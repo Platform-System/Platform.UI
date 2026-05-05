@@ -1,47 +1,80 @@
+export interface Seller {
+  id: string
+  name: string
+  slug: string
+  avatar: string
+  coverImage: string
+  rating: number
+  reviewCount: number
+  productCount: number
+  location: string
+  verified: boolean
+  categories: string[]
+  description?: string
+  tagline?: string
+  responseTime?: string
+  policies?: {
+    shipping: string
+    returns: string
+    warranty: string
+  }
+}
+
 export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  rating: number;
-  isBestSeller?: boolean;
+  id: string
+  name: string
+  price: number
+  originalPrice?: number
+  image: string
+  images?: string[]
+  rating: number
+  reviewCount: number
+  seller: {
+    name: string
+    verified: boolean
+    avatar?: string
+    rating?: number
+    productCount?: number
+    location?: string
+  }
+  badge?: "new" | "sale" | "bestseller"
+  category?: string
 }
 
 export interface StoreOrderItem {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-  color?: string;
-  size?: string;
+  id: string | number
+  name: string
+  image: string
+  price: number
+  quantity: number
+  color?: string
+  size?: string
 }
 
 export interface StoreOrder {
-  id: string;
-  createdAt: string;
-  customerName: string;
-  email: string;
-  phone: string;
-  city: string;
-  district: string;
-  ward: string;
-  addressLine: string;
-  deliveryNote: string;
-  deliveryMethod: "standard" | "express";
-  paymentMethod: "cod" | "card" | "banking";
-  items: StoreOrderItem[];
-  subtotal: number;
-  shippingFee: number;
-  taxAmount: number;
-  total: number;
-  status: "pending" | "processing" | "shipped" | "delivered";
+  id: string
+  createdAt: string
+  customerName: string
+  email: string
+  phone: string
+  city: string
+  district: string
+  ward: string
+  addressLine: string
+  deliveryNote: string
+  deliveryMethod: "standard" | "express"
+  paymentMethod: "cod" | "card" | "banking"
+  items: StoreOrderItem[]
+  subtotal: number
+  shippingFee: number
+  taxAmount: number
+  total: number
+  status: "pending" | "processing" | "shipped" | "delivered"
 }
 
 export interface StoreProfile {
-  name: string;
-  email: string;
-  avatar: string;
-  joinedDate: string;
+  name: string
+  email: string
+  avatar: string
+  joinedDate: string
 }
