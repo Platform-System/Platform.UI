@@ -50,11 +50,11 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
 
     const isInline = variant === "inline"
     const searchInputClassName = cn(
-      "store-surface-panel h-12 border-0 pl-12 text-foreground focus-visible:ring-primary/50 focus-visible:ring-offset-0",
+      "bg-background/80 h-12 border border-[rgb(var(--store-border-rgb)/0.6)] pl-12 text-foreground placeholder:text-muted-foreground/70 focus-visible:border-[rgb(var(--store-accent-rgb)/0.5)] focus-visible:bg-background focus-visible:shadow-[0_0_15px_rgb(var(--store-accent-rgb)/0.08)] transition-all",
       isInline ? "rounded-2xl" : "rounded-xl"
     )
     const filterWrapperClassName = cn(
-      "store-surface-panel flex h-12 w-full items-center gap-2 border-0 pl-3 pr-2 text-foreground sm:w-56",
+      "bg-background/80 flex h-12 w-full items-center gap-2 border border-[rgb(var(--store-border-rgb)/0.6)] pl-3 pr-2 text-foreground sm:w-56 transition-all hover:border-[rgb(var(--store-border-rgb)/0.8)]",
       isInline ? "rounded-2xl" : "justify-center rounded-xl py-2 sm:justify-start"
     )
     const filterTriggerClassName = cn(
@@ -87,8 +87,16 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
             placeholder={searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className={searchInputClassName}
+            className={cn(searchInputClassName, searchQuery && "pr-10")}
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
 
         {/* Filters & Actions */}

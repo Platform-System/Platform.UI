@@ -81,22 +81,22 @@ export function FilterSidebar({
   const filterContent = (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 shrink-0">
+      <div className="flex items-center justify-between p-6 shrink-0 border-b border-[rgb(var(--store-border-rgb)/0.5)]">
         <h2 className="font-semibold text-foreground">Bộ lọc</h2>
         <div className="flex items-center gap-2">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={onClearAll} 
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClearAll}
             className="text-muted-foreground hover:text-foreground"
           >
             Xóa tất cả
           </Button>
           {isMobile && (
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={onClose} 
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
               className="rounded-xl text-muted-foreground hover:bg-[rgb(var(--store-accent-rgb))/0.08] hover:text-foreground"
             >
               <X className="h-5 w-5" />
@@ -107,7 +107,7 @@ export function FilterSidebar({
       </div>
 
       {/* Filters */}
-        <div className="overflow-y-auto p-4 no-scrollbar max-h-[calc(100vh-220px)] overscroll-contain">
+      <div className="overflow-y-auto p-6 no-scrollbar max-h-[calc(100vh-240px)] overscroll-contain">
         <Accordion type="multiple" defaultValue={["categories", "price", "rating"]} className="w-full">
           {/* Categories */}
           <AccordionItem value="categories" className="border-none">
@@ -209,7 +209,7 @@ export function FilterSidebar({
 
       {/* Apply Button (Mobile) */}
       {isMobile && (
-        <div className="p-4">
+        <div className="p-6">
           <Button onClick={onClose} className="store-accent-button w-full">
             Áp dụng bộ lọc
           </Button>

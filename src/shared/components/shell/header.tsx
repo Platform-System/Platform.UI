@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  User,
 } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { Badge } from "@/shared/components/ui/badge"
@@ -197,9 +198,12 @@ export function Header() {
                   )}
                 </motion.div>
                 <span className="sr-only">Giỏ hàng</span>
+              </Button>              <Button variant="ghost" size="icon" asChild className="hidden sm:flex text-foreground hover:store-accent-text">
+                <Link href="/store/account">
+                  <User className="h-5 w-5" />
+                  <span className="sr-only">Tài khoản</span>
+                </Link>
               </Button>
-
-
 
               {/* Nút mở menu mobile */}
               <Button
@@ -289,6 +293,14 @@ export function Header() {
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Mở gian hàng
+                  </Link>
+                  <Link
+                    href="/store/account"
+                    className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm flex items-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Tài khoản của tôi
                   </Link>
                 </nav>
               </div>

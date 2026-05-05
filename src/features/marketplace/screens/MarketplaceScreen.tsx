@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useLayoutEffect } from "react"
+import { useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown } from "lucide-react"
+import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
 import { ProductCard } from "@/features/product"
 import { FilterSidebar } from "../components/filter-sidebar"
 import { Button } from "@/shared/components/ui/button"
@@ -55,12 +55,6 @@ export function MarketplaceScreen() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = gridCols === 6 ? 24 : 16
 
-  useLayoutEffect(() => {
-    const container = document.getElementById("store-scroll-container")
-    if (container) {
-      container.scrollTo({ top: 0, behavior: "instant" })
-    }
-  }, [])
 
   const clearAllFilters = () => {
     setSearchQuery("")
@@ -161,7 +155,7 @@ export function MarketplaceScreen() {
   return (
     <div className="min-h-screen bg-transparent">
       <section className="relative overflow-hidden pt-32 pb-8">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[rgb(var(--store-surface-strong-rgb)/0.4)] via-transparent to-transparent" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -191,8 +185,21 @@ export function MarketplaceScreen() {
                 placeholder="Tìm sản phẩm..."
                 value={searchQuery}
                 onChange={(e) => handleSearchQueryChange(e.target.value)}
-                className="store-surface-panel h-14 rounded-full pl-12 text-base text-foreground placeholder:text-[rgb(var(--store-muted-rgb))]"
+                className="store-surface-panel h-14 rounded-full pl-12 pr-12 text-base text-foreground placeholder:text-[rgb(var(--store-muted-rgb))]"
               />
+              <AnimatePresence>
+                {searchQuery && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    onClick={() => handleSearchQueryChange("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    <X className="h-4 w-4" />
+                  </motion.button>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
@@ -201,7 +208,7 @@ export function MarketplaceScreen() {
       <section className="py-8">
         <div className="mx-auto max-w-[1600px] px-4">
           <div className="flex gap-10">
-            <div className="sticky top-18 hidden h-fit w-64 shrink-0 lg:block">
+            <div className="sticky top-[112px] hidden h-fit w-64 shrink-0 lg:block">
               <FilterSidebar
                 isOpen
                 onClose={() => {}}

@@ -78,7 +78,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
 
             <div className="grid gap-6 pt-6 sm:grid-cols-3">
               <div className="flex items-start gap-3">
-                <div className="mt-1 rounded-full bg-white p-2 shadow-sm">
+                <div className="mt-1 rounded-full bg-background p-2 shadow-sm">
                   <Package className="h-4 w-4 text-primary" />
                 </div>
                 <div>
@@ -87,7 +87,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="mt-1 rounded-full bg-white p-2 shadow-sm">
+                <div className="mt-1 rounded-full bg-background p-2 shadow-sm">
                   <Truck className="h-4 w-4 text-primary" />
                 </div>
                 <div>
@@ -96,7 +96,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="mt-1 rounded-full bg-white p-2 shadow-sm">
+                <div className="mt-1 rounded-full bg-background p-2 shadow-sm">
                   <Clock className="h-4 w-4 text-primary" />
                 </div>
                 <div>

@@ -261,5 +261,30 @@
       "Phụ kiện công nghệ",
       "Mỹ phẩm thiết yếu"
     ]
+  },
+  "Footer": {
+    "brandDescription": "Nền tảng thương mại điện tử tuyển chọn dành riêng cho các thương hiệu thủ công.",
+    "sections": {
+      "brand": "Thương hiệu",
+      "support": "Hỗ trợ",
+      "connect": "Kết nối",
+      "subscribe": "Đăng ký nhận tin"
+    },
+    "links": {
+      "story": "Câu chuyện của chúng tôi",
+      "craftsmanship": "Tôn chỉ thủ công",
+      "philosophy": "Triết lý thiết kế",
+      "helpCenter": "Trung tâm trợ giúp",
+      "shippingReturns": "Vận chuyển & Đổi trả",
+      "hotline": "Hotline",
+      "hotlineValue": "1900 6789",
+      "email": "Email",
+      "emailValue": "care@nyxoris.com"
+    },
+    "newsletter": {
+      "description": "Cập nhật những thông tin mới nhất về các bộ sưu tập và sự kiện đặc biệt.",
+      "placeholder": "Địa chỉ email",
+      "button": "Gửi"
+    }
   }
 }
