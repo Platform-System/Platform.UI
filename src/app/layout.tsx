@@ -57,8 +57,8 @@ export default async function RootLayout({
         className={`${plusJakarta.variable} ${geistMono.variable} ${allura.variable} ${playfair.variable} ${cormorant.variable} ${greatVibes.variable} antialiased h-screen overflow-hidden bg-background text-foreground transition-colors duration-300`}
       >
         <QueryProvider>
-          <div className="fixed top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-white/8 blur-[120px] pointer-events-none opacity-100 z-0" />
-          <div className="fixed bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-zinc-400/8 blur-[120px] pointer-events-none opacity-100 z-0" />
+          <div className="fixed top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full pointer-events-none opacity-100 z-0" style={{ background: 'rgb(255 255 255 / 0.08)', filter: 'blur(120px)' }} />
+          <div className="fixed bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full pointer-events-none opacity-100 z-0" style={{ background: 'rgb(161 161 170 / 0.08)', filter: 'blur(120px)' }} />
 
           <div className="relative z-10 flex h-screen w-screen flex-col bg-background text-foreground transition-colors duration-300">
             <GlobalLoadingBar />

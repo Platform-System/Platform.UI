@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react"
 import { useTranslations } from "next-intl"
-import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllProducts, productQueryKeys } from "../queries/product-queries"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { toast } from "sonner"
@@ -8,15 +9,21 @@ import { CARE_INSTRUCTIONS, getEnhancedProduct } from "../constants"
 
 export function useProductDetail(id: string) {
   const t = useTranslations("Product")
-  const allProducts = useMemo(() => [...featuredProducts, ...trendingProducts, ...newArrivals], [])
+
+  const { data: allProducts = [], isLoading, isError } = useQuery({
+    queryKey: productQueryKeys.all,
+    queryFn: fetchAllProducts,
+    staleTime: 5 * 60 * 1000, // 5 minutes — ready for real API
+  })
+
   const baseProduct = useMemo(() => allProducts.find((item) => item.id === id), [allProducts, id])
-  
-  const product = useMemo(() => 
-    baseProduct ? getEnhancedProduct(baseProduct) : getEnhancedProduct(featuredProducts[0]), 
-    [baseProduct]
+
+  const product = useMemo(() =>
+    baseProduct ? getEnhancedProduct(baseProduct) : getEnhancedProduct(allProducts[0] ?? { id: "", name: "", price: 0, image: "", rating: 0, reviewCount: 0, seller: { name: "", verified: false } }),
+    [baseProduct, allProducts]
   )
 
-  const currentCare = useMemo(() => 
+  const currentCare = useMemo(() =>
     CARE_INSTRUCTIONS[baseProduct?.category as keyof typeof CARE_INSTRUCTIONS] || CARE_INSTRUCTIONS.fashion,
     [baseProduct?.category]
   )
@@ -109,5 +116,7 @@ export function useProductDetail(id: string) {
     handleBuyNow,
     handleWishlistToggle,
     handleShare,
+    isLoading,
+    isError,
   }
 }

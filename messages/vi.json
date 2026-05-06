@@ -17,6 +17,55 @@
       "title": "Mua Sắm & Bán Hàng",
       "description": "Khám phá sản phẩm từ nền tảng và cộng đồng, hoặc tham gia bán hàng để chia sẻ sáng tạo của riêng bạn.",
       "cta": "Khám phá cửa hàng"
+    },
+    "sellerCta": {
+      "eyebrow": "Dành cho nhà bán hàng",
+      "title": "Bắt đầu bán hàng trên {brand}",
+      "description": "Đồng hành cùng hàng nghìn nhà bán hàng đang phát triển tốt. Chúng tôi cung cấp đầy đủ công cụ để bạn mở rộng kinh doanh.",
+      "cta": "Trở thành nhà bán hàng",
+      "note": "Đăng ký miễn phí. Không thu phí hàng tháng. Chỉ tính phí khi bạn có đơn.",
+      "benefits": {
+        "store": {
+          "title": "Gian hàng mang dấu ấn riêng",
+          "description": "Tạo một gian hàng có bản sắc thương hiệu và trưng bày sản phẩm một cách chuyên nghiệp."
+        },
+        "analytics": {
+          "title": "Phân tích để theo dõi tăng trưởng",
+          "description": "Theo dõi doanh số, hành vi khách hàng và hiệu quả kinh doanh với dữ liệu rõ ràng."
+        },
+        "reach": {
+          "title": "Tiếp cận khách hàng rộng hơn",
+          "description": "Mở rộng tiếp cận đến hàng triệu khách hàng tiềm năng từ nhiều khu vực."
+        },
+        "security": {
+          "title": "Thanh toán an toàn",
+          "description": "Nhận tiền đúng hạn và an tâm vận hành với hệ thống thanh toán đáng tin cậy."
+        }
+      }
+    },
+    "trust": {
+      "eyebrow": "Cảm nhận khách hàng",
+      "title": "Khách hàng nói gì về {brand}",
+      "stats": {
+        "rating": "Đánh giá trung bình",
+        "satisfaction": "Mức độ hài lòng",
+        "support": "Hỗ trợ khách hàng",
+        "securePayment": "Thanh toán an toàn"
+      },
+      "testimonials": {
+        "sarah": {
+          "role": "Khách hàng thời trang",
+          "content": "{brand} đã thay đổi cách tôi mua sắm. Chất lượng sản phẩm và quy trình xác minh nhà bán hàng giúp tôi yên tâm hơn trong mọi đơn hàng."
+        },
+        "david": {
+          "role": "Người yêu thích trang trí nhà cửa",
+          "content": "Sự chọn lọc kỹ càng cùng chất lượng tốt làm cho khu chợ này rất khác biệt. Tôi tìm thấy nhiều món đồ rất riêng mà khó thấy ở nơi khác."
+        },
+        "emma": {
+          "role": "Người sưu tầm nghệ thuật",
+          "content": "Là người sưu tầm nghệ thuật, tôi rất đánh giá quy trình xác thực và đảm bảo chất lượng mà {brand} mang lại. Đây là nơi tôi ưu tiên khi tìm món đồ độc đáo."
+        }
+      }
     }
   },
   "Seller": {
@@ -262,7 +311,11 @@
       "Mỹ phẩm thiết yếu"
     ]
   },
+  "Common": {
+    "brandName": "Nyxoris"
+  },
   "Footer": {
+    "brandName": "Nyxoris",
     "brandDescription": "Nền tảng thương mại điện tử tuyển chọn dành riêng cho các thương hiệu thủ công.",
     "sections": {
       "brand": "Thương hiệu",

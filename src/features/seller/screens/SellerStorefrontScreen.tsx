@@ -171,7 +171,7 @@ export function SellerStorefrontScreen() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Users className="h-4 w-4" />
-                        <span>{sellerMeta.followers.toLocaleString()} {t("followers")}</span>
+                        <span>{sellerMeta?.followers?.toLocaleString()} {t("followers")}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <MapPin className="h-4 w-4" />
@@ -179,7 +179,7 @@ export function SellerStorefrontScreen() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <Calendar className="h-4 w-4" />
-                        <span>{t("memberSince")} {sellerMeta.memberSince}</span>
+                        <span>{t("memberSince")} {sellerMeta?.memberSince}</span>
                       </div>
                     </div>
                   </div>
@@ -368,7 +368,7 @@ export function SellerStorefrontScreen() {
                 </div>
 
                 <div className="space-y-5">
-                  {sellerMeta.reviews.map((review) => (
+                  {(sellerMeta?.reviews ?? []).map((review) => (
                     <div
                       key={review.id}
                       className="store-surface-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(15_23_42/0.1)]"

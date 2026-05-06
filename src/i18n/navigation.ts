@@ -1,8 +1,5 @@
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import {
-  redirect as nextRedirect,
-  type RedirectType,
-} from 'next/navigation';
+import { redirect as nextRedirect } from 'next/navigation';
 import * as React from 'react';
 import type { UrlObject } from 'url';
 import type { Locale } from './config';
@@ -17,14 +14,13 @@ type LinkProps = Omit<React.ComponentProps<typeof NextLink>, 'href'> &
   };
 
 export function Link(props: LinkProps) {
-  const { href, ...rest } = props;
-  const nextProps = { href, ...rest } as Record<string, unknown>;
-  delete nextProps.locale;
-
-  return React.createElement(NextLink, nextProps as React.ComponentProps<typeof NextLink>);
+  const { href, locale: _locale, ...rest } = props;
+  // Cast through unknown to safely drop the `locale` prop before passing to NextLink
+  return React.createElement(NextLink, { href, ...rest } as unknown as React.ComponentProps<typeof NextLink>);
 }
 
-export function redirect(input: LocalizedHref, type?: RedirectType) {
+// type is inferred from next/navigation's redirect signature
+export function redirect(input: LocalizedHref, ...args: Parameters<typeof nextRedirect> extends [string, ...infer R] ? R : never) {
   const href = typeof input === 'object' && 'href' in input ? input.href : input;
-  nextRedirect(href, type);
+  nextRedirect(href as string, ...args);
 }

@@ -3,13 +3,20 @@ import { useState, useLayoutEffect } from "react"
 import { Store } from "lucide-react"
 import { FilterBar } from "@/shared/components/ui/filter-bar"
 import { SellerCard } from "../components/seller-card"
-import { popularSellers } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllSellers, sellerQueryKeys } from "../queries/seller-queries"
 
 export function SellersScreen() {
   const t = useTranslations("Seller")
   const categories = t.raw("categories") as string[]
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState(t("all"))
+
+  const { data: allSellers = [] } = useQuery({
+    queryKey: sellerQueryKeys.all,
+    queryFn: fetchAllSellers,
+    staleTime: 5 * 60 * 1000,
+  })
 
   useLayoutEffect(() => {
     const container = document.getElementById('store-scroll-container')
@@ -18,7 +25,7 @@ export function SellersScreen() {
     }
   }, [])
 
-  const filteredSellers = popularSellers.filter((seller) => {
+  const filteredSellers = allSellers.filter((seller) => {
     const matchesSearch = seller.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          seller.location.toLowerCase().includes(searchQuery.toLowerCase())
 

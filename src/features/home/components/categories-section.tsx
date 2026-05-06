@@ -4,11 +4,17 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { categories } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllCategories, categoryQueryKeys } from "@/shared/lib/category-queries"
 
 import { SectionHeader, SectionFooter } from "./section-header"
 
 export function CategoriesSection() {
+  const { data: categories = [] } = useQuery({
+    queryKey: categoryQueryKeys.all,
+    queryFn: fetchAllCategories,
+    staleTime: 10 * 60 * 1000,
+  })
   return (
     <section className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

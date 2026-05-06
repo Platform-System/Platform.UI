@@ -7,11 +7,12 @@ import { Button } from "@/shared/components/ui/button"
 import { Link } from "@/i18n/navigation"
 import { ArrowRight } from "lucide-react"
 
-export interface SectionHeaderProps extends Omit<HTMLMotionProps<"div">, 'title'> {
+export interface SectionHeaderProps extends Omit<HTMLMotionProps<"div">, 'title' | 'children'> {
   subtitle?: string
   title: string
   description?: string
   align?: "center" | "left"
+  children?: React.ReactNode
 }
 
 export function SectionHeader({
@@ -54,7 +55,7 @@ export function SectionHeader({
         </p>
       )}
       
-      {children}
+      {children as React.ReactNode}
     </motion.div>
   )
 }

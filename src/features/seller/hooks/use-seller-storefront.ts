@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
-import { popularSellers } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllSellers, sellerQueryKeys } from "../queries/seller-queries"
 import { SELLER_META_BY_SLUG, mapSellerProducts } from "../constants"
 
 export function useSellerStorefront(slug: string) {
@@ -12,21 +13,27 @@ export function useSellerStorefront(slug: string) {
   const [activeTab, setActiveTab] = React.useState("products")
   const [searchQuery, setSearchQuery] = React.useState("")
 
-  const seller = React.useMemo(() => 
-    popularSellers.find((item) => item.slug === slug), 
-    [slug]
+  const { data: allSellers = [] } = useQuery({
+    queryKey: sellerQueryKeys.all,
+    queryFn: fetchAllSellers,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const seller = React.useMemo(() =>
+    allSellers.find((item) => item.slug === slug),
+    [allSellers, slug]
   )
 
-  const safeSeller = seller ?? popularSellers[0]
+  const safeSeller = seller ?? allSellers[0]
   
-  const sellerMeta = React.useMemo(() => 
-    SELLER_META_BY_SLUG[safeSeller.slug] || SELLER_META_BY_SLUG["luxe-leather-co"],
-    [safeSeller.slug]
+  const sellerMeta = React.useMemo(() =>
+    safeSeller ? (SELLER_META_BY_SLUG[safeSeller.slug] || SELLER_META_BY_SLUG["luxe-leather-co"]) : undefined,
+    [safeSeller]
   )
 
-  const sellerProducts = React.useMemo(() => 
-    mapSellerProducts(safeSeller.slug),
-    [safeSeller.slug]
+  const sellerProducts = React.useMemo(() =>
+    safeSeller ? mapSellerProducts(safeSeller.slug) : [],
+    [safeSeller]
   )
 
   const filteredProducts = React.useMemo(() => {

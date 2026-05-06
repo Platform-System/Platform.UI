@@ -1,11 +1,17 @@
 "use client"
 
 import { SellerCard } from "@/features/seller"
-import { popularSellers } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllSellers, sellerQueryKeys } from "@/features/seller"
 
 import { SectionHeader, SectionFooter } from "./section-header"
 
 export function PopularSellersSection() {
+  const { data: popularSellers = [] } = useQuery({
+    queryKey: sellerQueryKeys.all,
+    queryFn: fetchAllSellers,
+    staleTime: 5 * 60 * 1000,
+  })
   return (
     <section className="py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

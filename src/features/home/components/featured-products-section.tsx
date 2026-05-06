@@ -1,24 +1,30 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ProductCard, ProductGridSkeleton } from "@/features/product"
-import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
+import { ProductCard, ProductGridSkeleton, fetchAllProducts, productQueryKeys } from "@/features/product"
+import { useQuery } from "@tanstack/react-query"
 import { cn } from "@/shared/lib/utils"
-import { useEffect } from "react"
-
-const tabs = [
-  { id: "featured", label: "Nổi bật", products: featuredProducts },
-  { id: "trending", label: "Xu hướng", products: trendingProducts },
-  { id: "new", label: "Mới về", products: newArrivals },
-]
 
 import { SectionFooter } from "./section-header"
 
 export function FeaturedProductsSection() {
   const [activeTab, setActiveTab] = useState("featured")
   const [isLoading, setIsLoading] = useState(true)
-  const currentProducts = tabs.find((t) => t.id === activeTab)?.products || featuredProducts
+
+  const { data: allProducts = [] } = useQuery({
+    queryKey: productQueryKeys.all,
+    queryFn: fetchAllProducts,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const tabs = useMemo(() => [
+    { id: "featured", label: "Nổi bật", products: allProducts.slice(0, 8) },
+    { id: "trending", label: "Xu hướng", products: allProducts.slice(8, 12) },
+    { id: "new", label: "Mới về", products: allProducts.slice(12) },
+  ], [allProducts])
+
+  const currentProducts = tabs.find((t) => t.id === activeTab)?.products ?? []
 
   useEffect(() => {
     setIsLoading(true)

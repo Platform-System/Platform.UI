@@ -1,25 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdfcfb;
-  --foreground: #1a1a1a;
-  --card: #ffffff;
-  --popover: #ffffff;
+  /* Édition Ivoire & Vermillon - Vibrant Light Luxury Theme */
+  --background: #FAF9F5; /* Warm Ivory/Alabaster */
+  --foreground: #231F1C; /* Deep Espresso */
+  --card: #FFFFFF;
+  --popover: #FFFFFF;
 
-  /* Nguồn chỉnh màu chính của store: Old Money Luxury Palette */
-  --store-accent-rgb: 197 160 89;
-  --store-star-rgb: 197 160 89;
-  --store-accent-soft-alpha: 0.1;
-  --store-accent-soft-hover-alpha: 0.15;
-  --store-accent-glow-alpha: 0.12;
-  --store-accent-glow-subtle-alpha: 0.08;
-  --store-accent-shadow-alpha: 0.18;
-  --store-accent-shadow-strong-alpha: 0.24;
-  --store-surface-rgb: 255 255 255;
-  --store-surface-strong-rgb: 252 250 247;
-  --store-border-rgb: 226 220 211;
-  --store-muted-rgb: 115 107 94;
-  --store-ink-rgb: 26 26 26;
+  /* Nguồn chỉnh màu chính: Vibrant Vermilion (Hermès Orange) & Warm Ivory */
+  --store-accent-rgb: 217 83 31; /* Vibrant Vermilion / Hermès Orange */
+  --store-star-rgb: 234 162 33; /* Warm Amber Gold for Ratings */
+  --store-accent-soft-alpha: 0.08;
+  --store-accent-soft-hover-alpha: 0.12;
+  --store-accent-glow-alpha: 0.15;
+  --store-accent-glow-subtle-alpha: 0.06;
+  --store-accent-shadow-alpha: 0.2;
+  --store-accent-shadow-strong-alpha: 0.3;
+  
+  --store-surface-rgb: 255 255 255; /* Pure White for clear glassmorphism */
+  --store-surface-strong-rgb: 250 248 244; /* Elevated Ivory Panel */
+  --store-border-rgb: 235 228 218; /* Elegant Warm Borders */
+  --store-muted-rgb: 135 125 110; /* Sophisticated Warm Muted Text */
+  --store-ink-rgb: 28 24 20; /* Deep Espresso for Dark Contrast Sections */
 }
 
 @theme {
@@ -35,11 +37,11 @@
   --color-card: var(--card);
   --color-popover: var(--popover);
   
-  --color-primary: #c5a059;
-  --color-secondary: #fdfcfb;
-  --color-gold: #c5a059;
-  --color-star: #c5a059;
-  --color-charcoal: #1a1a1a;
+  --color-primary: rgb(var(--store-accent-rgb));
+  --color-secondary: rgb(var(--store-surface-strong-rgb));
+  --color-gold: rgb(var(--store-accent-rgb));
+  --color-star: rgb(var(--store-star-rgb));
+  --color-charcoal: rgb(var(--store-ink-rgb));
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;

@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, X, Clock, TrendingUp, ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Input } from "@/shared/components/ui/input"
 import { Button } from "@/shared/components/ui/button"
 import { Link } from "@/i18n/navigation"
-import { featuredProducts, newArrivals, trendingProducts } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllProducts, productQueryKeys } from "@/features/product"
 import Image from "next/image"
 
 interface SearchModalProps {
@@ -20,8 +21,14 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("")
   const [history, setHistory] = useState(["Túi thiết kế", "Đồng hồ cổ điển", "Trang sức thủ công"])
   const normalizedQuery = query.trim().toLowerCase()
-  const allProducts = [...featuredProducts, ...trendingProducts, ...newArrivals]
-  
+
+  const { data: allProductsData = [] } = useQuery({
+    queryKey: productQueryKeys.all,
+    queryFn: fetchAllProducts,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const trendingProducts = useMemo(() => allProductsData.slice(8, 12), [allProductsData])
   const popularSearches = t.raw("suggestions") as string[]
  
   const handleDeleteRecent = (e: React.MouseEvent, item: string) => {
@@ -29,7 +36,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     setHistory(prev => prev.filter(i => i !== item))
   }
 
-  const quickResults = allProducts
+  const quickResults = allProductsData
     .filter((product) => {
       if (!normalizedQuery) return true
 

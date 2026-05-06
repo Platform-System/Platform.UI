@@ -9,8 +9,9 @@ import { cn } from "@/shared/lib/utils"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/shared/components/ui/dialog"
-import { Product } from "./product-card"
-import { popularSellers } from "@/shared/lib/data"
+import { Product } from "@/types/store"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllSellers, sellerQueryKeys } from "@/features/seller"
 import { Badge } from "@/shared/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/shared/components/ui/avatar"
 import { RatingStars } from "@/shared/components/ui/rating-stars"
@@ -26,7 +27,13 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
   const isWishlisted = isInWishlist(Number(product.id))
 
-  const sellerAvatar = popularSellers.find(s => s.name === product.seller?.name)?.avatar 
+  const { data: allSellers = [] } = useQuery({
+    queryKey: sellerQueryKeys.all,
+    queryFn: fetchAllSellers,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const sellerAvatar = allSellers.find(s => s.name === product.seller?.name)?.avatar
     || `https://api.dicebear.com/7.x/adventurer/svg?seed=${product.seller?.name}`
 
   const fullProduct = {
@@ -108,7 +115,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
             {/* Ảnh thumbnail */}
             {fullProduct.images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto py-1">
-                {fullProduct.images.map((image, index) => (
+                {fullProduct.images.map((image: string, index: number) => (
                   <button
                     key={index}
                     onClick={(e) => {
@@ -185,7 +192,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                   Màu sắc: <span className="store-muted-text font-normal">{selectedColor?.name}</span>
                 </p>
                 <div className="flex gap-2.5">
-                  {fullProduct.variants.colors.map((color) => (
+                  {fullProduct.variants.colors.map((color: { name: string; value: string }) => (
                     <button
                       key={color.name}
                       onClick={(e) => {
@@ -219,7 +226,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
               <div className="mb-2">
                 <p className="mb-1 text-xs font-semibold text-foreground">Kích thước</p>
                 <div className="flex gap-2">
-                  {fullProduct.variants.sizes.map((size) => (
+                  {fullProduct.variants.sizes.map((size: string) => (
                     <button
                       key={size}
                       onClick={(e) => {

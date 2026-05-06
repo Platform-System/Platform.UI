@@ -3,17 +3,7 @@
 import { useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
-import { useCartStore } from "../store/cart-store"
-
-export interface CartItem {
-  id: number
-  name: string
-  price: number
-  image: string
-  quantity: number
-  color?: string
-  size?: string
-}
+import { useCartStore, CartItem } from "../store/cart-store"
 
 interface CartItemVariantUpdate {
   color?: string

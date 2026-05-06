@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { cn } from "@/shared/lib/utils"
 import {
   Search,
@@ -31,6 +32,7 @@ const categories = [
 ]
 
 export function Header() {
+  const t = useTranslations("Common")
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { setIsOpen: setIsCartOpen, cartCount } = useCart()
@@ -91,7 +93,7 @@ export function Header() {
             {/* Nhãn store */}
             <Link href="/store/home" className="flex items-center group">
               <span className="font-serif text-xl font-bold tracking-[0.05em] text-foreground uppercase transition-all duration-300 group-hover:store-accent-text">
-                Nyxoris
+                {t("brandName")}
               </span>
               <div className="h-4 w-px bg-border mx-6 hidden sm:block opacity-30" />
             </Link>

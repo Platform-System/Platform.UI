@@ -3,6 +3,8 @@ import { Footer } from "@/shared/components/shell/footer"
 import { CartDrawer } from "@/features/cart"
 import { Toaster } from "@/shared/components/ui/sonner"
 import I18nProvider from "@/core/providers/I18nProvider"
+import { defaultLocale } from "@/i18n/config"
+import { AbstractIntlMessages } from "next-intl"
 import viMessages from "@/../messages/vi.json"
 import { ScrollRestoration } from "@/shared/components/ui/scroll-restoration"
 
@@ -12,7 +14,7 @@ import { ScrollRestoration } from "@/shared/components/ui/scroll-restoration"
  */
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
-    <I18nProvider locale="vi" messages={viMessages as any}>
+    <I18nProvider locale={defaultLocale} messages={viMessages as unknown as AbstractIntlMessages}>
       <div className="store-theme relative h-full w-full bg-background text-foreground selection:bg-primary/25 selection:text-charcoal">
         {/* Premium Background Effects */}
         <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,rgb(var(--store-surface-strong-rgb)/0.82)_0%,rgb(var(--store-surface-rgb)/0.97)_42%,rgb(var(--store-surface-rgb))_100%)]" />

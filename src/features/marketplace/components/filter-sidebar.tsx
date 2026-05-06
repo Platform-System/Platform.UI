@@ -7,7 +7,8 @@ import { Checkbox } from "@/shared/components/ui/checkbox"
 import { Slider } from "@/shared/components/ui/slider"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/shared/components/ui/accordion"
 import { cn } from "@/shared/lib/utils"
-import { categories } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllCategories, categoryQueryKeys } from "@/shared/lib/category-queries"
 import { RatingStars } from "@/shared/components/ui/rating-stars"
 
 interface FilterSidebarProps {
@@ -62,6 +63,11 @@ export function FilterSidebar({
   onVerifiedOnlyChange,
   onClearAll,
 }: FilterSidebarProps) {
+  const { data: categories = [] } = useQuery({
+    queryKey: categoryQueryKeys.all,
+    queryFn: fetchAllCategories,
+    staleTime: 10 * 60 * 1000,
+  })
   const toggleCategory = (id: string) => {
     const nextCategories = selectedCategories.includes(id)
       ? selectedCategories.filter((categoryId) => categoryId !== id)

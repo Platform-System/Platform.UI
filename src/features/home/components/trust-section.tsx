@@ -3,36 +3,47 @@
 import { motion } from "framer-motion"
 import { Quote } from "lucide-react"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { RatingStars } from "@/shared/components/ui/rating-stars"
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Mitchell",
-    role: "Khách hàng thời trang",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
-    content: "Nyxoris đã thay đổi cách tôi mua sắm. Chất lượng sản phẩm và quy trình xác minh nhà bán hàng giúp tôi yên tâm hơn trong mọi đơn hàng.",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "David Chen",
-    role: "Người yêu thích trang trí nhà cửa",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
-    content: "Sự chọn lọc kỹ càng cùng chất lượng tốt làm cho khu chợ này rất khác biệt. Tôi tìm thấy nhiều món đồ rất riêng mà khó thấy ở nơi khác.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Emma Rodriguez",
-    role: "Người sưu tầm nghệ thuật",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
-    content: "Là người sưu tầm nghệ thuật, tôi rất đánh giá quy trình xác thực và đảm bảo chất lượng mà Nyxoris mang lại. Đây là nơi tôi ưu tiên khi tìm món đồ độc đáo.",
-    rating: 5,
-  },
-]
-
 export function TrustSection() {
+  const t = useTranslations("Home.trust")
+  const tCommon = useTranslations("Common")
+  
+  const testimonials = [
+    {
+      id: 1,
+      name: "Sarah Mitchell",
+      role: t("testimonials.sarah.role"),
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+      content: t("testimonials.sarah.content", { brand: tCommon("brandName") }),
+      rating: 5,
+    },
+    {
+      id: 2,
+      name: "David Chen",
+      role: t("testimonials.david.role"),
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      content: t("testimonials.david.content"),
+      rating: 5,
+    },
+    {
+      id: 3,
+      name: "Emma Rodriguez",
+      role: t("testimonials.emma.role"),
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+      content: t("testimonials.emma.content", { brand: tCommon("brandName") }),
+      rating: 5,
+    },
+  ]
+
+  const stats = [
+    { value: "4.9/5", label: t("stats.rating") },
+    { value: "98%", label: t("stats.satisfaction") },
+    { value: "24/7", label: t("stats.support") },
+    { value: "100%", label: t("stats.securePayment") },
+  ]
+
   return (
     <section className="py-24 bg-muted/30">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,10 +58,10 @@ export function TrustSection() {
           className="text-center mb-12"
         >
           <span className="store-muted-text text-sm font-medium uppercase tracking-widest">
-            Cảm nhận khách hàng
+            {t("eyebrow")}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold mt-3 mb-4 text-balance">
-            Khách hàng nói gì về Nyxoris
+            {t("title", { brand: tCommon("brandName") })}
           </h2>
         </motion.div>
 
@@ -102,12 +113,7 @@ export function TrustSection() {
           viewport={{ once: true }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
-          {[
-            { value: "4.9/5", label: "Đánh giá trung bình" },
-            { value: "98%", label: "Mức độ hài lòng" },
-            { value: "24/7", label: "Hỗ trợ khách hàng" },
-            { value: "100%", label: "Thanh toán an toàn" },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.9 }}

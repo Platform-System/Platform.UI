@@ -4,32 +4,41 @@ import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Store, TrendingUp, Users, Shield } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
-import { sellerStats } from "@/shared/lib/data"
-
-const benefits = [
-  {
-    icon: Store,
-    title: "Gian hàng mang dấu ấn riêng",
-    description: "Tạo một gian hàng có bản sắc thương hiệu và trưng bày sản phẩm một cách chuyên nghiệp.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Phân tích để theo dõi tăng trưởng",
-    description: "Theo dõi doanh số, hành vi khách hàng và hiệu quả kinh doanh với dữ liệu rõ ràng.",
-  },
-  {
-    icon: Users,
-    title: "Tiếp cận khách hàng rộng hơn",
-    description: "Mở rộng tiếp cận đến hàng triệu khách hàng tiềm năng từ nhiều khu vực.",
-  },
-  {
-    icon: Shield,
-    title: "Thanh toán an toàn",
-    description: "Nhận tiền đúng hạn và an tâm vận hành với hệ thống thanh toán đáng tin cậy.",
-  },
-]
+import { useTranslations } from "next-intl"
+import { useQuery } from "@tanstack/react-query"
+import { fetchSellerStats, sellerQueryKeys } from "@/features/seller"
 
 export function SellerCtaSection() {
+  const t = useTranslations("Home.sellerCta")
+  const tCommon = useTranslations("Common")
+
+  const benefits = [
+    {
+      icon: Store,
+      title: t("benefits.store.title"),
+      description: t("benefits.store.description"),
+    },
+    {
+      icon: TrendingUp,
+      title: t("benefits.analytics.title"),
+      description: t("benefits.analytics.description"),
+    },
+    {
+      icon: Users,
+      title: t("benefits.reach.title"),
+      description: t("benefits.reach.description"),
+    },
+    {
+      icon: Shield,
+      title: t("benefits.security.title"),
+      description: t("benefits.security.description"),
+    },
+  ]
+  const { data: sellerStats = [] } = useQuery({
+    queryKey: sellerQueryKeys.stats,
+    queryFn: fetchSellerStats,
+    staleTime: 10 * 60 * 1000,
+  })
   return (
     <section className="relative overflow-hidden bg-[rgb(var(--store-ink-rgb))] py-24 text-white">
       {/* Các lớp nền phụ trợ */}
@@ -62,13 +71,13 @@ export function SellerCtaSection() {
           className="text-center mb-16"
         >
           <span className="store-accent-subtitle text-sm font-medium uppercase tracking-widest">
-            Dành cho nhà bán hàng
+            {t("eyebrow")}
           </span>
           <h2 className="mt-3 mb-4 text-balance font-serif text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
-            Bắt đầu bán hàng trên Nyxoris
+            {t("title", { brand: tCommon("brandName") })}
           </h2>
           <p className="mx-auto max-w-2xl text-white/72">
-            Đồng hành cùng hàng nghìn nhà bán hàng đang phát triển tốt. Chúng tôi cung cấp đầy đủ công cụ để bạn mở rộng kinh doanh.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -131,12 +140,12 @@ export function SellerCtaSection() {
             className="store-accent-button h-14 px-10 text-base font-semibold"
           >
             <Link href="/store/become-seller" scroll={false}>
-              Trở thành nhà bán hàng
+              {t("cta")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
           <p className="mt-4 text-sm text-white/58">
-            Đăng ký miễn phí. Không thu phí hàng tháng. Chỉ tính phí khi bạn có đơn.
+            {t("note")}
           </p>
         </motion.div>
       </div>

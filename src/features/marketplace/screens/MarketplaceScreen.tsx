@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
@@ -14,7 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
-import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllProducts, productQueryKeys } from "@/features/product"
 import { cn } from "@/shared/lib/utils"
 import {
   Pagination,
@@ -24,8 +25,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/shared/components/ui/pagination"
-
-const allProducts = [...featuredProducts, ...trendingProducts, ...newArrivals]
 
 const sortOptions = [
   { value: "featured", label: "Nổi bật" },
@@ -54,6 +53,12 @@ export function MarketplaceScreen() {
   const [verifiedOnly, setVerifiedOnly] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = gridCols === 6 ? 24 : 16
+
+  const { data: allProducts = [] } = useQuery({
+    queryKey: productQueryKeys.all,
+    queryFn: fetchAllProducts,
+    staleTime: 5 * 60 * 1000,
+  })
 
 
   const clearAllFilters = () => {
