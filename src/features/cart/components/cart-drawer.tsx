@@ -29,9 +29,129 @@ import {
 } from "@/shared/components/ui/alert-dialog"
 import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
 
+// Optimized CartItem component with memoization to prevent unnecessary re-renders
+const CartItemRow = React.memo(({ 
+  item, 
+  updateQuantity, 
+  updateItemVariant, 
+  removeFromCart,
+  t 
+}: { 
+  item: CartItem; 
+  updateQuantity: any; 
+  updateItemVariant: any; 
+  removeFromCart: any;
+  t: any;
+}) => (
+  <div className="flex items-center gap-4 pb-6 last:border-none">
+    <div className="store-surface-soft relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
+      <Image
+        src={item.image}
+        alt={item.name}
+        fill
+        sizes="80px"
+        className="object-cover"
+      />
+    </div>
+    <div className="flex-1 flex flex-col justify-between h-20">
+      <div>
+        <h3 className="line-clamp-1 text-sm font-medium tracking-wide text-foreground">{item.name}</h3>
+        <div className="mt-1 flex gap-2">
+          <Select
+            value={item.color ?? "Đen"}
+            onValueChange={(value) =>
+              updateItemVariant(item.id, item.color, item.size, { color: value })
+            }
+          >
+            <SelectTrigger
+              size="sm"
+              className="h-7 min-w-[88px] rounded-md px-2.5 text-[11px] shadow-none"
+            >
+              <SelectValue placeholder="Màu" />
+            </SelectTrigger>
+            <SelectContent className="shadow-xl">
+              {CART_COLOR_OPTIONS.map((color) => (
+                <SelectItem key={color} value={color}>
+                  {color}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={item.size ?? "Vừa"}
+            onValueChange={(value) =>
+              updateItemVariant(item.id, item.color, item.size, { size: value })
+            }
+          >
+            <SelectTrigger
+              size="sm"
+              className="h-7 min-w-[92px] rounded-md px-2.5 text-[11px] shadow-none"
+            >
+              <SelectValue placeholder="Size" />
+            </SelectTrigger>
+            <SelectContent className="shadow-xl">
+              {CART_SIZE_OPTIONS.map((size) => (
+                <SelectItem key={size} value={size}>
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mt-2">
+        <div className="store-surface-soft flex items-center rounded-lg">
+          <button
+            onClick={() => updateQuantity(item.id, item.quantity - 1, item.color, item.size)}
+            className="store-muted-text p-1 transition-colors hover:text-foreground"
+          >
+            <Minus className="h-3.5 w-3.5" />
+          </button>
+          <span className="px-3 text-xs font-medium text-foreground">{item.quantity}</span>
+          <button
+            onClick={() => updateQuantity(item.id, item.quantity + 1, item.color, item.size)}
+            className="store-muted-text p-1 transition-colors hover:text-foreground"
+          >
+            <Plus className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-foreground">${(item.price * item.quantity).toLocaleString()}</span>
+          <button
+            onClick={() => removeFromCart(item.id, item.color, item.size)}
+            className="store-muted-text transition-colors hover:text-destructive"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+))
+
+CartItemRow.displayName = "CartItemRow"
+
 export function CartDrawer() {
   const t = useTranslations("Cart")
   const { isOpen, setIsOpen, cartItems, removeFromCart, updateQuantity, updateItemVariant, cartTotal, cartCount, clearCart } = useCart()
+
+  // Optimization: Progressive rendering to prevent animation stutter when opening with many items
+  const [renderedItemCount, setRenderedItemCount] = useState(8);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Instantly render only enough items to fill the viewport
+      setRenderedItemCount(8);
+      // Wait for the slide-in animation to begin before mounting the rest
+      const timer = setTimeout(() => {
+        setRenderedItemCount(cartItems.length);
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, cartItems.length]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -133,94 +253,15 @@ export function CartDrawer() {
                   </Button>
                 </div>
               ) : (
-                cartItems.map((item) => (
-                  <div key={`${item.id}-${item.color}-${item.size}`} className="flex items-center gap-4 pb-6 last:border-none">
-                    <div className="store-surface-soft relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between h-20">
-                      <div>
-                        <h3 className="line-clamp-1 text-sm font-medium tracking-wide text-foreground">{item.name}</h3>
-                        <div className="mt-1 flex gap-2">
-                          <Select
-                            value={item.color ?? "Đen"}
-                            onValueChange={(value) =>
-                              updateItemVariant(item.id, item.color, item.size, { color: value })
-                            }
-                          >
-                            <SelectTrigger
-                              size="sm"
-                              className="h-7 min-w-[88px] rounded-md px-2.5 text-[11px] shadow-none"
-                            >
-                              <SelectValue placeholder="Màu" />
-                            </SelectTrigger>
-                            <SelectContent className="shadow-xl">
-                              {CART_COLOR_OPTIONS.map((color) => (
-                                <SelectItem key={color} value={color}>
-                                  {color}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-
-                          <Select
-                            value={item.size ?? "Vừa"}
-                            onValueChange={(value) =>
-                              updateItemVariant(item.id, item.color, item.size, { size: value })
-                            }
-                          >
-                            <SelectTrigger
-                              size="sm"
-                              className="h-7 min-w-[92px] rounded-md px-2.5 text-[11px] shadow-none"
-                            >
-                              <SelectValue placeholder="Size" />
-                            </SelectTrigger>
-                            <SelectContent className="shadow-xl">
-                              {CART_SIZE_OPTIONS.map((size) => (
-                                <SelectItem key={size} value={size}>
-                                  {size}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between mt-2">
-                        {/* Quantity controls */}
-                        <div className="store-surface-soft flex items-center rounded-lg">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1, item.color, item.size)}
-                            className="store-muted-text p-1 transition-colors hover:text-foreground"
-                          >
-                            <Minus className="h-3.5 w-3.5" />
-                          </button>
-                          <span className="px-3 text-xs font-medium text-foreground">{item.quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1, item.color, item.size)}
-                            className="store-muted-text p-1 transition-colors hover:text-foreground"
-                          >
-                            <Plus className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <span className="text-sm font-semibold text-foreground">${(item.price * item.quantity).toLocaleString()}</span>
-                          <button
-                            onClick={() => removeFromCart(item.id, item.color, item.size)}
-                            className="store-muted-text transition-colors hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                cartItems.slice(0, renderedItemCount).map((item) => (
+                  <CartItemRow 
+                    key={`${item.id}-${item.color}-${item.size}`} 
+                    item={item}
+                    updateQuantity={updateQuantity}
+                    updateItemVariant={updateItemVariant}
+                    removeFromCart={removeFromCart}
+                    t={t}
+                  />
                 ))
               )}
             </div>

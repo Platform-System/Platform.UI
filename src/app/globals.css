@@ -22,6 +22,10 @@
   --store-border-rgb: 235 228 218; /* Elegant Warm Borders */
   --store-muted-rgb: 135 125 110; /* Sophisticated Warm Muted Text */
   --store-ink-rgb: 28 24 20; /* Deep Espresso for Dark Contrast Sections */
+
+  /* Missing Shadcn Tokens for UI Components */
+  --destructive: #CB2B2B; /* Elegant Deep Red */
+  --destructive-foreground: #FFFFFF;
 }
 
 @theme {
@@ -42,6 +46,8 @@
   --color-gold: rgb(var(--store-accent-rgb));
   --color-star: rgb(var(--store-star-rgb));
   --color-charcoal: rgb(var(--store-ink-rgb));
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;

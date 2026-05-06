@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { useCartStore, CartItem } from "../store/cart-store"
@@ -31,7 +31,7 @@ export function useCart() {
     setIsHydrated(true)
   }, [])
 
-  const addToCart = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
+  const addToCart = useCallback((item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
     const nextQuantity = Math.max(1, item.quantity ?? 1)
 
     toast.success(t("toastTitle"), {
@@ -42,28 +42,28 @@ export function useCart() {
     })
 
     addItem(item)
-  }
+  }, [addItem, t])
 
-  const removeFromCart = (id: number, color?: string, size?: string) => {
+  const removeFromCart = useCallback((id: number, color?: string, size?: string) => {
     removeItem(id, color, size)
-  }
+  }, [removeItem])
 
-  const updateQuantity = (id: number, quantity: number, color?: string, size?: string) => {
+  const updateQuantity = useCallback((id: number, quantity: number, color?: string, size?: string) => {
     storeUpdateQuantity(id, quantity, color, size)
-  }
+  }, [storeUpdateQuantity])
 
-  const updateItemVariant = (
+  const updateItemVariant = useCallback((
     id: number,
     currentColor: string | undefined,
     currentSize: string | undefined,
     updates: CartItemVariantUpdate
   ) => {
     storeUpdateItemVariant(id, currentColor, currentSize, updates)
-  }
+  }, [storeUpdateItemVariant])
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     clearItems()
-  }
+  }, [clearItems])
 
   const cartTotal = isHydrated ? getTotal() : 0
   const cartCount = isHydrated ? getCount() : 0
