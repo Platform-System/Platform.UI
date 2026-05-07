@@ -5,6 +5,7 @@ import { X, Plus, Minus, Trash2, ShoppingBag, Truck } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useCart } from "../context/CartContext"
+import type { CartItem } from "../store/cart-store"
 import { Button } from "@/shared/components/ui/button"
 import { Link } from "@/i18n/navigation"
 import {
