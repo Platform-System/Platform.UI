@@ -11,15 +11,29 @@
 import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data"
 import { Product } from "@/types/store"
 
-/** Trả về toàn bộ product pool (mock). Swap với GET /api/products khi có backend. */
+import { apiClient } from "@/shared/api/api-client"
+
+/** Trả về toàn bộ product pool. Gọi GET /api/products từ backend, fallback sang mock nếu lỗi. */
 export async function fetchAllProducts(): Promise<Product[]> {
-  return [...featuredProducts, ...trendingProducts, ...newArrivals]
+  try {
+    const response = await apiClient.get<Product[]>("/api/products");
+    return response.data;
+  } catch (error) {
+    console.warn("Lỗi gọi API, fallback dùng mock data:", error);
+    return [...featuredProducts, ...trendingProducts, ...newArrivals]
+  }
 }
 
-/** Tìm một product theo id (mock). Swap với GET /api/products/:id khi có backend. */
+/** Tìm một product theo id. Gọi GET /api/products/:id, fallback sang mock nếu lỗi. */
 export async function fetchProductById(id: string): Promise<Product | undefined> {
-  const all = await fetchAllProducts()
-  return all.find((p) => p.id === id)
+  try {
+    const response = await apiClient.get<Product>(`/api/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.warn(`Lỗi gọi API cho sản phẩm ${id}, fallback dùng mock data:`, error);
+    const all = await fetchAllProducts()
+    return all.find((p) => p.id === id)
+  }
 }
 
 /** Query keys dùng với TanStack Query — đảm bảo cache invalidation nhất quán. */
