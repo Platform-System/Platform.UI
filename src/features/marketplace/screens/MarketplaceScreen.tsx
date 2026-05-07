@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { Suspense, useState, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
@@ -35,7 +35,7 @@ const sortOptions = [
   { value: "popular", label: "Phổ biến nhất" },
 ]
 
-export function MarketplaceScreen() {
+function MarketplaceScreenContent() {
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get("category")
   const searchParam = searchParams.get("search") ?? ""
@@ -391,5 +391,13 @@ export function MarketplaceScreen() {
         onClearAll={clearAllFilters}
       />
     </div>
+  )
+}
+
+export function MarketplaceScreen() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-transparent pt-32 pb-8 flex items-center justify-center"><div className="store-loading-spinner h-8 w-8" /></div>}>
+      <MarketplaceScreenContent />
+    </Suspense>
   )
 }
