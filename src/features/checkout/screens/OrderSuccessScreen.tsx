@@ -24,7 +24,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
 
     const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min
 
-    const interval: any = setInterval(() => {
+    const interval: ReturnType<typeof setInterval> = setInterval(() => {
       const timeLeft = animationEnd - Date.now()
 
       if (timeLeft <= 0) {

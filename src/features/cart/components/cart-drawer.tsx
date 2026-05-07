@@ -35,14 +35,12 @@ const CartItemRow = React.memo(({
   item, 
   updateQuantity, 
   updateItemVariant, 
-  removeFromCart,
-  t 
+  removeFromCart
 }: { 
   item: CartItem; 
-  updateQuantity: any; 
-  updateItemVariant: any; 
-  removeFromCart: any;
-  t: any;
+  updateQuantity: (id: number, quantity: number, color?: string, size?: string) => void; 
+  updateItemVariant: (id: number, currentColor: string | undefined, currentSize: string | undefined, updates: { color?: string; size?: string }) => void; 
+  removeFromCart: (id: number, color?: string, size?: string) => void;
 }) => (
   <div className="flex items-center gap-4 pb-6 last:border-none">
     <div className="store-surface-soft relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
@@ -145,6 +143,7 @@ export function CartDrawer() {
   useEffect(() => {
     if (isOpen) {
       // Instantly render only enough items to fill the viewport
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRenderedItemCount(8);
       // Wait for the slide-in animation to begin before mounting the rest
       const timer = setTimeout(() => {
@@ -261,7 +260,6 @@ export function CartDrawer() {
                     updateQuantity={updateQuantity}
                     updateItemVariant={updateItemVariant}
                     removeFromCart={removeFromCart}
-                    t={t}
                   />
                 ))
               )}

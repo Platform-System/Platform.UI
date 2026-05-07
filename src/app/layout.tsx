@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Geist_Mono, Allura, Playfair_Display, Cormorant_Garamond, Great_Vibes } from "next/font/google";
 import QueryProvider from "@/core/providers/QueryProvider";
 import { GlobalLoadingBar } from "@/shared/layout/GlobalLoadingBar";
+import { CustomCursor } from "@/shared/components/ui/custom-cursor";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -62,6 +63,7 @@ export default async function RootLayout({
 
           <div className="relative z-10 flex h-screen w-screen flex-col bg-background text-foreground transition-colors duration-300">
             <GlobalLoadingBar />
+            <CustomCursor />
             <main
               style={{ viewTransitionName: 'main-content' } as React.CSSProperties}
               className="relative z-10 flex-1 overflow-hidden"

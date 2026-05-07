@@ -37,7 +37,7 @@ export function useSellerStorefront(slug: string) {
   )
 
   const filteredProducts = React.useMemo(() => {
-    let results = [...sellerProducts]
+    const results = [...sellerProducts]
 
     // Sort logic
     results.sort((a, b) => {

@@ -33,16 +33,16 @@ export function CheckoutScreen() {
     orderSuccess,
   } = useCheckout()
 
-  if (orderSuccess) {
-    return <OrderSuccessScreen order={orderSuccess} />
-  }
-
   React.useLayoutEffect(() => {
     const container = document.getElementById("store-scroll-container")
     if (container) {
       container.scrollTo({ top: 0, behavior: "instant" })
     }
   }, [])
+
+  if (orderSuccess) {
+    return <OrderSuccessScreen order={orderSuccess} />
+  }
 
   if (cartItems.length === 0) {
     return (

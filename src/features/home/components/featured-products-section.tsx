@@ -27,6 +27,7 @@ export function FeaturedProductsSection() {
   const currentProducts = tabs.find((t) => t.id === activeTab)?.products ?? []
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsLoading(true)
     const timer = setTimeout(() => setIsLoading(false), 500)
     return () => clearTimeout(timer)
