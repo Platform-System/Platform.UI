@@ -10,9 +10,7 @@ import { SectionFooter } from "./section-header"
 
 export function FeaturedProductsSection() {
   const [activeTab, setActiveTab] = useState("featured")
-  const [isLoading, setIsLoading] = useState(true)
-
-  const { data: allProducts = [] } = useQuery({
+  const { data: allProducts = [], isLoading } = useQuery({
     queryKey: productQueryKeys.all,
     queryFn: fetchAllProducts,
     staleTime: 5 * 60 * 1000,
@@ -25,13 +23,6 @@ export function FeaturedProductsSection() {
   ], [allProducts])
 
   const currentProducts = tabs.find((t) => t.id === activeTab)?.products ?? []
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsLoading(true)
-    const timer = setTimeout(() => setIsLoading(false), 500)
-    return () => clearTimeout(timer)
-  }, [activeTab])
 
   return (
     <section className="py-24 bg-muted/30">

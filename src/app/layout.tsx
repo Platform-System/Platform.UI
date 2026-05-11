@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Geist_Mono, Allura, Playfair_Display, Cormorant_Gara
 import QueryProvider from "@/core/providers/QueryProvider";
 import AuthProvider from "@/core/providers/AuthProvider";
 import { GlobalLoadingBar } from "@/shared/layout/GlobalLoadingBar";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -57,6 +58,7 @@ export default async function RootLayout({
       <body
         className={`${plusJakarta.variable} ${geistMono.variable} ${allura.variable} ${playfair.variable} ${cormorant.variable} ${greatVibes.variable} antialiased h-screen overflow-hidden bg-background text-foreground transition-colors duration-300`}
       >
+        <Toaster richColors closeButton position="top-right" />
         <AuthProvider>
           <QueryProvider>
           <div className="fixed top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full pointer-events-none opacity-100 z-0" style={{ background: 'rgb(255 255 255 / 0.08)', filter: 'blur(120px)' }} />

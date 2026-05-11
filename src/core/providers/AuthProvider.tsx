@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 import Keycloak from 'keycloak-js';
-import { ENV } from '@/shared/config/env';
-import { apiClient } from '@/shared/api/api-client';
+import { keycloak } from '@/shared/api/keycloak';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -30,61 +29,31 @@ export const useAuth = () => useContext(AuthContext);
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [keycloak, setKeycloak] = useState<Keycloak | null>(null);
   
-  // React 18 strict mode chạy useEffect 2 lần ở dev, dùng ref để chặn init lại
   const initRef = useRef(false);
 
   useEffect(() => {
-    if (initRef.current) return;
+    if (initRef.current || !keycloak) return;
     initRef.current = true;
 
-    const kc = new Keycloak({
-      url: ENV.KEYCLOAK_URL,
-      realm: ENV.KEYCLOAK_REALM,
-      clientId: ENV.KEYCLOAK_CLIENT_ID,
-    });
-    
-    setKeycloak(kc);
-
-    kc.init({
-      onLoad: 'check-sso', // Kiểm tra xem user đã đăng nhập chưa, không tự động văng ra trang login
+    keycloak.init({
+      onLoad: 'check-sso',
       silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
       pkceMethod: 'S256',
     })
       .then((authenticated) => {
         setIsAuthenticated(authenticated);
         setIsInitialized(true);
-
-        // Cập nhật Interceptor của Axios để nhét Token vào
-        if (authenticated) {
-          apiClient.interceptors.request.use(
-            (config) => {
-              if (kc.token) {
-                config.headers.Authorization = `Bearer ${kc.token}`;
-              }
-              return config;
-            },
-            (error) => Promise.reject(error)
-          );
-        }
       })
       .catch((error) => {
         console.error('Keycloak initialization failed', error);
         setIsInitialized(true);
       });
 
-    // Xử lý khi token sắp hết hạn
-    kc.onTokenExpired = () => {
-      kc.updateToken(30).then((refreshed) => {
-        if (refreshed) {
-          console.log('Token was successfully refreshed');
-        } else {
-          console.log('Token is still valid');
-        }
-      }).catch(() => {
+    keycloak.onTokenExpired = () => {
+      keycloak.updateToken(30).catch(() => {
         console.error('Failed to refresh token, forcing logout');
-        kc.logout();
+        keycloak.logout();
       });
     };
   }, []);
