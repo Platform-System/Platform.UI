@@ -24,3 +24,4 @@ jobs:
       push_image: true
       build_args: |
         NEXT_PUBLIC_API_URL=https://api.nyxoris.com
+
