@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 import { getValidToken } from './keycloak';
+import { ENV } from '../config/env';
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
+  baseURL: ENV.API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
