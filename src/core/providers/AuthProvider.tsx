@@ -51,10 +51,11 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       });
 
     keycloak.onTokenExpired = () => {
-      if (keycloak) {
-        keycloak.updateToken(30).catch(() => {
+      const kc = keycloak;
+      if (kc) {
+        kc.updateToken(30).catch(() => {
           console.error('Failed to refresh token, forcing logout');
-          keycloak.logout();
+          kc.logout();
         });
       }
     };
