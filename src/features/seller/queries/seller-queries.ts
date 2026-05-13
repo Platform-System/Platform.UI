@@ -10,23 +10,19 @@
 
 import { Seller } from "@/types/store"
 import { apiClient } from "@/shared/api/api-client"
+import { Result, PagedResult } from "@/types/api"
 
 /** Trả về tất cả sellers. Gọi GET /api/sellers. */
 export async function fetchAllSellers(): Promise<Seller[]> {
   try {
-    const response = await apiClient.get<any>("/api/store/stores");
+    const response = await apiClient.get<Result<PagedResult<Seller>>>("/api/store/stores");
     
     // Xử lý cấu trúc Result từ Backend
     if (response.data && response.data.success && response.data.data) {
-      // Nếu là PagedResult thì lấy items, nếu không lấy data trực tiếp
-      return response.data.data.items || response.data.data;
+      return response.data.data.items || [];
     }
 
-    if (Array.isArray(response.data)) {
-      return response.data;
-    }
-
-    return []
+    return [];
   } catch (error) {
     console.error("Lỗi gọi API Stores:", error);
     return []
@@ -36,14 +32,14 @@ export async function fetchAllSellers(): Promise<Seller[]> {
 /** Tìm seller theo slug. Gọi GET /api/sellers/:slug. */
 export async function fetchSellerBySlug(slug: string): Promise<Seller | undefined> {
   try {
-    const response = await apiClient.get<any>(`/api/store/stores/${slug}`);
+    const response = await apiClient.get<Result<Seller>>(`/api/store/stores/${slug}`);
     
     // Xử lý cấu trúc Result từ Backend
     if (response.data && response.data.success && response.data.data) {
       return response.data.data;
     }
 
-    return response.data;
+    return undefined;
   } catch (error) {
     console.error(`Lỗi gọi API cho store ${slug}:`, error);
     return undefined

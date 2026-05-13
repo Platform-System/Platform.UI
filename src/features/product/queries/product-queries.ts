@@ -10,22 +10,18 @@
 
 import { Product } from "@/types/store";
 import { apiClient } from "@/shared/api/api-client";
+import { Result, PagedResult } from "@/types/api";
 
 /** Trả về toàn bộ product pool. Gọi GET /api/catalog/products từ gateway. */
 export async function fetchAllProducts(): Promise<Product[]> {
   try {
-    const response = await apiClient.get<any>("/api/catalog/products");
+    const response = await apiClient.get<Result<PagedResult<Product>>>("/api/catalog/products");
     
     // Xử lý cấu trúc Result/PagedResult từ Backend
     if (response.data && response.data.success && response.data.data?.items) {
       return response.data.data.items;
     }
     
-    // Fallback nếu trả về mảng trực tiếp
-    if (Array.isArray(response.data)) {
-      return response.data;
-    }
-
     return [];
   } catch (error) {
     console.error("Lỗi gọi API Catalog:", error);
@@ -36,14 +32,12 @@ export async function fetchAllProducts(): Promise<Product[]> {
 /** Tìm một product theo id. Gọi GET /api/catalog/products/:id. */
 export async function fetchProductById(id: string): Promise<Product | undefined> {
   try {
-    const response = await apiClient.get<any>(`/api/catalog/products/${id}`);
+    const response = await apiClient.get<Result<Product>>(`/api/catalog/products/${id}`);
     
     // Xử lý cấu trúc Result từ Backend
     if (response.data && response.data.success && response.data.data) {
       return response.data.data;
     }
-
-    return response.data;
   } catch (error) {
     console.error(`Lỗi gọi API cho sản phẩm ${id}:`, error);
     return undefined;

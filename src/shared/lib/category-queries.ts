@@ -10,6 +10,7 @@
 import { categories as mockCategories } from "@/shared/lib/data";
 import { apiClient } from "@/shared/api/api-client";
 import { useQuery } from "@tanstack/react-query";
+import { Result, PagedResult } from "@/types/api";
 
 export interface Category {
   id: string;
@@ -28,9 +29,12 @@ export const categoryQueryKeys = {
 /** Trả về tất cả categories. Gọi GET /api/catalog/categories qua gateway, fallback sang mock nếu lỗi. */
 export async function fetchAllCategories(): Promise<Category[]> {
   try {
-    const response = await apiClient.get<Category[]>("/api/catalog/categories");
-    // Đảm bảo dữ liệu trả về có đủ các trường cần thiết, nếu thiếu thì gán mặc định
-    return response.data.map(cat => ({
+    const response = await apiClient.get<Result<PagedResult<Category>>>(
+      "/api/catalog/categories"
+    );
+    const categories = response.data?.data?.items || [];
+
+    return categories.map(cat => ({
       ...cat,
       productCount: cat.productCount ?? 0,
       slug: cat.slug || cat.id
