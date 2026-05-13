@@ -17,7 +17,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
           duration: 0.4, 
           ease: [0.22, 1, 0.36, 1] 
         }}
-        className="flex-1 flex flex-col"
+        className="flex-1 flex flex-col relative"
+        style={{ position: "relative" }}
       >
         {children}
       </motion.div>

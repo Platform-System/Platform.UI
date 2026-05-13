@@ -36,8 +36,6 @@ import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { useCategories } from "@/shared/lib/category-queries"
 
-
-
 export function Header() {
   const t = useTranslations("Common")
   const [isScrolled, setIsScrolled] = useState(false)
@@ -62,16 +60,12 @@ export function Header() {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
 
   useEffect(() => {
-    const scrollContainer = document.getElementById('store-scroll-container')
-
     const handleScroll = () => {
-      if (scrollContainer) {
-        setIsScrolled(scrollContainer.scrollTop > 20)
-      }
+      setIsScrolled(window.scrollY > 20)
     }
 
-    scrollContainer?.addEventListener("scroll", handleScroll)
-    return () => scrollContainer?.removeEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   useEffect(() => {
@@ -209,7 +203,9 @@ export function Header() {
                   )}
                 </motion.div>
                 <span className="sr-only">Giỏ hàng</span>
-              </Button>              {isAuthenticated ? (
+              </Button>
+
+              {isAuthenticated ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 ml-1 hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">

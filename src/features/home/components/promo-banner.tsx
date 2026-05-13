@@ -8,7 +8,7 @@ import { Button } from "@/shared/components/ui/button"
 
 export function PromoBanner() {
   return (
-    <section className="py-16 bg-background">
+    <section className="relative py-16 bg-background" style={{ position: "relative" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Large Banner */}

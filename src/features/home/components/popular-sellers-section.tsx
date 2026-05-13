@@ -13,7 +13,7 @@ export function PopularSellersSection() {
     staleTime: 5 * 60 * 1000,
   })
   return (
-    <section className="py-24 bg-background">
+    <section className="relative py-24 bg-background" style={{ position: "relative" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <SectionHeader

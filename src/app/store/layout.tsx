@@ -29,9 +29,9 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
 
         <ScrollRestoration />
         {/* The Scrollable Surface */}
-        <main id="store-scroll-container" className="h-screen w-full overflow-y-auto relative z-10">
+        <main id="store-scroll-container" className="min-h-screen w-full relative z-10">
           <Header />
-          <div className="min-h-screen">
+          <div className="min-h-screen relative" style={{ position: "relative" }}>
             {children}
           </div>
           <Footer />

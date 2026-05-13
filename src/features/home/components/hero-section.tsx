@@ -8,14 +8,16 @@ import { ArrowRight, Play, Sparkles, BadgeCheck } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 
 export function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  })
+  const containerRef = useRef<HTMLElement>(null)
+  
+  // Sử dụng scrollY trực tiếp thay vì target offset để tránh bug warning của framer-motion 
+  // đối với section nằm ở đầu trang
+  const { scrollY } = useScroll()
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // Khi cuộn từ 0 đến 500px, phần tử sẽ di chuyển xuống 200px
+  const y = useTransform(scrollY, [0, 500], [0, 200])
+  // Khi cuộn từ 0 đến 300px, phần tử sẽ mờ dần
+  const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
     <section 

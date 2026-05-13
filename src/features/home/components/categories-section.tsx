@@ -17,7 +17,7 @@ export function CategoriesSection() {
   })
 
   return (
-    <section className="py-24 bg-background">
+    <section className="relative py-24 bg-background" style={{ position: "relative" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Tiêu đề section */}
         <SectionHeader

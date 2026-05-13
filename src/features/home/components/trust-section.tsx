@@ -45,7 +45,7 @@ export function TrustSection() {
   ]
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section className="relative py-24 bg-muted/30" style={{ position: "relative" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
 

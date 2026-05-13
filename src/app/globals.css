@@ -31,9 +31,6 @@
 @theme {
   --font-sans: var(--font-plus-jakarta);
   --font-mono: var(--font-geist-mono);
-  --font-allura: var(--font-allura);
-  --font-cormorant: var(--font-cormorant);
-  --font-great-vibes: var(--font-great-vibes);
   --font-serif: var(--font-playfair);
 
   --color-background: var(--background);
