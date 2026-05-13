@@ -14,7 +14,7 @@ import { TrustSection } from "../components/trust-section"
  */
 export function HomeScreen() {
   return (
-    <div className="relative">
+    <div className="relative" style={{ position: "relative" }}>
       <HeroSection />
       <CategoriesSection />
       <FeaturedProductsSection />
