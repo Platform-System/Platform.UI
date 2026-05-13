@@ -16,8 +16,19 @@ import { apiClient } from "@/shared/api/api-client"
 /** Trả về tất cả sellers. Gọi GET /api/sellers, fallback sang mock nếu lỗi. */
 export async function fetchAllSellers(): Promise<Seller[]> {
   try {
-    const response = await apiClient.get<Seller[]>("/api/store/stores");
-    return response.data;
+    const response = await apiClient.get<any>("/api/store/stores");
+    
+    // Xử lý cấu trúc Result từ Backend
+    if (response.data && response.data.success && response.data.data) {
+      // Nếu là PagedResult thì lấy items, nếu không lấy data trực tiếp
+      return response.data.data.items || response.data.data;
+    }
+
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+
+    return []
   } catch (error) {
     console.warn("Lỗi gọi API Sellers, fallback dùng mock data:", error);
     return popularSellers
@@ -27,7 +38,13 @@ export async function fetchAllSellers(): Promise<Seller[]> {
 /** Tìm seller theo slug. Gọi GET /api/sellers/:slug, fallback sang mock nếu lỗi. */
 export async function fetchSellerBySlug(slug: string): Promise<Seller | undefined> {
   try {
-    const response = await apiClient.get<Seller>(`/api/store/stores/${slug}`);
+    const response = await apiClient.get<any>(`/api/store/stores/${slug}`);
+    
+    // Xử lý cấu trúc Result từ Backend
+    if (response.data && response.data.success && response.data.data) {
+      return response.data.data;
+    }
+
     return response.data;
   } catch (error) {
     console.warn(`Lỗi gọi API cho seller ${slug}, fallback dùng mock data:`, error);
