@@ -8,12 +8,10 @@
  * Layer hooks/screens bên trên không cần thay đổi.
  */
 
-import { popularSellers, sellerStats } from "@/shared/lib/data"
 import { Seller } from "@/types/store"
-
 import { apiClient } from "@/shared/api/api-client"
 
-/** Trả về tất cả sellers. Gọi GET /api/sellers, fallback sang mock nếu lỗi. */
+/** Trả về tất cả sellers. Gọi GET /api/sellers. */
 export async function fetchAllSellers(): Promise<Seller[]> {
   try {
     const response = await apiClient.get<any>("/api/store/stores");
@@ -30,12 +28,12 @@ export async function fetchAllSellers(): Promise<Seller[]> {
 
     return []
   } catch (error) {
-    console.warn("Lỗi gọi API Sellers, fallback dùng mock data:", error);
-    return popularSellers
+    console.error("Lỗi gọi API Stores:", error);
+    return []
   }
 }
 
-/** Tìm seller theo slug. Gọi GET /api/sellers/:slug, fallback sang mock nếu lỗi. */
+/** Tìm seller theo slug. Gọi GET /api/sellers/:slug. */
 export async function fetchSellerBySlug(slug: string): Promise<Seller | undefined> {
   try {
     const response = await apiClient.get<any>(`/api/store/stores/${slug}`);
@@ -47,14 +45,14 @@ export async function fetchSellerBySlug(slug: string): Promise<Seller | undefine
 
     return response.data;
   } catch (error) {
-    console.warn(`Lỗi gọi API cho seller ${slug}, fallback dùng mock data:`, error);
-    return popularSellers.find((s) => s.slug === slug)
+    console.error(`Lỗi gọi API cho store ${slug}:`, error);
+    return undefined
   }
 }
 
-/** Trả về seller stats cho trang CTA (mock). Giữ nguyên mock hoặc gọi API nếu có. */
+/** Trả về seller stats (trống nếu không có data). */
 export async function fetchSellerStats(): Promise<{ label: string; value: string }[]> {
-  return sellerStats
+  return []
 }
 
 /** Query keys dùng với TanStack Query. */

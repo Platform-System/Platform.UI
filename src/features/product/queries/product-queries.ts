@@ -8,11 +8,10 @@
  * The hooks layer (use-product-detail.ts, etc.) does NOT need to change.
  */
 
-import { featuredProducts, trendingProducts, newArrivals } from "@/shared/lib/data";
 import { Product } from "@/types/store";
 import { apiClient } from "@/shared/api/api-client";
 
-/** Trả về toàn bộ product pool. Gọi GET /api/catalog/products từ gateway, fallback sang mock nếu lỗi. */
+/** Trả về toàn bộ product pool. Gọi GET /api/catalog/products từ gateway. */
 export async function fetchAllProducts(): Promise<Product[]> {
   try {
     const response = await apiClient.get<any>("/api/catalog/products");
@@ -29,12 +28,12 @@ export async function fetchAllProducts(): Promise<Product[]> {
 
     return [];
   } catch (error) {
-    console.warn("Lỗi gọi API, fallback dùng mock data:", error);
-    return [...featuredProducts, ...trendingProducts, ...newArrivals];
+    console.error("Lỗi gọi API Catalog:", error);
+    return [];
   }
 }
 
-/** Tìm một product theo id. Gọi GET /api/catalog/products/:id, fallback sang mock nếu lỗi. */
+/** Tìm một product theo id. Gọi GET /api/catalog/products/:id. */
 export async function fetchProductById(id: string): Promise<Product | undefined> {
   try {
     const response = await apiClient.get<any>(`/api/catalog/products/${id}`);
@@ -46,9 +45,8 @@ export async function fetchProductById(id: string): Promise<Product | undefined>
 
     return response.data;
   } catch (error) {
-    console.warn(`Lỗi gọi API cho sản phẩm ${id}, fallback dùng mock data:`, error);
-    const all = await fetchAllProducts();
-    return all.find((p) => p.id === id);
+    console.error(`Lỗi gọi API cho sản phẩm ${id}:`, error);
+    return undefined;
   }
 }
 
