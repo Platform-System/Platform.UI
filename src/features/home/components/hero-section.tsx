@@ -18,7 +18,11 @@ export function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-transparent">
+    <section 
+      ref={containerRef} 
+      className="relative min-h-screen overflow-hidden bg-transparent"
+      style={{ position: "relative" }} // Đảm bảo luôn là non-static để fix warning scroll offset
+    >
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Overlay */}

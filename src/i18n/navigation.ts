@@ -16,7 +16,11 @@ type LinkProps = Omit<React.ComponentProps<typeof NextLink>, 'href'> &
 export function Link(props: LinkProps) {
   const { href, locale: _locale, ...rest } = props;
   // Cast through unknown to safely drop the `locale` prop before passing to NextLink
-  return React.createElement(NextLink, { href, ...rest } as unknown as React.ComponentProps<typeof NextLink>);
+  return React.createElement(NextLink, { 
+    href, 
+    prefetch: props.prefetch ?? false, // Mặc định tắt prefetch để tránh 30+ warnings preload
+    ...rest 
+  } as unknown as React.ComponentProps<typeof NextLink>);
 }
 
 // type is inferred from next/navigation's redirect signature

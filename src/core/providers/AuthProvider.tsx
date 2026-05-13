@@ -41,6 +41,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
       pkceMethod: 'S256',
       checkLoginIframe: false,
+      enableLogging: false, // Tắt logging mặc định của Keycloak để giảm noise
     })
       .then((authenticated) => {
         setIsAuthenticated(authenticated);
