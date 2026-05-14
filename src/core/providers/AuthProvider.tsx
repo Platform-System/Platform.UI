@@ -37,11 +37,11 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     initRef.current = true;
 
     keycloak.init({
-      onLoad: 'check-sso',
+      onLoad: 'login-required',
       silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
       pkceMethod: 'S256',
       checkLoginIframe: false,
-      enableLogging: false, // Tắt logging mặc định của Keycloak để giảm noise
+      enableLogging: false,
     })
       .then((authenticated) => {
         setIsAuthenticated(authenticated);
@@ -82,6 +82,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       keycloak.register().catch(console.error);
     }
   };
+
+  if (!isInitialized) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="store-loading-spinner h-12 w-12 border-4 border-primary" />
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider
