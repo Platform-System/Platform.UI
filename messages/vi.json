@@ -105,6 +105,8 @@
     "searchSellerPlaceholder": "Tìm nhà bán hàng theo tên hoặc địa điểm...",
     "noSellersFound": "Không tìm thấy nhà bán hàng",
     "noSellersFoundDesc": "Chưa tìm thấy nhà bán hàng phù hợp với điều kiện hiện tại. Thử đổi từ khóa tìm kiếm hoặc bộ lọc nhẹ hơn.",
+    "noSellers": "Không có nhà bán hàng",
+    "noSellersDesc": "Hiện tại chưa có nhà bán hàng nào tham gia nền tảng. Hãy quay lại sau nhé!",
     "categories": [
       "Tất cả",
       "Thời trang",
@@ -338,6 +340,67 @@
       "description": "Cập nhật những thông tin mới nhất về các bộ sưu tập và sự kiện đặc biệt.",
       "placeholder": "Địa chỉ email",
       "button": "Gửi"
+    }
+  },
+  "BecomeSeller": {
+    "title": "Biến đam mê thủ công thành cửa hàng chuyên nghiệp",
+    "subtitle": "Gia nhập cộng đồng",
+    "description": "Tiếp cận hàng triệu người mua đang tìm kiếm sản phẩm chất lượng, thủ công và khác biệt.",
+    "benefits": {
+      "commission": {
+        "title": "Phí hoa hồng cạnh tranh",
+        "description": "Giữ lại tới 95% doanh thu với mức phí minh bạch và hợp lý."
+      },
+      "protection": {
+        "title": "Bảo vệ nhà bán hàng",
+        "description": "Thanh toán an toàn và cơ chế chống gian lận giúp bảo vệ dòng tiền của bạn."
+      },
+      "tools": {
+        "title": "Công cụ mở rộng kinh doanh",
+        "description": "Hỗ trợ vận hành và phát triển cửa hàng dễ dàng hơn khi quy mô tăng lên."
+      }
+    },
+    "formTitle": "Biểu mẫu đăng ký",
+    "storeName": "Tên gian hàng",
+    "storeNamePlaceholder": "Xưởng Nghệ Thuật Nyxoris",
+    "tagline": "Lĩnh vực",
+    "taglinePlaceholder": "Đồ thủ công cao cấp, Trang sức nghệ thuật...",
+    "shortDescription": "Giới thiệu ngắn gọn",
+    "shortDescriptionPlaceholder": "Kể về hành trình sáng tạo những tuyệt tác của bạn tại Nyxoris...",
+    "location": "Địa điểm / Khu vực",
+    "locationPlaceholder": "Hà Nội, Việt Nam",
+    "responseTime": "Thời gian phản hồi",
+    "responseTimePlaceholder": "Trong vòng vài giờ",
+    "defaultResponseTime": "Trong vòng vài giờ",
+    "trustNote": "Hệ thống sẽ tự động liên kết tài khoản của bạn với tư cách là Chủ sở hữu (Owner). Các chính sách vận chuyển và đổi trả có thể được cập nhật sau khi gian hàng được kích hoạt.",
+    "trustNoteTitle": "Thông tin xác thực:",
+    "submit": "Gửi đăng ký gian hàng",
+    "processing": "Đang xử lý...",
+    "successTitle": "Đã nhận đơn đăng ký!",
+    "successDesc": "Cảm ơn bạn đã đăng ký. Đội ngũ của chúng tôi sẽ xem xét hồ sơ gian hàng và phản hồi trong vòng 2-3 ngày làm việc.",
+    "viewSellers": "Xem danh sách nhà bán hàng",
+    "toastSuccess": "Đăng ký gian hàng thành công!",
+    "toastError": "Đã có lỗi xảy ra.",
+    "fetchError": "Không thể gửi yêu cầu. Vui lòng thử lại."
+  },
+  "Admin": {
+    "title": "Bảng điều khiển Admin",
+    "approvals": {
+      "title": "Duyệt gian hàng",
+      "subtitle": "Danh sách các yêu cầu xác minh đang chờ xử lý",
+      "noPending": "Không có gian hàng nào đang chờ duyệt.",
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "approving": "Đang duyệt...",
+      "success": "Đã duyệt gian hàng thành công",
+      "error": "Lỗi khi duyệt gian hàng",
+      "table": {
+        "name": "Tên gian hàng",
+        "owner": "Chủ sở hữu",
+        "location": "Địa điểm",
+        "date": "Ngày gửi",
+        "actions": "Hành động"
+      }
     }
   }
 }

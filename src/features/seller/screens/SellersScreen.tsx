@@ -12,7 +12,7 @@ export function SellersScreen() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState(t("all"))
 
-  const { data: allSellers = [] } = useQuery({
+  const { data: allSellers = [], isLoading } = useQuery({
     queryKey: sellerQueryKeys.all,
     queryFn: fetchAllSellers,
     staleTime: 5 * 60 * 1000,
@@ -24,6 +24,14 @@ export function SellersScreen() {
       container.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center pt-32">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    )
+  }
 
   const filteredSellers = allSellers.filter((seller) => {
     const matchesSearch = seller.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,9 +81,11 @@ export function SellersScreen() {
         ) : (
           <div className="store-surface-panel rounded-2xl py-24 text-center shadow-[0_18px_32px_rgb(15_23_42/0.1)]">
             <Store className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
-            <h3 className="mb-2 text-xl font-semibold text-foreground">{t("noSellersFound")}</h3>
+            <h3 className="mb-2 text-xl font-semibold text-foreground">
+              {allSellers.length === 0 ? t("noSellers") : t("noSellersFound")}
+            </h3>
             <p className="text-muted-foreground max-w-md mx-auto">
-              {t("noSellersFoundDesc")}
+              {allSellers.length === 0 ? t("noSellersDesc") : t("noSellersFoundDesc")}
             </p>
           </div>
         )}

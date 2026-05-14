@@ -57,3 +57,22 @@ export const sellerQueryKeys = {
   detail: (slug: string) => ["sellers", slug] as const,
   stats: ["sellers", "stats"] as const,
 }
+
+export interface CreateStoreRequest {
+  name: string;
+  description?: string;
+  tagline?: string;
+  location?: string;
+  responseTime?: string;
+  avatarUrl?: string;
+  coverImageUrl?: string;
+  shippingPolicy?: string;
+  returnPolicy?: string;
+  warrantyPolicy?: string;
+}
+
+/** Tạo store mới (Become Seller). Gọi POST /api/store/manage/stores. */
+export async function createStore(request: CreateStoreRequest): Promise<Result<any>> {
+  const response = await apiClient.post<Result<any>>("/api/store/manage/stores", request);
+  return response.data;
+}

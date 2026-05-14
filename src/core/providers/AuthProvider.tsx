@@ -63,6 +63,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     };
   }, []);
 
+
   const login = () => {
     if (keycloak) {
       keycloak.login().catch(console.error);

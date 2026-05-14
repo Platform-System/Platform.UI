@@ -1,7 +1,6 @@
 import { Header } from "@/shared/components/shell/header"
 import { Footer } from "@/shared/components/shell/footer"
 import { CartDrawer } from "@/features/cart"
-import { Toaster } from "@/shared/components/ui/sonner"
 import I18nProvider from "@/core/providers/I18nProvider"
 import { defaultLocale } from "@/i18n/config"
 import { AbstractIntlMessages } from "next-intl"
@@ -37,7 +36,6 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
           <Footer />
         </main>
         <CartDrawer />
-        <Toaster position="bottom-right" closeButton richColors />
       </div>
     </I18nProvider>
   );
