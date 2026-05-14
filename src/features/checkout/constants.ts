@@ -24,3 +24,4 @@ export const DEFAULT_FORM_DATA: CheckoutFormData = {
   addressLine: "123 Nguyen Luong Bang, Sunrise City",
   deliveryNote: "Giao gio hanh chinh, vui long goi truoc khi giao.",
 }
+

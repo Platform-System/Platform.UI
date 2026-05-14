@@ -145,7 +145,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       {trendingProducts.slice(0, 2).map((product) => (
                         <Link
                           key={product.id}
-                          href={`/store/product/${product.id}`}
+                          href={`/product/${product.id}`}
                           onClick={onClose}
                           className="group flex items-center gap-4 rounded-2xl p-2 transition-all hover:bg-muted/50"
                         >
@@ -223,7 +223,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         quickResults.map((product) => (
                           <Link
                             key={product.id}
-                            href={`/store/product/${product.id}`}
+                            href={`/product/${product.id}`}
                             onClick={onClose}
                             className="flex items-center gap-4 rounded-lg p-3 transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.08)]"
                           >
@@ -253,7 +253,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   {/* View All Results */}
                   <div className="mt-4 pt-2">
                     <Link
-                      href={`/store/marketplace?search=${encodeURIComponent(query)}`}
+                      href={`/marketplace?search=${encodeURIComponent(query)}`}
                       onClick={onClose}
                       className="store-accent-text flex items-center justify-center gap-2 py-3 transition-colors hover:opacity-80"
                     >
@@ -271,3 +271,4 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     </AnimatePresence>
   )
 }
+

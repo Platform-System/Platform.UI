@@ -30,9 +30,10 @@ export function PopularSellersSection() {
         </div>
 
         {/* View All */}
-        <SectionFooter href="/store/sellers" label="Xem tất cả nhà bán hàng" />
+        <SectionFooter href="/sellers" label="Xem tất cả nhà bán hàng" />
       </div>
     </section>
   )
 }
+
 

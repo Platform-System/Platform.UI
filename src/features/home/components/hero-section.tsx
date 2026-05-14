@@ -116,7 +116,7 @@ export function HeroSection() {
                   size="lg"
                   className="store-accent-button store-accent-button-strong h-14 px-8 text-base font-semibold"
                 >
-                  <Link href="/store/marketplace" scroll={false}>
+                  <Link href="/marketplace" scroll={false}>
                     Khám phá cửa hàng
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -127,7 +127,7 @@ export function HeroSection() {
                   size="lg"
                   className="store-surface-soft h-14 px-8 text-base text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.1)]"
                 >
-                  <Link href="/store/become-seller" scroll={false}>
+                  <Link href="/become-seller" scroll={false}>
                     <Play className="mr-2 h-5 w-5" />
                     Mở gian hàng
                   </Link>
@@ -275,4 +275,5 @@ export function HeroSection() {
     </section>
   )
 }
+
 

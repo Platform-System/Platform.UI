@@ -13,9 +13,9 @@ import {
 import { cn } from "@/shared/lib/utils"
 
 const customerLinks = [
-  { href: "/store/account", icon: User, label: "Tổng quan tài khoản" },
-  { href: "/store/wishlist", icon: Heart, label: "Danh sách yêu thích" },
-  { href: "/store/become-seller", icon: Store, label: "Mở gian hàng" },
+  { href: "/account", icon: User, label: "Tổng quan tài khoản" },
+  { href: "/wishlist", icon: Heart, label: "Danh sách yêu thích" },
+  { href: "/become-seller", icon: Store, label: "Mở gian hàng" },
 ]
 
 export function AccountSidebar() {
@@ -84,3 +84,4 @@ export function AccountSidebar() {
     </aside>
   )
 }
+

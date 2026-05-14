@@ -4,3 +4,4 @@ export const ENV = {
   KEYCLOAK_REALM: process.env.NEXT_PUBLIC_KEYCLOAK_REALM || 'platform',
   KEYCLOAK_CLIENT_ID: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID || 'platform-web',
 };
+

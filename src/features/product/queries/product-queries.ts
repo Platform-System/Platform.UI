@@ -49,3 +49,4 @@ export const productQueryKeys = {
   all: ["products"] as const,
   detail: (id: string) => ["products", id] as const,
 };
+

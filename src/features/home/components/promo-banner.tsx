@@ -19,7 +19,7 @@ export function PromoBanner() {
             viewport={{ once: true }}
             className="relative rounded-3xl overflow-hidden bg-charcoal group cursor-pointer"
           >
-            <Link href="/store/marketplace?filter=summer-sale" scroll={false} className="absolute inset-0 z-20" aria-label="Mua ngay ưu đãi" />
+            <Link href="/marketplace?filter=summer-sale" scroll={false} className="absolute inset-0 z-20" aria-label="Mua ngay ưu đãi" />
             <div className="absolute inset-0">
               <Image
                 src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&h=600&fit=crop"
@@ -46,7 +46,7 @@ export function PromoBanner() {
                 asChild
                 className="store-accent-button relative z-30 w-fit"
               >
-                <Link href="/store/marketplace?filter=summer-sale" scroll={false}>
+                <Link href="/marketplace?filter=summer-sale" scroll={false}>
                   Mua ưu đãi
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -63,7 +63,7 @@ export function PromoBanner() {
               viewport={{ once: true }}
             className="store-surface-panel relative cursor-pointer overflow-hidden rounded-3xl group"
             >
-              <Link href="/store/marketplace?category=beauty" scroll={false} className="absolute inset-0 z-20" aria-label="Tinh chọn làm đẹp" />
+              <Link href="/marketplace?category=beauty" scroll={false} className="absolute inset-0 z-20" aria-label="Tinh chọn làm đẹp" />
               <div className="absolute inset-0">
                 <Image
                   src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=300&fit=crop"
@@ -86,7 +86,7 @@ export function PromoBanner() {
                   size="icon"
                   className="store-surface-soft relative z-30 h-12 w-12 shrink-0 rounded-full text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.12)]"
                 >
-                  <Link href="/store/marketplace?category=beauty" scroll={false}>
+                  <Link href="/marketplace?category=beauty" scroll={false}>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -100,7 +100,7 @@ export function PromoBanner() {
               viewport={{ once: true }}
               className="relative rounded-3xl overflow-hidden bg-charcoal group cursor-pointer"
             >
-              <Link href="/store/marketplace?category=home" scroll={false} className="absolute inset-0 z-20" aria-label="Nhà cửa & Đời sống" />
+              <Link href="/marketplace?category=home" scroll={false} className="absolute inset-0 z-20" aria-label="Nhà cửa & Đời sống" />
               <div className="absolute inset-0">
                 <Image
                   src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=300&fit=crop"
@@ -123,7 +123,7 @@ export function PromoBanner() {
                   size="icon"
                   className="store-accent-button relative z-30 h-12 w-12 shrink-0 rounded-full"
                 >
-                  <Link href="/store/marketplace?category=home" scroll={false}>
+                  <Link href="/marketplace?category=home" scroll={false}>
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -135,4 +135,5 @@ export function PromoBanner() {
     </section>
   )
 }
+
 

@@ -197,7 +197,7 @@ export function AccountScreen() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <Link
-                            href={`/store/product/${item.id}`}
+                            href={`/product/${item.id}`}
                             className="line-clamp-2 text-sm font-semibold text-foreground transition-colors hover:store-accent-text"
                           >
                             {item.name}
@@ -233,7 +233,7 @@ export function AccountScreen() {
                       {t("wishlistEmptyDesc")}
                     </EmptyDescription>
                     <Button asChild className="store-accent-button store-accent-button-strong rounded-xl px-6">
-                      <Link href="/store/marketplace">{tc("exploreProducts")}</Link>
+                      <Link href="/marketplace">{tc("exploreProducts")}</Link>
                     </Button>
                   </Empty>
                 )}
@@ -245,3 +245,4 @@ export function AccountScreen() {
     </div>
   )
 }
+

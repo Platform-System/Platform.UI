@@ -151,3 +151,4 @@ export const FilterBar = React.forwardRef<HTMLDivElement, FilterBarProps>(
 )
 
 FilterBar.displayName = "FilterBar"
+

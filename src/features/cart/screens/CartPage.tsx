@@ -34,7 +34,7 @@ export function CartPage() {
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Link
-              href="/store/marketplace"
+              href="/marketplace"
               className="store-muted-text mb-4 inline-flex items-center gap-2 text-sm transition-colors hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -78,7 +78,7 @@ export function CartPage() {
             </Empty>
 
             <Button asChild className="store-accent-button store-accent-button-strong mt-8 rounded-full px-8">
-              <Link href="/store/marketplace">{t("exploreProducts")}</Link>
+              <Link href="/marketplace">{t("exploreProducts")}</Link>
             </Button>
           </div>
         ) : (
@@ -97,7 +97,7 @@ export function CartPage() {
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div className="min-w-0">
                         <Link
-                          href={`/store/product/${item.id}`}
+                          href={`/product/${item.id}`}
                           className="line-clamp-2 text-lg font-semibold tracking-[-0.02em] text-foreground transition-colors hover:store-accent-text"
                         >
                           {item.name}
@@ -216,10 +216,10 @@ export function CartPage() {
 
               <div className="mt-6 space-y-3">
                 <Button asChild className="store-accent-button store-accent-button-strong h-12 w-full rounded-full">
-                  <Link href="/store/checkout">{t("proceedToCheckout")}</Link>
+                  <Link href="/checkout">{t("proceedToCheckout")}</Link>
                 </Button>
                 <Button asChild variant="outline" className="h-12 w-full rounded-full">
-                  <Link href="/store/marketplace">{t("continueShopping")}</Link>
+                  <Link href="/marketplace">{t("continueShopping")}</Link>
                 </Button>
               </div>
             </aside>
@@ -229,3 +229,4 @@ export function CartPage() {
     </div>
   )
 }
+

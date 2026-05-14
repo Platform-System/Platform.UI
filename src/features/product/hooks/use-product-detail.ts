@@ -83,7 +83,7 @@ export function useProductDetail(id: string) {
   }
 
   const handleShare = async () => {
-    const shareUrl = `${window.location.origin}/store/product/${product.id}`
+    const shareUrl = `${window.location.origin}/product/${product.id}`
     try {
       await navigator.clipboard.writeText(shareUrl)
       toast.success(t("share.copied"), {
@@ -120,3 +120,4 @@ export function useProductDetail(id: string) {
     isError,
   }
 }
+

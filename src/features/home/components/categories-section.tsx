@@ -46,7 +46,7 @@ export function CategoriesSection() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Link href={`/store/marketplace?category=${category.id}`} className="group block" scroll={false}>
+                <Link href={`/marketplace?category=${category.id}`} className="group block" scroll={false}>
                   <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted">
                     <Image
                       src={category.image}
@@ -82,8 +82,9 @@ export function CategoriesSection() {
         </div>
 
         {/* Link xem tất cả */}
-        <SectionFooter href="/store/marketplace" label="Xem tất cả danh mục" />
+        <SectionFooter href="/marketplace" label="Xem tất cả danh mục" />
       </div>
     </section>
   )
 }
+

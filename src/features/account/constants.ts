@@ -9,3 +9,4 @@ export const DEFAULT_PROFILE: StoreProfile = {
   avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
   joinedDate: "October 2024",
 }
+

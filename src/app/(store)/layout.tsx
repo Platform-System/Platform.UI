@@ -40,3 +40,4 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
     </I18nProvider>
   );
 }
+

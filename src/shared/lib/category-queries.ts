@@ -56,3 +56,4 @@ export const useCategories = () => {
     staleTime: 1000 * 60 * 10,
   });
 };
+

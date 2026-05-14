@@ -91,9 +91,10 @@ export function FeaturedProductsSection() {
         </AnimatePresence>
 
         {/* Nút xem tất cả */}
-        <SectionFooter href="/store/marketplace" label="Xem tất cả sản phẩm" />
+        <SectionFooter href="/marketplace" label="Xem tất cả sản phẩm" />
       </div>
     </section>
   )
 }
+
 

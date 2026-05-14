@@ -81,10 +81,10 @@ export function SellerStorefrontScreen() {
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild className="store-accent-button rounded-full px-8">
-                <Link href="/store/sellers">{t("viewAllSellers")}</Link>
+                <Link href="/sellers">{t("viewAllSellers")}</Link>
               </Button>
               <Button asChild variant="outline" className="rounded-full px-8">
-                <Link href="/store/marketplace">{t("backToStore")}</Link>
+                <Link href="/marketplace">{t("backToStore")}</Link>
               </Button>
             </div>
           </div>
@@ -438,3 +438,4 @@ export function SellerStorefrontScreen() {
     </div>
   )
 }
+

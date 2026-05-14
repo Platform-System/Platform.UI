@@ -84,3 +84,4 @@ export function SectionFooter({ href, label, className }: SectionFooterProps) {
     </motion.div>
   )
 }
+

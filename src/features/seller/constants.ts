@@ -241,3 +241,4 @@ export function mapSellerProducts(slug: string): SellerProduct[] {
       }))
   }
 }
+

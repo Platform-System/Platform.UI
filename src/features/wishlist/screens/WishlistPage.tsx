@@ -41,7 +41,7 @@ export function Wishlist() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 mb-10">
           <div>
-            <Link href="/store/marketplace" className="store-muted-text mb-4 inline-flex items-center gap-2 text-sm transition-colors hover:text-foreground">
+            <Link href="/marketplace" className="store-muted-text mb-4 inline-flex items-center gap-2 text-sm transition-colors hover:text-foreground">
               <ArrowLeft className="h-4 w-4" />
               {tc("backToStore")}
             </Link>
@@ -84,7 +84,7 @@ export function Wishlist() {
                 </EmptyDescription>
               </Empty>
               <Button asChild className="store-accent-button store-accent-button-strong h-12 rounded-full px-8 font-semibold">
-                <Link href="/store/marketplace">{t("exploreNow")}</Link>
+                <Link href="/marketplace">{t("exploreNow")}</Link>
               </Button>
             </motion.div>
           ) : (
@@ -154,3 +154,4 @@ export function Wishlist() {
     </div>
   )
 }
+

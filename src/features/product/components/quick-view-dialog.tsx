@@ -283,7 +283,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                   variant="ghost"
                   className="store-surface-soft store-muted-text flex h-10 w-full items-center justify-center gap-2 rounded-xl text-xs font-medium transition-all hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
                 >
-                  <Link href={`/store/product/${fullProduct.id}`}>
+                  <Link href={`/product/${fullProduct.id}`}>
                     Xem chi tiết
                   </Link>
                 </Button>
@@ -364,7 +364,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 className="store-surface-soft store-muted-text h-10 w-10 rounded-xl border-[rgb(var(--store-border-rgb)/0.9)] hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
                 onClick={(e) => {
                   e.stopPropagation()
-                  navigator.clipboard.writeText(`${window.location.origin}/store/product/${fullProduct.id}`)
+                  navigator.clipboard.writeText(`${window.location.origin}/product/${fullProduct.id}`)
                 }}
               >
                 <Share2 className="h-3.5 w-3.5" />
@@ -377,3 +377,4 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
     </Dialog>
   )
 }
+

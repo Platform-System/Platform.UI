@@ -6,3 +6,4 @@ import { HomeScreen } from "@/features/home"
 export default function StoreHome() {
   return <HomeScreen />
 }
+

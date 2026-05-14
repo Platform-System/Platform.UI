@@ -69,3 +69,4 @@ export function ProductGridSkeleton({ count = 8, className }: { count?: number; 
     </div>
   )
 }
+

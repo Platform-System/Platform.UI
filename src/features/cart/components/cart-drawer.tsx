@@ -275,7 +275,7 @@ export function CartDrawer() {
                 <p className="store-muted-text mb-3 text-xs leading-relaxed">{t("shippingNote")}</p>
                 <div className="flex gap-2">
                   <Link
-                    href="/store/cart"
+                    href="/cart"
                     onClick={() => setIsOpen(false)}
                     className="store-accent-button flex h-10 flex-1 items-center justify-center rounded-full text-xs font-semibold"
                   >
@@ -295,3 +295,4 @@ export function CartDrawer() {
     </Sheet>
   )
 }
+

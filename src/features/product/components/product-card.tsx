@@ -38,7 +38,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       viewport={{ once: true }}
     >
       {/* Khung ảnh */}
-      <Link href={`/store/product/${product.id}`} className="block">
+      <Link href={`/product/${product.id}`} className="block">
         <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-muted/70">
           {/* Ảnh chính */}
             <Image
@@ -155,7 +155,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <div className="mt-4 space-y-2.5">
         {/* Seller */}
         <Link
-          href={`/store/seller/${product.seller.name.toLowerCase().replace(/\s+/g, "-")}`}
+          href={`/seller/${product.seller.name.toLowerCase().replace(/\s+/g, "-")}`}
           className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
           {product.seller.name}
@@ -165,7 +165,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </Link>
 
         {/* Tên sản phẩm */}
-        <Link href={`/store/product/${product.id}`}>
+        <Link href={`/product/${product.id}`}>
           <h3 className="line-clamp-2 font-semibold tracking-[-0.01em] text-foreground transition-colors hover:store-accent-text">
             {product.name}
           </h3>
@@ -197,4 +197,5 @@ export function ProductCard({ product, className }: ProductCardProps) {
     </motion.div>
   )
 }
+
 

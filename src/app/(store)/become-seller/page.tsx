@@ -98,7 +98,7 @@ export default function BecomeSellerPage() {
               <Button 
                 variant="outline" 
                 className="mt-4 rounded-xl"
-                onClick={() => window.location.href = "/store/sellers"}
+                onClick={() => window.location.href = "/sellers"}
               >
                 {t("viewSellers")}
               </Button>
@@ -196,3 +196,4 @@ export default function BecomeSellerPage() {
     </div>
   )
 }
+

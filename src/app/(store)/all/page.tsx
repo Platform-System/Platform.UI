@@ -1,8 +1,9 @@
 import { redirect } from '@/i18n/navigation';
 
 /**
- * Legacy alias for the canonical `/store` landing page.
+ * Legacy alias for the marketplace listing.
  */
 export default function AllProductsPage() {
-  redirect('/store');
+  redirect('/marketplace');
 }
+

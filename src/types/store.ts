@@ -78,3 +78,4 @@ export interface StoreProfile {
   avatar: string
   joinedDate: string
 }
+

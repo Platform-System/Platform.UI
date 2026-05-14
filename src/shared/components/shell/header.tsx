@@ -47,10 +47,10 @@ export function Header() {
 
   const isActive = (path: string) => {
     const fullPath = pathname.startsWith("/") ? pathname : `/${pathname}`
-    if (path === "/store/marketplace" && (fullPath.includes("/store/product/") || fullPath.includes("/store/marketplace"))) {
+    if (path === "/marketplace" && (fullPath.includes("/product/") || fullPath.includes("/marketplace"))) {
       return true
     }
-    if (path === "/store/sellers" && (fullPath.includes("/store/seller/") || fullPath.includes("/store/sellers"))) {
+    if (path === "/sellers" && (fullPath.includes("/seller/") || fullPath.includes("/sellers"))) {
       return true
     }
     return fullPath === path || fullPath.includes(path)
@@ -94,7 +94,7 @@ export function Header() {
             isScrolled ? "h-14" : "h-16"
           )}>
             {/* Nhãn store */}
-            <Link href="/store/home" className="flex items-center group">
+            <Link href="/home" className="flex items-center group">
               <span className="font-serif text-xl font-bold tracking-[0.05em] text-foreground uppercase transition-all duration-300 group-hover:store-accent-text">
                 {t("brandName")}
               </span>
@@ -104,10 +104,10 @@ export function Header() {
             {/* Điều hướng desktop */}
             <nav className="hidden lg:flex items-center gap-8">
               <Link
-                href="/store/marketplace"
+                href="/marketplace"
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  isActive("/store/marketplace") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive("/marketplace") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Cửa hàng
@@ -130,7 +130,7 @@ export function Header() {
                   {categories.map((category) => (
                     <Link
                       key={category.id}
-                      href={`/store/marketplace?category=${category.slug}`}
+                      href={`/marketplace?category=${category.slug}`}
                       onClick={() => setIsCategoryOpen(false)}
                       className="store-muted-text block w-full rounded-lg px-3 py-2 text-sm transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
                     >
@@ -141,19 +141,19 @@ export function Header() {
               </div>
 
               <Link
-                href="/store/sellers"
+                href="/sellers"
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  isActive("/store/sellers") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive("/sellers") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Nhà bán hàng
               </Link>
               <Link
-                href="/store/become-seller"
+                href="/become-seller"
                 className={cn(
                   "text-sm font-medium transition-colors",
-                  isActive("/store/become-seller") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive("/become-seller") ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 Mở gian hàng
@@ -174,7 +174,7 @@ export function Header() {
               </Button>
 
               <Button variant="ghost" size="icon" asChild className="relative hidden sm:flex text-foreground hover:store-accent-text">
-                <Link href="/store/wishlist">
+                <Link href="/wishlist">
                   <Heart className="h-5 w-5" />
                   {wishlistCount > 0 && (
                     <Badge className="store-accent-button absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-none p-0 text-[9px] font-semibold shadow-sm">
@@ -231,19 +231,19 @@ export function Header() {
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link href="/store/account" className="cursor-pointer">
+                      <Link href="/account" className="cursor-pointer">
                         <User className="mr-2 h-4 w-4" />
                         <span>Hồ sơ cá nhân</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/store/account/orders" className="cursor-pointer">
+                      <Link href="/account/orders" className="cursor-pointer">
                         <ShoppingBag className="mr-2 h-4 w-4" />
                         <span>Đơn hàng</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/store/account/settings" className="cursor-pointer">
+                      <Link href="/account/settings" className="cursor-pointer">
                         <Settings className="mr-2 h-4 w-4" />
                         <span>Cài đặt</span>
                       </Link>
@@ -305,7 +305,7 @@ export function Header() {
 
                 <nav className="space-y-2">
                   <Link
-                    href="/store/marketplace"
+                    href="/marketplace"
                     className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -320,7 +320,7 @@ export function Header() {
                         {categories.map((category) => (
                           <Link
                             key={category.id}
-                            href={`/store/marketplace?category=${category.slug}`}
+                            href={`/marketplace?category=${category.slug}`}
                             className="store-muted-text block rounded-xl px-4 py-2 text-sm transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
@@ -331,7 +331,7 @@ export function Header() {
                     </AccordionItem>
                   </Accordion>
                   <Link
-                    href="/store/wishlist"
+                    href="/wishlist"
                     className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium flex items-center justify-between text-sm"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -343,14 +343,14 @@ export function Header() {
                     )}
                   </Link>
                   <Link
-                    href="/store/sellers"
+                    href="/sellers"
                     className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Nhà bán hàng
                   </Link>
                   <Link
-                    href="/store/become-seller"
+                    href="/become-seller"
                     className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -359,7 +359,7 @@ export function Header() {
                   {isAuthenticated ? (
                     <>
                       <Link
-                        href="/store/account"
+                        href="/account"
                         className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm flex items-center"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -400,3 +400,4 @@ export function Header() {
     </>
   )
 }
+

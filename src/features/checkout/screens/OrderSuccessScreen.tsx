@@ -109,13 +109,13 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild className="store-accent-button store-accent-button-strong h-14 rounded-full px-8">
-              <Link href="/store/marketplace">
+              <Link href="/marketplace">
                 {tc("exploreProducts")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" className="h-14 rounded-full px-8">
-              <Link href="/store/home">Quay lại trang chủ</Link>
+              <Link href="/home">Quay lại trang chủ</Link>
             </Button>
           </div>
         </motion.div>
@@ -128,3 +128,4 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
     </div>
   )
 }
+

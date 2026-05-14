@@ -328,3 +328,4 @@ export const sellerStats = [
   { label: "Doanh số mỗi tháng", value: "$12M+" },
   { label: "Khách hàng hài lòng", value: "500,000+" },
 ]
+

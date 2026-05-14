@@ -76,3 +76,4 @@ export async function createStore(request: CreateStoreRequest): Promise<Result<a
   const response = await apiClient.post<Result<any>>("/api/store/manage/stores", request);
   return response.data;
 }
+

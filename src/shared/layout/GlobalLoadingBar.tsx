@@ -30,3 +30,4 @@ export const GlobalLoadingBar = ({ isPending }: { isPending?: boolean }) => {
     </div>
   )
 }
+

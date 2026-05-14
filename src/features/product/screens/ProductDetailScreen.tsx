@@ -98,10 +98,10 @@ export function ProductDetailScreen() {
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
-                <Link href="/store/marketplace">{ts("backToStore")}</Link>
+                <Link href="/marketplace">{ts("backToStore")}</Link>
               </Button>
               <Button asChild variant="outline" className="rounded-full px-8">
-                <Link href="/store/home">{t("backToHome")}</Link>
+                <Link href="/home">{t("backToHome")}</Link>
               </Button>
             </div>
           </div>
@@ -130,19 +130,19 @@ export function ProductDetailScreen() {
           <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8 text-sm">
             <ol className="flex items-center gap-2 text-muted-foreground">
               <li>
-                <Link href="/store/home" className="hover:text-foreground">
+                <Link href="/home" className="hover:text-foreground">
                   {t("breadcrumb.home")}
                 </Link>
               </li>
               <li>/</li>
               <li>
-                <Link href="/store/marketplace" className="hover:text-foreground">
+                <Link href="/marketplace" className="hover:text-foreground">
                   {t("breadcrumb.store")}
                 </Link>
               </li>
               <li>/</li>
               <li>
-                <Link href={`/store/marketplace?category=${baseProduct.category}`} className="hover:text-foreground">
+                <Link href={`/marketplace?category=${baseProduct.category}`} className="hover:text-foreground">
                   {product.categoryName}
                 </Link>
               </li>
@@ -227,7 +227,7 @@ export function ProductDetailScreen() {
               className="lg:col-span-7 lg:sticky lg:top-24 lg:self-start"
             >
               <Link
-                href={`/store/seller/${product.seller.slug}`}
+                href={`/seller/${product.seller.slug}`}
                 className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="relative h-6 w-6 overflow-hidden rounded-full">
@@ -418,7 +418,7 @@ export function ProductDetailScreen() {
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button variant="outline" asChild className="rounded-2xl px-5">
-                  <Link href={`/store/seller/${product.seller.slug}`}>{t("viewStore")}</Link>
+                  <Link href={`/seller/${product.seller.slug}`}>{t("viewStore")}</Link>
                 </Button>
                 <Button className="store-accent-button rounded-2xl">
                   <MessageCircle className="mr-2 h-4 w-4" />
@@ -705,3 +705,4 @@ export function ProductDetailScreen() {
     </main>
   )
 }
+

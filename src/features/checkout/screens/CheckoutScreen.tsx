@@ -66,10 +66,10 @@ export function CheckoutScreen() {
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
-                <Link href="/store/marketplace">{tc("exploreProducts")}</Link>
+                <Link href="/marketplace">{tc("exploreProducts")}</Link>
               </Button>
               <Button asChild variant="outline" className="rounded-full px-8">
-                <Link href="/store/cart">{tc("backToStore")}</Link>
+                <Link href="/cart">{tc("backToStore")}</Link>
               </Button>
             </div>
           </div>
@@ -83,7 +83,7 @@ export function CheckoutScreen() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <Link
-            href="/store/cart"
+            href="/cart"
             className="store-muted-text mb-4 inline-flex items-center gap-2 text-sm transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -228,7 +228,7 @@ export function CheckoutScreen() {
             </Button>
 
             <Button asChild variant="outline" className="mt-3 h-12 w-full rounded-full">
-              <Link href="/store/cart">{tc("backToStore")}</Link>
+              <Link href="/cart">{tc("backToStore")}</Link>
             </Button>
           </aside>
         </div>
@@ -236,3 +236,4 @@ export function CheckoutScreen() {
     </div>
   )
 }
+

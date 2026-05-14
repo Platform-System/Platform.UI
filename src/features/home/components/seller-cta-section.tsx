@@ -139,7 +139,7 @@ export function SellerCtaSection() {
             size="lg"
             className="store-accent-button h-14 px-10 text-base font-semibold"
           >
-            <Link href="/store/become-seller" scroll={false}>
+            <Link href="/become-seller" scroll={false}>
               {t("cta")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
@@ -152,4 +152,5 @@ export function SellerCtaSection() {
     </section>
   )
 }
+
 

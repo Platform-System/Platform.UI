@@ -28,3 +28,4 @@ export function redirect(input: LocalizedHref, ...args: Parameters<typeof nextRe
   const href = typeof input === 'object' && 'href' in input ? input.href : input;
   nextRedirect(href as string, ...args);
 }
+

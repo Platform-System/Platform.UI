@@ -23,7 +23,7 @@ export function SellerCard({ seller }: SellerCardProps) {
       className="store-surface-panel group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-lg"
     >
       {/* Link Overlay */}
-      <Link href={`/store/seller/${seller.slug}`} scroll={false} className="absolute inset-0 z-20" aria-label={`Xem gian hàng ${seller.name}`} />
+      <Link href={`/seller/${seller.slug}`} scroll={false} className="absolute inset-0 z-20" aria-label={`Xem gian hàng ${seller.name}`} />
 
       {/* Cover Image */}
       <div className="relative h-24 overflow-hidden">
@@ -51,7 +51,7 @@ export function SellerCard({ seller }: SellerCardProps) {
 
       {/* Content */}
       <div className="p-5 pt-3 text-center flex flex-col flex-grow">
-        <Link href={`/store/seller/${seller.slug}`} scroll={false}>
+        <Link href={`/seller/${seller.slug}`} scroll={false}>
           <h3 className="font-semibold transition-colors hover:store-accent-text">{seller.name}</h3>
         </Link>
 
@@ -94,9 +94,10 @@ export function SellerCard({ seller }: SellerCardProps) {
 
         {/* CTA */}
         <Button asChild variant="outline" className="relative z-30 mt-5 w-full transition-all duration-300 group-hover:bg-[rgb(var(--store-accent-rgb)/0.1)]">
-          <Link href={`/store/seller/${seller.slug}`} scroll={false}>Xem gian hàng</Link>
+          <Link href={`/seller/${seller.slug}`} scroll={false}>Xem gian hàng</Link>
         </Button>
       </div>
     </motion.div>
   )
 }
+

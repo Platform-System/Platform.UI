@@ -16,3 +16,4 @@ export default function I18nProvider({ messages, locale, children }: I18nProvide
     </NextIntlClientProvider>
   )
 }
+
