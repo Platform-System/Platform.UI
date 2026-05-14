@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  /* Édition Ivoire & Vermillon - Vibrant Light Luxury Theme */
-  --background: #FAF9F5; /* Warm Ivory/Alabaster */
-  --foreground: #231F1C; /* Deep Espresso */
+  /* Nyxoris Platform - Modern Winter/Cosmic Theme */
+  --background: #F8FAFC; /* Slate 50 */
+  --foreground: #0F172A; /* Slate 900 */
   --card: #FFFFFF;
   --popover: #FFFFFF;
 
-  /* Nguồn chỉnh màu chính: Vibrant Vermilion (Hermès Orange) & Warm Ivory */
-  --store-accent-rgb: 217 83 31; /* Vibrant Vermilion / Hermès Orange */
-  --store-star-rgb: 234 162 33; /* Warm Amber Gold for Ratings */
-  --store-accent-soft-alpha: 0.08;
-  --store-accent-soft-hover-alpha: 0.12;
-  --store-accent-glow-alpha: 0.15;
-  --store-accent-glow-subtle-alpha: 0.06;
-  --store-accent-shadow-alpha: 0.2;
-  --store-accent-shadow-strong-alpha: 0.3;
+  /* Nguồn chỉnh màu chính: Cosmic Indigo & Slate */
+  --store-accent-rgb: 99 102 241; /* Indigo 500 */
+  --store-star-rgb: 250 204 21; /* Yellow 400 for Ratings */
+  --store-accent-soft-alpha: 0.1;
+  --store-accent-soft-hover-alpha: 0.15;
+  --store-accent-glow-alpha: 0.2;
+  --store-accent-glow-subtle-alpha: 0.08;
+  --store-accent-shadow-alpha: 0.25;
+  --store-accent-shadow-strong-alpha: 0.4;
   
-  --store-surface-rgb: 255 255 255; /* Pure White for clear glassmorphism */
-  --store-surface-strong-rgb: 250 248 244; /* Elevated Ivory Panel */
-  --store-border-rgb: 235 228 218; /* Elegant Warm Borders */
-  --store-muted-rgb: 135 125 110; /* Sophisticated Warm Muted Text */
-  --store-ink-rgb: 28 24 20; /* Deep Espresso for Dark Contrast Sections */
+  --store-surface-rgb: 255 255 255; /* Pure White */
+  --store-surface-strong-rgb: 241 245 249; /* Slate 100 */
+  --store-border-rgb: 226 232 240; /* Slate 200 */
+  --store-muted-rgb: 100 116 139; /* Slate 500 */
+  --store-ink-rgb: 15 23 42; /* Slate 900 */
 
   /* Missing Shadcn Tokens for UI Components */
   --destructive: #CB2B2B; /* Elegant Deep Red */
@@ -85,7 +85,7 @@ body {
   /* Token riêng cho khu vực /store:
      Các UI dùng chung như Button, Badge, Input, Calendar... trong store sẽ ăn theo bảng màu này. */
   --color-primary: rgb(var(--store-accent-rgb));
-  --color-primary-foreground: #fffaf2;
+  --color-primary-foreground: #ffffff;
   --color-secondary: rgb(var(--store-surface-rgb));
   --color-secondary-foreground: rgb(var(--store-ink-rgb));
   --color-ring: rgb(var(--store-accent-rgb));
@@ -163,7 +163,7 @@ body {
 
   .store-accent-button {
     background-color: rgb(var(--store-accent-rgb));
-    color: #fffaf2;
+    color: #ffffff;
     box-shadow: 0 10px 20px rgb(var(--store-accent-rgb) / var(--store-accent-shadow-alpha));
     transition:
       background-color 180ms ease,
@@ -186,7 +186,7 @@ body {
 
   .store-accent-hover-bg:hover {
     background-color: rgb(var(--store-accent-rgb));
-    color: #fffaf2;
+    color: #ffffff;
   }
 
   .store-surface-panel {
