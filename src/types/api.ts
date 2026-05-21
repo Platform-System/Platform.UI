@@ -1,14 +1,6 @@
-export interface Result<T> {
-  success: boolean;
-  data: T;
-  statusCode: number;
-  message?: string;
-}
+import type { Result as SharedResult, PagedResult as SharedPagedResult } from '@platform/api-client';
 
-export interface PagedResult<T> {
-  items: T[];
-  totalCount: number;
-  page: number;
-  pageSize: number;
-}
+export type Result<T> = SharedResult<T>;
+export type PagedResult<T> = SharedPagedResult<T>;
+
 

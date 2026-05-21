@@ -44,3 +44,7 @@ dev-server.err.log
 *.tsbuildinfo
 next-env.d.ts
 .gemini/
+
+# playwright
+/test-results/
+/playwright-report/
