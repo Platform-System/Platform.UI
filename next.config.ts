@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   compress: true,
   poweredByHeader: false,
+  transpilePackages: ["@platform/design-system"],
   experimental: {
     externalDir: true,
   },
