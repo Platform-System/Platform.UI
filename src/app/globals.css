@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "../../../Platform.DesignSystemUI/src/index.css";
+@import "@platform/design-system/index.css";
 
 :root {
   /* Nyxoris Platform - Modern Winter/Cosmic Theme */
