@@ -1,7 +1,6 @@
 "use client"
 
-import { Skeleton } from "@/shared/components/ui/skeleton"
-import { cn } from "@/shared/lib/utils"
+import { Skeleton, cn } from "@platform/design-system"
 
 interface ProductCardSkeletonProps {
   className?: string

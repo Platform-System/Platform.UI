@@ -4,18 +4,18 @@ import React from "react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { Link } from "@/i18n/navigation"
-import { useCart } from "../context/CartContext"
 import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/components/ui/select"
-import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/shared/components/ui/empty"
+} from "@platform/design-system"
+import { Link } from "@/i18n/navigation"
+import { useCart } from "../context/CartContext"
 import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
+import { EmptyStatePanel } from "@platform/design-system"
 
 export function CartPage() {
   const t = useTranslations("Cart")
@@ -61,33 +61,24 @@ export function CartPage() {
         </div>
 
         {cartItems.length === 0 ? (
-          <div className="store-surface-panel mx-auto flex max-w-2xl flex-col items-center rounded-[32px] px-6 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]">
-            <Empty className="border-none bg-transparent p-0">
-              <EmptyMedia
-                variant="icon"
-                className="store-surface-soft store-muted-text mx-auto flex h-20 w-20 items-center justify-center rounded-full shadow-[0_10px_28px_rgb(15_23_42/0.08)]"
-              >
-                <ShoppingBag className="h-10 w-10" />
-              </EmptyMedia>
-              <EmptyTitle className="mt-5 text-xl font-semibold text-foreground">
-                {t("empty")}
-              </EmptyTitle>
-              <EmptyDescription className="store-muted-text mt-3 max-w-sm leading-7">
-                {t("emptyDescAction")}
-              </EmptyDescription>
-            </Empty>
-
-            <Button asChild className="store-accent-button store-accent-button-strong mt-8 rounded-full px-8">
-              <Link href="/marketplace">{t("exploreProducts")}</Link>
-            </Button>
-          </div>
+          <EmptyStatePanel
+            icon={<ShoppingBag className="h-10 w-10" />}
+            title={t("empty")}
+            description={t("emptyDescAction")}
+            primaryActionNode={
+              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+                <Link href="/marketplace">{t("exploreProducts")}</Link>
+              </Button>
+            }
+            descriptionClassName="max-w-sm leading-7"
+          />
         ) : (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
             <section className="space-y-5">
               {cartItems.map((item) => (
                 <article
                   key={`${item.id}-${item.color}-${item.size}`}
-                  className="store-surface-panel grid gap-5 rounded-[28px] p-5 shadow-[0_14px_36px_rgb(15_23_42/0.08)] sm:grid-cols-[140px_minmax(0,1fr)]"
+                  className="ds-glass-panel grid gap-5 rounded-[28px] p-5 shadow-[0_14px_36px_rgb(15_23_42/0.08)] sm:grid-cols-[140px_minmax(0,1fr)]"
                 >
                   <div className="store-surface-soft relative aspect-square overflow-hidden rounded-2xl">
                     <Image src={item.image} alt={item.name} fill className="object-cover" />
@@ -119,7 +110,7 @@ export function CartPage() {
                     <div className="grid gap-3 sm:grid-cols-2">
                       <Select
                         value={item.color ?? "Đen"}
-                        onValueChange={(value) =>
+                        onValueChange={(value: string) =>
                           updateItemVariant(item.id, item.color, item.size, { color: value })
                         }
                       >
@@ -137,7 +128,7 @@ export function CartPage() {
 
                       <Select
                         value={item.size ?? "Vừa"}
-                        onValueChange={(value) =>
+                        onValueChange={(value: string) =>
                           updateItemVariant(item.id, item.color, item.size, { size: value })
                         }
                       >
@@ -180,7 +171,7 @@ export function CartPage() {
               ))}
             </section>
 
-            <aside className="store-surface-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)] lg:sticky lg:top-28">
+            <aside className="ds-glass-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)] lg:sticky lg:top-28">
               <p className="store-muted-text text-[11px] uppercase tracking-[0.18em]">
                 {t("orderSummary")}
               </p>

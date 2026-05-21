@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    externalDir: true,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

@@ -1,7 +1,7 @@
 export const STORE_ORDERS_KEY = "nyx_orders"
 
 export type DeliveryMethod = "standard" | "express"
-export type PaymentMethod = "cod" | "card" | "banking"
+export type PaymentMethod = "wallet" | "payment"
 
 export type CheckoutFormData = {
   customerName: string

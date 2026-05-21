@@ -1,4 +1,4 @@
-import { ChartConfig } from "@/shared/components/ui/chart"
+import { type ChartConfig } from "@platform/design-system"
 import { Product } from "@/types/store"
 
 export const REVIEWS = [

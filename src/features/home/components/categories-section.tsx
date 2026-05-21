@@ -70,7 +70,7 @@ export function CategoriesSection() {
                     <motion.div
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 0 }}
-                      className="store-surface-panel absolute right-4 top-4 rounded-full p-2 opacity-0 transition-opacity group-hover:opacity-100"
+                      className="ds-glass-panel absolute right-4 top-4 rounded-full p-2 opacity-0 transition-opacity group-hover:opacity-100"
                     >
                       <ArrowRight className="h-4 w-4 text-foreground" />
                     </motion.div>

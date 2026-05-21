@@ -3,13 +3,11 @@
 import * as React from "react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
+import { Button, Empty, EmptyDescription, EmptyMedia, EmptyTitle, Input } from "@platform/design-system"
 import { User, Package, Heart, Settings, LogOut, ShoppingBag } from "lucide-react"
 import { Link } from "@/i18n/navigation"
-import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/shared/components/ui/empty"
 import { useAccount } from "../hooks/use-account"
-import { StoreOrder, StoreProfile } from "@/types/store"
+import { StoreOrder } from "@/types/store"
 
 export function AccountScreen() {
   const t = useTranslations("Account")
@@ -26,7 +24,6 @@ export function AccountScreen() {
     wishlistItems,
     addToCart,
     updateProfileField,
-    translateOrderStatus,
     statusClassName,
   } = useAccount()
 
@@ -76,7 +73,7 @@ export function AccountScreen() {
             </button>
           </div>
 
-          <div className="store-surface-panel rounded-3xl p-6 shadow-2xl sm:p-8 md:col-span-3">
+          <div className="ds-glass-panel rounded-3xl p-6 shadow-2xl sm:p-8 md:col-span-3">
             {activeTab === "profile" && (
               <div className="flex flex-col">
                 <div className="mb-6 flex items-center justify-between gap-4">
@@ -108,7 +105,7 @@ export function AccountScreen() {
                       <Input
                         className="h-11 rounded-xl"
                         value={profile.name}
-                        onChange={(event) => updateProfileField("name", event.target.value)}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateProfileField("name", event.target.value)}
                       />
                     ) : (
                       <span className="store-surface-soft rounded-xl border px-3 py-2 text-sm font-medium">
@@ -122,7 +119,7 @@ export function AccountScreen() {
                       <Input
                         className="h-11 rounded-xl"
                         value={profile.email}
-                        onChange={(event) => updateProfileField("email", event.target.value)}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateProfileField("email", event.target.value)}
                       />
                     ) : (
                       <span className="store-surface-soft rounded-xl border px-3 py-2 text-sm font-medium">

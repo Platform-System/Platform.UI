@@ -8,22 +8,6 @@
   --card: #FFFFFF;
   --popover: #FFFFFF;
 
-  /* Nguồn chỉnh màu chính: Cosmic Indigo & Slate */
-  --store-accent-rgb: 99 102 241; /* Indigo 500 */
-  --store-star-rgb: 250 204 21; /* Yellow 400 for Ratings */
-  --store-accent-soft-alpha: 0.1;
-  --store-accent-soft-hover-alpha: 0.15;
-  --store-accent-glow-alpha: 0.2;
-  --store-accent-glow-subtle-alpha: 0.08;
-  --store-accent-shadow-alpha: 0.25;
-  --store-accent-shadow-strong-alpha: 0.4;
-  
-  --store-surface-rgb: 255 255 255; /* Pure White */
-  --store-surface-strong-rgb: 241 245 249; /* Slate 100 */
-  --store-border-rgb: 226 232 240; /* Slate 200 */
-  --store-muted-rgb: 100 116 139; /* Slate 500 */
-  --store-ink-rgb: 15 23 42; /* Slate 900 */
-
   /* Missing Shadcn Tokens for UI Components */
   --destructive: #CB2B2B; /* Elegant Deep Red */
   --destructive-foreground: #FFFFFF;
@@ -37,19 +21,6 @@
   --foreground: #F8FAFC; /* Slate 50 */
   --card: #0f172a;
   --popover: #0f172a;
-
-  --store-surface-rgb: 15 23 42;       /* Slate 900 */
-  --store-surface-strong-rgb: 7 10 19; /* Near-black */
-  --store-border-rgb: 255 255 255;     /* White borders at low opacity */
-  --store-muted-rgb: 148 163 184;      /* Slate 400 */
-  --store-ink-rgb: 248 250 252;        /* Slate 50 — text becomes light */
-
-  --store-accent-soft-alpha: 0.15;
-  --store-accent-soft-hover-alpha: 0.22;
-  --store-accent-glow-alpha: 0.3;
-  --store-accent-glow-subtle-alpha: 0.12;
-  --store-accent-shadow-alpha: 0.35;
-  --store-accent-shadow-strong-alpha: 0.5;
 
   --destructive: #f87171; /* Red-400 — brighter on dark bg */
   --destructive-foreground: #0f172a;
@@ -141,12 +112,6 @@ body {
 
 
 @layer components {
-  .glass-panel {
-    @apply backdrop-blur-2xl;
-    background-color: rgb(var(--store-surface-rgb) / 0.9);
-    border-color: rgb(var(--store-border-rgb) / 0.8);
-  }
-
   /* Helper semantic cho store:
      Ưu tiên dùng các class bên dưới thay vì lặp lại màu/shadow bằng tay trong từng component. */
   .store-accent-text {
@@ -218,20 +183,6 @@ body {
     color: #ffffff;
   }
 
-  .store-surface-panel {
-    background-color: rgb(var(--store-surface-rgb) / 0.88);
-    border: 1px solid rgb(var(--store-border-rgb) / 0.9);
-    box-shadow: 0 18px 40px rgb(15 23 42 / 0.08);
-    backdrop-filter: blur(18px);
-  }
-
-  .store-surface-panel-strong {
-    background-color: rgb(var(--store-surface-strong-rgb) / 0.94);
-    border: 1px solid rgb(var(--store-border-rgb) / 0.95);
-    box-shadow: 0 20px 44px rgb(15 23 42 / 0.1);
-    backdrop-filter: blur(20px);
-  }
-
   .store-surface-soft {
     background-color: rgb(var(--store-surface-rgb) / 0.7);
     border: 1px solid rgb(var(--store-border-rgb) / 0.75);
@@ -297,20 +248,6 @@ body {
 
 .typing-dot:nth-child(3) {
   animation-delay: 0.4s;
-}
-
-@keyframes progress-fast {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-progress-fast {
-  animation: progress-fast 0.8s ease-in-out infinite;
 }
 
 .typed-cursor {

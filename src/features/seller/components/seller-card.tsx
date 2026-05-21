@@ -4,9 +4,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { Star, MapPin, Package, Check } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { Badge } from "@/shared/components/ui/badge"
-import { Avatar, AvatarImage, AvatarFallback } from "@/shared/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button } from "@platform/design-system"
 import { Seller } from "@/types/store"
 
 interface SellerCardProps {
@@ -20,7 +18,7 @@ export function SellerCard({ seller }: SellerCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="store-surface-panel group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-lg"
+      className="ds-glass-panel group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:shadow-lg"
     >
       {/* Link Overlay */}
       <Link href={`/seller/${seller.slug}`} scroll={false} className="absolute inset-0 z-20" aria-label={`Xem gian hàng ${seller.name}`} />

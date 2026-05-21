@@ -1,30 +1,28 @@
 "use client"
 
-import { Suspense, useState, useMemo } from "react"
+import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
-import { ProductCard } from "@/features/product"
-import { FilterSidebar } from "../components/filter-sidebar"
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
-import { useQuery } from "@tanstack/react-query"
-import { fetchAllProducts, productQueryKeys } from "@/features/product"
-import { cn } from "@/shared/lib/utils"
-import {
+  Input,
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/shared/components/ui/pagination"
+  cn,
+} from "@platform/design-system"
+import { ProductCard } from "@/features/product"
+import { FilterSidebar } from "../components/filter-sidebar"
+import { useQuery } from "@tanstack/react-query"
+import { fetchAllProducts, productQueryKeys } from "@/features/product"
 
 const sortOptions = [
   { value: "featured", label: "Nổi bật" },
@@ -189,8 +187,8 @@ function MarketplaceScreenContent() {
                 type="text"
                 placeholder="Tìm sản phẩm..."
                 value={searchQuery}
-                onChange={(e) => handleSearchQueryChange(e.target.value)}
-                className="store-surface-panel h-14 rounded-full pl-12 pr-12 text-base text-foreground placeholder:text-[rgb(var(--store-muted-rgb))]"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearchQueryChange(e.target.value)}
+                className="ds-glass-panel h-14 rounded-full pl-12 pr-12 text-base text-foreground placeholder:text-[rgb(var(--store-muted-rgb))]"
               />
               <AnimatePresence>
                 {searchQuery && (

@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, X, Clock, TrendingUp, ArrowRight } from "lucide-react"
+import { Search, X, Clock, ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { Input } from "@/shared/components/ui/input"
-import { Button } from "@/shared/components/ui/button"
+import { Button, Input } from "@platform/design-system"
 import { Link } from "@/i18n/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllProducts, productQueryKeys } from "@/features/product"
@@ -83,32 +82,29 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="fixed top-[5%] left-1/2 z-50 w-full max-w-2xl -translate-x-1/2"
           >
-            <div className="store-surface-panel-strong overflow-hidden rounded-2xl shadow-2xl">
+            <div className="ds-glass-card overflow-hidden rounded-2xl shadow-2xl">
               {/* Search Input */}
               <div className="p-4 border-b border-border/40">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                    autoFocus
-                    type="text"
-                    placeholder={t("placeholder")}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="h-14 border-0 bg-[rgb(var(--store-surface-rgb)/0.74)] pr-12 pl-12 text-lg focus-visible:ring-0"
-                  />
-                  <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center">
-                    {query && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                        onClick={() => setQuery("")}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
+                <Input
+                  autoFocus
+                  type="text"
+                  placeholder={t("placeholder")}
+                  value={query}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+                  startAdornment={<Search className="h-5 w-5" />}
+                  endAdornment={query ? (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                      onClick={() => setQuery("")}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  ) : undefined}
+                  className="h-14 border-0 bg-[rgb(var(--store-surface-rgb)/0.74)] pr-12 pl-12 text-lg focus-visible:ring-0"
+                />
               </div>
 
               {/* Content */}

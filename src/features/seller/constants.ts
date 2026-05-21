@@ -1,4 +1,4 @@
-import { Product, Seller } from "@/types/store"
+import { Product } from "@/types/store"
 import {
   featuredProducts,
   trendingProducts,

@@ -18,19 +18,21 @@ import {
   LayoutGrid,
   ArrowLeft,
 } from "lucide-react"
-import { ProductCard } from "@/features/product"
-import { Button } from "@/shared/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs"
 import {
+  Button,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
-import { FilterBar } from "@/shared/components/ui/filter-bar"
-import { RatingStars } from "@/shared/components/ui/rating-stars"
-import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/shared/components/ui/empty"
-import { cn } from "@/shared/lib/utils"
+  RatingStars,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@platform/design-system"
+import { ProductCard } from "@/features/product"
+import { FilterBar, EmptyStatePanel } from "@platform/design-system"
 import { useSellerStorefront } from "../hooks/use-seller-storefront"
 import { Link } from "@/i18n/navigation"
 
@@ -63,31 +65,21 @@ export function SellerStorefrontScreen() {
     return (
       <div className="relative z-10 min-h-screen bg-transparent pb-28 pt-32 text-foreground">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="store-surface-panel rounded-[32px] px-6 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]">
-            <Empty className="border-none bg-transparent p-0">
-              <EmptyMedia
-                variant="icon"
-                className="store-surface-soft store-muted-text mx-auto flex h-20 w-20 items-center justify-center rounded-full"
-              >
-                <Users className="h-10 w-10" />
-              </EmptyMedia>
-              <EmptyTitle className="mt-5 text-xl font-semibold text-foreground">
-                {t("sellerNotFound")}
-              </EmptyTitle>
-              <EmptyDescription className="store-muted-text mt-3 max-w-md leading-7">
-                {t("sellerNotFoundDesc")}
-              </EmptyDescription>
-            </Empty>
-
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button asChild className="store-accent-button rounded-full px-8">
+          <EmptyStatePanel
+            icon={<Users className="h-10 w-10" />}
+            title={t("sellerNotFound")}
+            description={t("sellerNotFoundDesc")}
+            primaryActionNode={
+              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
                 <Link href="/sellers">{t("viewAllSellers")}</Link>
               </Button>
+            }
+            secondaryActionNode={
               <Button asChild variant="outline" className="rounded-full px-8">
                 <Link href="/marketplace">{t("backToStore")}</Link>
               </Button>
-            </div>
-          </div>
+            }
+          />
         </div>
       </div>
     )
@@ -124,7 +116,7 @@ export function SellerStorefrontScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="store-surface-panel rounded-[2rem] p-6 shadow-[0_24px_56px_rgb(15_23_42/0.12)] sm:p-8"
+            className="ds-glass-panel rounded-[2rem] p-6 shadow-[0_24px_56px_rgb(15_23_42/0.12)] sm:p-8"
           >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
               <div className="relative">
@@ -132,7 +124,7 @@ export function SellerStorefrontScreen() {
                   <Image src={seller.avatar} alt={seller.name} fill className="object-cover" />
                 </div>
                 {seller.verified && (
-                  <div className="store-surface-panel absolute -bottom-2 -right-2 rounded-full px-2.5 py-2 shadow-lg">
+                  <div className="ds-glass-panel absolute -bottom-2 -right-2 rounded-full px-2.5 py-2 shadow-lg">
                     <svg className="store-accent-text h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="3" fill="none" />
                     </svg>
@@ -228,7 +220,7 @@ export function SellerStorefrontScreen() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <div className="mb-8 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-              <TabsList className="store-surface-panel h-auto w-full rounded-[1.75rem] p-1 xl:w-auto">
+              <TabsList className="ds-glass-panel h-auto w-full rounded-[1.75rem] p-1 xl:w-auto">
                 <TabsTrigger
                   value="products"
                   className="store-muted-text rounded-[1.3rem] px-6 py-3 data-[state=active]:bg-[rgb(var(--store-accent-rgb)/0.12)] data-[state=active]:text-foreground"
@@ -332,7 +324,7 @@ export function SellerStorefrontScreen() {
 
             <TabsContent value="reviews" className="mt-0">
               <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
-                <div className="store-surface-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(15_23_42/0.1)]">
+                <div className="ds-glass-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(15_23_42/0.1)]">
                   <div className="flex items-start gap-6">
                     <div className="min-w-[96px]">
                       <div className="text-5xl font-semibold tracking-[-0.03em]">{seller.rating}</div>
@@ -371,7 +363,7 @@ export function SellerStorefrontScreen() {
                   {(sellerMeta?.reviews ?? []).map((review) => (
                     <div
                       key={review.id}
-                      className="store-surface-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(15_23_42/0.1)]"
+                      className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(15_23_42/0.1)]"
                     >
                       <div className="flex items-start gap-4">
                         <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
@@ -409,15 +401,15 @@ export function SellerStorefrontScreen() {
                     {t("storePolicies")}
                   </h3>
                   <div className="grid gap-5 md:grid-cols-3">
-                    <div className="store-surface-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("shipping")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.shipping}</p>
                     </div>
-                    <div className="store-surface-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("returns")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.returns}</p>
                     </div>
-                    <div className="store-surface-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("warranty")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.warranty}</p>
                     </div>

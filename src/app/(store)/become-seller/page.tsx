@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
+import { Button, Input, Textarea } from "@platform/design-system"
 import { ShieldCheck, Rocket, Percent, CheckCircle2, Loader2 } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
 import { createStore } from "@/features/seller/queries/seller-queries"
@@ -30,8 +29,14 @@ export default function BecomeSellerPage() {
         toast.error(result.message || t("toastError"))
       }
     },
-    onError: (error: any) => {
-      const message = error.response?.data?.message || t("fetchError")
+    onError: (error: unknown) => {
+      const message =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { message?: unknown } } }).response?.data?.message === "string"
+          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          : t("fetchError")
       toast.error(message)
     }
   })
@@ -87,7 +92,7 @@ export default function BecomeSellerPage() {
         </div>
 
         {/* Form */}
-        <div className="store-surface-panel rounded-3xl p-8 shadow-2xl">
+        <div className="ds-glass-panel rounded-3xl p-8 shadow-2xl">
           {isSubmitted ? (
             <div className="text-center py-12 flex flex-col items-center gap-4">
               <CheckCircle2 className="store-accent-text h-16 w-16" />
@@ -117,7 +122,7 @@ export default function BecomeSellerPage() {
                     required 
                     placeholder={t("storeNamePlaceholder")} 
                     value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                     disabled={mutation.isPending}
                   />
                 </div>
@@ -128,7 +133,7 @@ export default function BecomeSellerPage() {
                     required 
                     placeholder={t("taglinePlaceholder")} 
                     value={formData.tagline}
-                    onChange={(e) => setFormData(prev => ({ ...prev, tagline: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, tagline: e.target.value }))}
                     disabled={mutation.isPending}
                   />
                 </div>
@@ -136,12 +141,12 @@ export default function BecomeSellerPage() {
 
               <div className="flex flex-col gap-1">
                 <label className="store-muted-text text-sm font-medium">{t("shortDescription")}</label>
-                <textarea 
+                <Textarea
                   required
                   placeholder={t("shortDescriptionPlaceholder")}
-                  className="flex min-h-[100px] w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="min-h-[100px] rounded-xl"
                   value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   disabled={mutation.isPending}
                 />
               </div>
@@ -153,7 +158,7 @@ export default function BecomeSellerPage() {
                     required 
                     placeholder={t("locationPlaceholder")} 
                     value={formData.location}
-                    onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                     disabled={mutation.isPending}
                   />
                 </div>
@@ -164,7 +169,7 @@ export default function BecomeSellerPage() {
                     required 
                     placeholder={t("responseTimePlaceholder")} 
                     value={formData.responseTime}
-                    onChange={(e) => setFormData(prev => ({ ...prev, responseTime: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, responseTime: e.target.value }))}
                     disabled={mutation.isPending}
                   />
                 </div>

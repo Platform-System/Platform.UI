@@ -2,14 +2,9 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { Checkbox } from "@/shared/components/ui/checkbox"
-import { Slider } from "@/shared/components/ui/slider"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/shared/components/ui/accordion"
-import { cn } from "@/shared/lib/utils"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, Checkbox, RatingStars, Slider, cn } from "@platform/design-system"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllCategories, categoryQueryKeys } from "@/shared/lib/category-queries"
-import { RatingStars } from "@/shared/components/ui/rating-stars"
 
 interface FilterSidebarProps {
   isOpen: boolean
@@ -142,7 +137,7 @@ export function FilterSidebar({
               <div className="space-y-4 pt-2">
                 <Slider
                   value={priceRange}
-                  onValueChange={(value) => onPriceRangeChange([value[0] ?? 0, value[1] ?? 1000])}
+                  onValueChange={(value: number[]) => onPriceRangeChange([value[0] ?? 0, value[1] ?? 1000])}
                   max={1000}
                   step={10}
                   className="w-full"
@@ -241,7 +236,7 @@ export function FilterSidebar({
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-              className="store-surface-panel-strong fixed top-[var(--store-header-height,64px)] bottom-0 left-0 z-50 flex w-full max-w-sm flex-col"
+              className="ds-glass-card fixed top-[var(--store-header-height,64px)] bottom-0 left-0 z-50 flex w-full max-w-sm flex-col"
             >
               {filterContent}
             </motion.div>
@@ -252,7 +247,7 @@ export function FilterSidebar({
   }
 
   return (
-    <div className="store-surface-panel-strong flex max-h-[calc(100vh-120px)] w-full flex-col overflow-hidden rounded-2xl overscroll-contain">
+    <div className="ds-glass-card flex max-h-[calc(100vh-120px)] w-full flex-col overflow-hidden rounded-2xl overscroll-contain">
       <div className="flex flex-col min-h-0 overscroll-contain">
         {filterContent}
       </div>

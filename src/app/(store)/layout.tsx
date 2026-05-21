@@ -14,7 +14,7 @@ import { ScrollRestoration } from "@/shared/components/ui/scroll-restoration"
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <I18nProvider locale={defaultLocale} messages={viMessages as unknown as AbstractIntlMessages}>
-      <div className="store-theme relative h-full w-full bg-background text-foreground selection:bg-primary/25 selection:text-charcoal">
+      <div className="store-theme relative h-screen w-full bg-background text-foreground selection:bg-primary/25 selection:text-charcoal overflow-hidden flex flex-col">
         {/* Premium Background Effects */}
         <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_top,rgb(var(--store-surface-strong-rgb)/0.82)_0%,rgb(var(--store-surface-rgb)/0.97)_42%,rgb(var(--store-surface-rgb))_100%)]" />
 
@@ -27,10 +27,10 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
         <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(rgb(var(--store-muted-rgb)/0.1)_1px,transparent_1px)] opacity-[0.02] [background-size:24px_24px]" />
 
         <ScrollRestoration />
+        <Header />
         {/* The Scrollable Surface */}
-        <main id="store-scroll-container" className="min-h-screen w-full relative z-10">
-          <Header />
-          <div className="min-h-screen relative" style={{ position: "relative" }}>
+        <main id="store-scroll-container" className="flex-1 w-full overflow-y-auto relative z-10 flex flex-col">
+          <div className="flex-1 relative">
             {children}
           </div>
           <Footer />

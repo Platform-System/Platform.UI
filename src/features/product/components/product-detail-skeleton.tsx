@@ -1,7 +1,6 @@
 "use client"
 
-import { Skeleton } from "@/shared/components/ui/skeleton"
-import { cn } from "@/shared/lib/utils"
+import { Skeleton } from "@platform/design-system"
 
 export function ProductDetailSkeleton() {
   return (

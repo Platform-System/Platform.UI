@@ -21,22 +21,25 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react"
-import { Link } from "@/i18n/navigation"
-import { Button } from "@/shared/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs"
-import { Empty, EmptyDescription, EmptyMedia, EmptyTitle } from "@/shared/components/ui/empty"
-import { Calendar } from "@/shared/components/ui/calendar"
-import { RatingStars } from "@/shared/components/ui/rating-stars"
 import {
+  Button,
+  Calendar,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/shared/components/ui/chart"
-import { cn } from "@/shared/lib/utils"
+  RatingStars,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  cn,
+} from "@platform/design-system"
+import { Link } from "@/i18n/navigation"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { ProductCard, ProductDetailSkeleton } from "../index"
+import { ProductDetailSkeleton } from "../index"
 import { useProductDetail } from "../hooks/use-product-detail"
 import { REVIEWS, PRICE_HISTORY, PRICE_CHART_CONFIG } from "../constants"
+import { EmptyStatePanel } from "@platform/design-system"
 
 export function ProductDetailScreen() {
   const params = useParams()
@@ -80,31 +83,21 @@ export function ProductDetailScreen() {
     return (
       <main className="relative min-h-screen bg-transparent pt-32 pb-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="store-surface-panel rounded-[32px] px-6 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]">
-            <Empty className="border-none bg-transparent p-0">
-              <EmptyMedia
-                variant="icon"
-                className="store-surface-soft store-muted-text mx-auto flex h-20 w-20 items-center justify-center rounded-full"
-              >
-                <ShoppingBag className="h-10 w-10" />
-              </EmptyMedia>
-              <EmptyTitle className="mt-5 text-xl font-semibold text-foreground">
-                {t("productNotFound")}
-              </EmptyTitle>
-              <EmptyDescription className="store-muted-text mt-3 max-w-md leading-7">
-                {t("productNotFoundDesc")}
-              </EmptyDescription>
-            </Empty>
-
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <EmptyStatePanel
+            icon={<ShoppingBag className="h-10 w-10" />}
+            title={t("productNotFound")}
+            description={t("productNotFoundDesc")}
+            primaryActionNode={
               <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
                 <Link href="/marketplace">{ts("backToStore")}</Link>
               </Button>
+            }
+            secondaryActionNode={
               <Button asChild variant="outline" className="rounded-full px-8">
                 <Link href="/home">{t("backToHome")}</Link>
               </Button>
-            </div>
-          </div>
+            }
+          />
         </div>
       </main>
     )
@@ -158,7 +151,7 @@ export function ProductDetailScreen() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-3"
             >
-              <div className="store-surface-panel relative mb-4 aspect-[4/5] overflow-hidden rounded-2xl">
+              <div className="ds-glass-panel relative mb-4 aspect-[4/5] overflow-hidden rounded-2xl">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentImage}
@@ -197,7 +190,7 @@ export function ProductDetailScreen() {
                   </div>
                 )}
 
-                <div className="store-surface-panel absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-sm text-foreground">
+                <div className="ds-glass-panel absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-sm text-foreground">
                   {currentImage + 1} / {product.images.length}
                 </div>
               </div>
@@ -363,7 +356,7 @@ export function ProductDetailScreen() {
                 </Button>
               </div>
 
-              <div className="store-surface-panel grid grid-cols-3 gap-4 rounded-2xl p-4">
+              <div className="ds-glass-panel grid grid-cols-3 gap-4 rounded-2xl p-4">
                 <div className="flex flex-col items-center text-center">
                   <Truck className="store-accent-text mb-2 h-5 w-5" />
                   <span className="text-xs font-medium">{t("freeShipping")}</span>
@@ -385,7 +378,7 @@ export function ProductDetailScreen() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="store-surface-panel mt-16 overflow-hidden rounded-[28px] p-6 shadow-[0_20px_48px_rgb(15_23_42/0.1)]"
+            className="ds-glass-panel mt-16 overflow-hidden rounded-[28px] p-6 shadow-[0_20px_48px_rgb(15_23_42/0.1)]"
           >
             <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
               <div className="flex items-start gap-4">
@@ -429,7 +422,7 @@ export function ProductDetailScreen() {
           </motion.div>
 
           <Tabs defaultValue="features" className="mt-16">
-            <TabsList className="store-surface-panel grid h-auto w-full grid-cols-1 gap-2 rounded-[26px] p-2 sm:grid-cols-2 lg:grid-cols-5">
+            <TabsList className="ds-glass-panel grid h-auto w-full grid-cols-1 gap-2 rounded-[26px] p-2 sm:grid-cols-2 lg:grid-cols-5">
               <TabsTrigger
                 value="features"
                 className="store-muted-text h-12 w-full rounded-[18px] border-none bg-transparent px-5 data-[state=active]:bg-[rgb(var(--store-accent-rgb)/0.12)] data-[state=active]:text-foreground"
@@ -489,7 +482,7 @@ export function ProductDetailScreen() {
             </TabsContent>
 
             <TabsContent value="delivery" className="mt-8">
-              <div className="store-surface-panel rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
+              <div className="ds-glass-panel rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
                 <div className="flex flex-col gap-4 pb-5 lg:flex-row lg:items-end lg:justify-between">
                   <div>
                       <p className="store-muted-text text-[11px] uppercase tracking-[0.18em]">{t("deliveryWindow")}</p>
@@ -605,7 +598,7 @@ export function ProductDetailScreen() {
                 {REVIEWS.map((review) => (
                   <article
                     key={review.id}
-                    className="store-surface-panel rounded-[28px] p-6 shadow-[0_16px_36px_rgb(15_23_42/0.08)]"
+                    className="ds-glass-panel rounded-[28px] p-6 shadow-[0_16px_36px_rgb(15_23_42/0.08)]"
                   >
                     <div className="flex items-start gap-4">
                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
@@ -659,7 +652,7 @@ export function ProductDetailScreen() {
             </TabsContent>
 
             <TabsContent value="pricing" className="mt-8">
-              <div className="store-surface-panel rounded-[30px] p-8 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
+              <div className="ds-glass-panel rounded-[30px] p-8 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
                 <div className="mb-8">
                   <h3 className="text-xl font-semibold">{t("priceHistory.title")}</h3>
                   <p className="mt-2 text-muted-foreground">{t("priceHistory.description")}</p>

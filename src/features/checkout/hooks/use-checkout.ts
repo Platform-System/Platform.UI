@@ -20,7 +20,7 @@ function createOrderMeta() {
 export function useCheckout() {
   const { cartItems, cartTotal, clearCart } = useCart()
   const [deliveryMethod, setDeliveryMethod] = React.useState<DeliveryMethod>("standard")
-  const [paymentMethod, setPaymentMethod] = React.useState<PaymentMethod>("cod")
+  const [paymentMethod, setPaymentMethod] = React.useState<PaymentMethod>("payment")
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [formData, setFormData] = React.useState<CheckoutFormData>(DEFAULT_FORM_DATA)
   const [formError, setFormError] = React.useState<string | null>(null)

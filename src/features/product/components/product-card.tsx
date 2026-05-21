@@ -5,13 +5,10 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { Heart, ShoppingBag, Eye, BadgeCheck } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { cn } from "@/shared/lib/utils"
+import { Badge, Button, cn, RatingStars } from "@platform/design-system"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { QuickViewDialog } from "./quick-view-dialog"
-import { Badge } from "@/shared/components/ui/badge"
-import { RatingStars } from "@/shared/components/ui/rating-stars"
 import { Product } from "@/types/store"
 
 interface ProductCardProps {
@@ -69,7 +66,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
             <Badge
               className={cn(
                 "absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold border-none",
-                product.badge === "new" && "store-surface-panel text-foreground hover:bg-[rgb(var(--store-surface-strong-rgb)/0.98)]",
+                product.badge === "new" && "ds-glass-panel text-foreground hover:bg-[rgb(var(--store-surface-strong-rgb)/0.98)]",
                 product.badge === "sale" && "store-accent-soft text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.16)]",
                 product.badge === "bestseller" && "bg-[rgb(var(--store-ink-rgb)/0.9)] text-white hover:bg-[rgb(var(--store-ink-rgb)/0.9)]"
               )}
@@ -86,8 +83,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
             <Button
               size="icon"
               variant="secondary"
-              className="store-surface-panel h-9 w-9 rounded-full border-none bg-[rgb(var(--store-surface-strong-rgb))/0.92] shadow-md"
-              onClick={(e) => {
+              className="ds-glass-panel h-9 w-9 rounded-full border-none bg-[rgb(var(--store-surface-strong-rgb))/0.92] shadow-md"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault()
                 if (isWishlisted) {
                   removeFromWishlist(Number(product.id))
@@ -114,8 +111,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
             <Button
               size="icon"
               variant="secondary"
-              className="store-surface-panel h-9 w-9 rounded-full border-none bg-[rgb(var(--store-surface-strong-rgb))/0.92] shadow-md"
-              onClick={(e) => {
+              className="ds-glass-panel h-9 w-9 rounded-full border-none bg-[rgb(var(--store-surface-strong-rgb))/0.92] shadow-md"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault()
                 setIsQuickViewOpen(true)
               }}
@@ -131,7 +128,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           >
             <Button
               className="store-accent-button store-accent-button-strong w-full rounded-lg font-medium"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault()
                 e.stopPropagation()
                 addToCart({

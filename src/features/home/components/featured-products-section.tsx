@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ProductCard, ProductGridSkeleton, fetchAllProducts, productQueryKeys } from "@/features/product"
 import { useQuery } from "@tanstack/react-query"
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@platform/design-system"
 
 import { SectionFooter } from "./section-header"
 

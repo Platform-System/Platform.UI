@@ -4,19 +4,6 @@ import React, { useState, useEffect } from "react"
 import { X, Plus, Minus, Trash2, ShoppingBag, Truck } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { useCart } from "../context/CartContext"
-import type { CartItem } from "../store/cart-store"
-import { Button } from "@/shared/components/ui/button"
-import { Link } from "@/i18n/navigation"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
-import { Sheet, SheetContent, SheetTitle } from "@/shared/components/ui/sheet"
-import { Empty, EmptyTitle, EmptyMedia } from "@/shared/components/ui/empty"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,7 +14,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/shared/components/ui/alert-dialog"
+  Button,
+  Empty,
+  EmptyMedia,
+  EmptyTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Sheet,
+  SheetContent,
+  SheetTitle,
+} from "@platform/design-system"
+import { useCart } from "../context/CartContext"
+import type { CartItem } from "../store/cart-store"
+import { Link } from "@/i18n/navigation"
 import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
 
 // Optimized CartItem component with memoization to prevent unnecessary re-renders
@@ -58,7 +60,7 @@ const CartItemRow = React.memo(({
         <div className="mt-1 flex gap-2">
           <Select
             value={item.color ?? "Đen"}
-            onValueChange={(value) =>
+            onValueChange={(value: string) =>
               updateItemVariant(item.id, item.color, item.size, { color: value })
             }
           >
@@ -79,7 +81,7 @@ const CartItemRow = React.memo(({
 
           <Select
             value={item.size ?? "Vừa"}
-            onValueChange={(value) =>
+            onValueChange={(value: string) =>
               updateItemVariant(item.id, item.color, item.size, { size: value })
             }
           >
@@ -157,7 +159,7 @@ export function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent 
         side="right" 
-        className="store-surface-panel-strong z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-[-20px_0_40px_rgba(0,0,0,0.1)] [&>button]:hidden rounded-l-[32px] border-l border-white/10 overflow-hidden"
+        className="ds-glass-card z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-[-20px_0_40px_rgba(0,0,0,0.1)] [&>button]:hidden rounded-l-[32px] border-l border-white/10 overflow-hidden"
       >
         <SheetTitle className="sr-only">{t("title")}</SheetTitle>
             {/* Header */}
@@ -179,7 +181,7 @@ export function CartDrawer() {
                         {t("clearAll")}
                       </Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent className="store-surface-panel-strong max-w-sm rounded-2xl text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
+                    <AlertDialogContent className="ds-glass-card max-w-sm rounded-2xl text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
                       <AlertDialogHeader>
                         <AlertDialogTitle className="font-serif text-lg text-foreground">{t("confirmClear")}</AlertDialogTitle>
                         <AlertDialogDescription className="store-muted-text text-sm">

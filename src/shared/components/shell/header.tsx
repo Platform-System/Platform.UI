@@ -5,7 +5,28 @@ import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { cn } from "@/shared/lib/utils"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  cn,
+  useTheme,
+  type Theme,
+  THEMES,
+  THEME_LABELS,
+} from "@platform/design-system"
 import {
   Search,
   ShoppingBag,
@@ -16,22 +37,13 @@ import {
   User,
   LogOut,
   LogIn,
-  Settings
+  Settings,
+  Sun,
+  Moon,
+  Monitor
 } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { Badge } from "@/shared/components/ui/badge"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar"
 import { useAuth } from "@/core/providers/AuthProvider"
 import { SearchModal } from "@/features/search/components/search-modal"
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/shared/components/ui/accordion"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { useCategories } from "@/shared/lib/category-queries"
@@ -43,6 +55,7 @@ export function Header() {
   const { setIsOpen: setIsCartOpen, cartCount } = useCart()
   const { wishlistCount } = useWishlist()
   const { isAuthenticated, login, logout, keycloak } = useAuth()
+  const { theme, resolvedTheme, setTheme } = useTheme()
   const { data: categories = [] } = useCategories()
 
   const isActive = (path: string) => {
@@ -60,12 +73,25 @@ export function Header() {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
 
   useEffect(() => {
+    const container = document.getElementById("store-scroll-container")
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      const scrollTop = container ? container.scrollTop : window.scrollY
+      setIsScrolled(scrollTop > 20)
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    if (container) {
+      container.addEventListener("scroll", handleScroll)
+    } else {
+      window.addEventListener("scroll", handleScroll)
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll)
+      } else {
+        window.removeEventListener("scroll", handleScroll)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -123,7 +149,7 @@ export function Header() {
                 </button>
 
                 <div className={cn(
-                  "store-surface-panel-strong pointer-events-none absolute top-full left-1/2 z-50 mt-2 w-48 origin-top -translate-x-1/2 rounded-xl p-1.5 shadow-[0_20px_40px_rgb(31_42_55/0.14)] transition-all duration-200 opacity-0 scale-95",
+                  "ds-glass-card pointer-events-none absolute top-full left-1/2 z-50 mt-2 w-48 origin-top -translate-x-1/2 rounded-xl p-1.5 shadow-[0_20px_40px_rgb(31_42_55/0.14)] transition-all duration-200 opacity-0 scale-95",
                   isCategoryOpen && "opacity-100 scale-100 pointer-events-auto"
                 )}>
                   <div className="absolute -top-3 left-0 right-0 h-3 bg-transparent" />
@@ -184,6 +210,37 @@ export function Header() {
                   <span className="sr-only">Danh sách yêu thích</span>
                 </Link>
               </Button>
+
+              {/* Theme Toggle */}
+              <div className="relative group">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:store-accent-text"
+                  title="Chuyển theme"
+                >
+                  {resolvedTheme === 'dark' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                </Button>
+                <div className="absolute right-0 top-full mt-1 w-36 rounded-xl border border-[rgb(var(--store-border-rgb)/0.8)] bg-background shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
+                  {THEMES.map((themeOption: Theme) => (
+                    <button
+                      key={themeOption}
+                      onClick={() => setTheme(themeOption)}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${
+                        theme === themeOption
+                          ? 'text-[rgb(var(--store-accent-rgb))] bg-[rgb(var(--store-accent-rgb)/0.08)]'
+                          : 'text-[rgb(var(--store-muted-rgb))] hover:text-foreground hover:bg-[rgb(var(--store-surface-strong-rgb))]'
+                      }`}
+                    >
+                      {themeOption === 'light' && <Sun className="h-3.5 w-3.5" />}
+                      {themeOption === 'dark' && <Moon className="h-3.5 w-3.5" />}
+                      {themeOption === 'system' && <Monitor className="h-3.5 w-3.5" />}
+                      {THEME_LABELS[themeOption]}
+                      {theme === themeOption && <span className="ml-auto text-[10px] font-bold opacity-70">✓</span>}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               <Button
                 variant="ghost"
@@ -400,4 +457,5 @@ export function Header() {
     </>
   )
 }
+
 

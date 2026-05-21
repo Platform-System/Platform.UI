@@ -6,10 +6,10 @@ import { Heart, Trash2, ShoppingBag, ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "@/features/cart"
-import { Button } from "@/shared/components/ui/button"
+import { Button } from "@platform/design-system"
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
-import { Empty, EmptyMedia, EmptyTitle, EmptyDescription } from "@/shared/components/ui/empty"
+import { EmptyStatePanel } from "@platform/design-system"
 
 export function Wishlist() {
   const t = useTranslations("Wishlist")
@@ -72,20 +72,21 @@ export function Wishlist() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="store-surface-panel mx-auto flex max-w-2xl flex-col items-center justify-center rounded-3xl p-8 py-20 text-center shadow-[0_16px_48px_rgb(15_23_42/0.1)]"
             >
-              <Empty className="bg-transparent border-none p-0 md:p-0 gap-4 flex flex-col items-center">
-                <EmptyMedia variant="icon" className="store-surface-soft store-muted-text flex h-20 w-20 items-center justify-center rounded-full shadow-[0_8px_24px_rgb(15_23_42/0.08)]">
-                  <Heart className="h-10 w-10" />
-                </EmptyMedia>
-                <EmptyTitle className="text-xl font-semibold text-foreground">{t("empty")}</EmptyTitle>
-                <EmptyDescription className="store-muted-text mb-4 max-w-sm">
-                  {t("emptyDesc")}
-                </EmptyDescription>
-              </Empty>
-              <Button asChild className="store-accent-button store-accent-button-strong h-12 rounded-full px-8 font-semibold">
-                <Link href="/marketplace">{t("exploreNow")}</Link>
-              </Button>
+              <EmptyStatePanel
+                icon={<Heart className="h-10 w-10" />}
+                title={t("empty")}
+                description={t("emptyDesc")}
+                primaryActionNode={
+                  <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8 h-12 font-semibold">
+                    <Link href="/marketplace">{t("exploreNow")}</Link>
+                  </Button>
+                }
+                className="gap-4 flex flex-col items-center"
+                panelClassName="justify-center rounded-3xl p-8 py-20"
+                descriptionClassName="mb-4 max-w-sm"
+                iconClassName="shadow-[0_8px_24px_rgb(15_23_42/0.08)]"
+              />
             </motion.div>
           ) : (
             <motion.div
@@ -100,7 +101,7 @@ export function Wishlist() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  className="store-surface-panel group relative flex flex-col overflow-hidden rounded-2xl transition-all hover:shadow-[0_12px_32px_rgb(15_23_42/0.12)]"
+                  className="ds-glass-panel group relative flex flex-col overflow-hidden rounded-2xl transition-all hover:shadow-[0_12px_32px_rgb(15_23_42/0.12)]"
                 >
                   <div className="store-surface-soft relative aspect-square w-full overflow-hidden">
                     <Image
@@ -111,7 +112,7 @@ export function Wishlist() {
                     />
                     <button
                       onClick={() => removeFromWishlist(item.id)}
-                      className="store-surface-panel absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full transition-all hover:text-destructive hover:bg-destructive/10"
+                      className="ds-glass-panel absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full transition-all hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

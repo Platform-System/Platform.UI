@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Play, Sparkles, BadgeCheck } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { Button } from "@platform/design-system"
 
 export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null)
@@ -70,7 +70,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="store-surface-panel mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2"
+                className="ds-glass-panel mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2"
               >
                 <Sparkles className="store-accent-text h-4 w-4" />
                 <span className="text-sm font-medium uppercase tracking-widest text-foreground">Cửa hàng chọn lọc</span>
@@ -240,7 +240,7 @@ export function HeroSection() {
               <motion.div
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="store-surface-panel absolute right-0 top-8 z-30 flex items-center gap-2 rounded-full px-4 py-2 shadow-lg"
+                className="ds-glass-panel absolute right-0 top-8 z-30 flex items-center gap-2 rounded-full px-4 py-2 shadow-lg"
               >
                 <BadgeCheck className="store-accent-text h-4 w-4" />
                 <span className="text-sm font-semibold">Nhà bán hàng đã xác minh</span>

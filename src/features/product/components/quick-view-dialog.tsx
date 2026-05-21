@@ -4,17 +4,12 @@ import { useState } from "react"
 import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { Heart, ShoppingBag, Minus, Plus, Share2, ChevronLeft, ChevronRight, Check } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
-import { cn } from "@/shared/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button, cn, Dialog, DialogContent, DialogDescription, DialogTitle, RatingStars } from "@platform/design-system"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/shared/components/ui/dialog"
 import { Product } from "@/types/store"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllSellers, sellerQueryKeys } from "@/features/seller"
-import { Badge } from "@/shared/components/ui/badge"
-import { Avatar, AvatarImage, AvatarFallback } from "@/shared/components/ui/avatar"
-import { RatingStars } from "@/shared/components/ui/rating-stars"
 
 interface QuickViewDialogProps {
   product: Product
@@ -61,13 +56,13 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="store-surface-panel-strong sm:max-w-5xl md:max-w-5xl max-h-[90vh] md:max-h-[660px] flex flex-col overflow-hidden rounded-3xl p-0 text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
+      <DialogContent className="ds-glass-card sm:max-w-5xl md:max-w-5xl max-h-[90vh] md:max-h-[660px] flex flex-col overflow-hidden rounded-3xl p-0 text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
         <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-0 h-full overflow-hidden flex-1">
           
           {/* Cột trái - bộ sưu tập ảnh */}
           <div className="store-surface-soft flex h-full flex-col justify-center p-6">
             {/* Ảnh chính */}
-            <div className="store-surface-panel group/modal relative mx-auto mb-4 flex aspect-square max-h-[380px] w-full items-center justify-center overflow-hidden rounded-2xl">
+            <div className="ds-glass-panel group/modal relative mx-auto mb-4 flex aspect-square max-h-[380px] w-full items-center justify-center overflow-hidden rounded-2xl">
               <Image
                 src={fullProduct.images[currentModalImage]}
                 alt={fullProduct.name}
@@ -79,7 +74,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
               {fullProduct.images.length > 1 && (
                 <>
                   <button
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation()
                       setCurrentModalImage((prev) => (prev - 1 + fullProduct.images.length) % fullProduct.images.length)
                     }}
@@ -88,7 +83,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation()
                       setCurrentModalImage((prev) => (prev + 1) % fullProduct.images.length)
                     }}
@@ -107,7 +102,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
               )}
 
               {/* Bộ đếm ảnh */}
-              <div className="store-surface-panel absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-2.5 py-1 text-[10px] text-foreground">
+              <div className="ds-glass-panel absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-2.5 py-1 text-[10px] text-foreground">
                 {currentModalImage + 1} / {fullProduct.images.length}
               </div>
             </div>
@@ -118,7 +113,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 {fullProduct.images.map((image: string, index: number) => (
                   <button
                     key={index}
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation()
                       setCurrentModalImage(index)
                     }}
@@ -195,7 +190,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                   {fullProduct.variants.colors.map((color: { name: string; value: string }) => (
                     <button
                       key={color.name}
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.stopPropagation()
                         setSelectedColor(color)
                       }}
@@ -229,7 +224,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                   {fullProduct.variants.sizes.map((size: string) => (
                     <button
                       key={size}
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.stopPropagation()
                         setSelectedSize(size)
                       }}
@@ -252,7 +247,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 <div className="flex items-center gap-4">
                   <div className="store-surface-soft flex items-center rounded-lg">
                     <button
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.stopPropagation()
                         setQuantity(Math.max(1, quantity - 1))
                       }}
@@ -294,7 +289,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
             <div className="mt-4 flex gap-2.5 pt-2">
               <Button
                 className="store-surface-soft flex h-10 flex-1 items-center justify-center gap-2 rounded-xl text-xs font-medium text-foreground transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.1)]"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   addToCart({
                     id: Number(fullProduct.id),
@@ -314,7 +309,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
 
               <Button
                 className="store-accent-button store-accent-button-strong flex h-10 flex-1 items-center justify-center rounded-xl text-xs font-semibold transition-all"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   addToCart({
                     id: Number(fullProduct.id),
@@ -338,7 +333,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                   "store-surface-soft h-10 w-10 rounded-xl hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground",
                   isWishlisted && "text-destructive"
                 )}
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   if (isWishlisted) {
                     removeFromWishlist(Number(fullProduct.id))
@@ -362,7 +357,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 variant="outline"
                 size="icon"
                 className="store-surface-soft store-muted-text h-10 w-10 rounded-xl border-[rgb(var(--store-border-rgb)/0.9)] hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   navigator.clipboard.writeText(`${window.location.origin}/product/${fullProduct.id}`)
                 }}

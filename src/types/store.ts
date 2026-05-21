@@ -63,7 +63,7 @@ export interface StoreOrder {
   addressLine: string
   deliveryNote: string
   deliveryMethod: "standard" | "express"
-  paymentMethod: "cod" | "card" | "banking"
+  paymentMethod: "wallet" | "payment"
   items: StoreOrderItem[]
   subtotal: number
   shippingFee: number

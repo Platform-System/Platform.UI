@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Clock } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { Button } from "@platform/design-system"
 
 export function PromoBanner() {
   return (
@@ -61,7 +61,7 @@ export function PromoBanner() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-            className="store-surface-panel relative cursor-pointer overflow-hidden rounded-3xl group"
+            className="ds-glass-panel relative cursor-pointer overflow-hidden rounded-3xl group"
             >
               <Link href="/marketplace?category=beauty" scroll={false} className="absolute inset-0 z-20" aria-label="Tinh chọn làm đẹp" />
               <div className="absolute inset-0">
