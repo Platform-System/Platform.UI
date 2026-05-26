@@ -41,12 +41,28 @@ export const storeManageQueryKeys = {
   me: ["store-manage", "me"] as const,
 }
 
+interface StoreLookupResult extends Result<StoreDetailsResponse> {
+  errors?: string[]
+}
+
 export async function fetchMyStore(): Promise<StoreDetailsResponse | null> {
   try {
-    const response = await apiClient.get<Result<StoreDetailsResponse>>("/api/store/manage/stores/me")
+    const response = await apiClient.get<StoreLookupResult>("/api/store/manage/stores/me", {
+      validateStatus: (status) => status < 500,
+    })
+
+    if (response.status === 404) {
+      const errors = response.data?.errors || []
+      const isMissingStore = errors.some((error: string) => error.toLowerCase().includes("store not found"))
+      if (isMissingStore) {
+        return null
+      }
+    }
+
     if (response.data?.success && response.data.data) {
       return response.data.data
     }
+
     return null
   } catch (error) {
     const apiError = error as AxiosError
