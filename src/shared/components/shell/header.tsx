@@ -48,7 +48,6 @@ export function Header() {
   const { isAuthenticated, login, logout, keycloak } = useAuth()
   const { data: categories = [] } = useCategories()
   const { resolvedTheme, setTheme } = useTheme()
-  const [isThemeMounted, setIsThemeMounted] = useState(false)
 
   const isActive = (path: string) => {
     const fullPath = pathname.startsWith("/") ? pathname : `/${pathname}`
@@ -91,10 +90,6 @@ export function Header() {
       document.documentElement.style.setProperty("--store-header-height", isScrolled ? "56px" : "64px")
     }
   }, [isScrolled])
-
-  useEffect(() => {
-    setIsThemeMounted(true)
-  }, [])
 
   return (
     <>
@@ -212,7 +207,7 @@ export function Header() {
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
               >
-                {isThemeMounted && resolvedTheme === "dark" ? (
+                {resolvedTheme === "dark" ? (
                   <Moon className="h-5 w-5" />
                 ) : (
                   <Sun className="h-5 w-5" />
