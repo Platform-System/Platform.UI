@@ -5,8 +5,8 @@ import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
+import { useTheme } from "next-themes"
 import { cn } from "@platform/design-system/lib/cn"
-import { ThemeToggle } from "@platform/design-system/components/theme-toggle"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform/design-system/components/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from "@platform/design-system/components/avatar"
 import { Badge } from "@platform/design-system/components/badge"
@@ -30,6 +30,8 @@ import {
   LogOut,
   LogIn,
   Settings,
+  Sun,
+  Moon,
 } from "lucide-react"
 import { useAuth } from "@/core/providers/AuthProvider"
 import { SearchModal } from "@/features/search/components/search-modal"
@@ -45,6 +47,8 @@ export function Header() {
   const { wishlistCount } = useWishlist()
   const { isAuthenticated, login, logout, keycloak } = useAuth()
   const { data: categories = [] } = useCategories()
+  const { resolvedTheme, setTheme } = useTheme()
+  const [isThemeMounted, setIsThemeMounted] = useState(false)
 
   const isActive = (path: string) => {
     const fullPath = pathname.startsWith("/") ? pathname : `/${pathname}`
@@ -87,6 +91,10 @@ export function Header() {
       document.documentElement.style.setProperty("--store-header-height", isScrolled ? "56px" : "64px")
     }
   }, [isScrolled])
+
+  useEffect(() => {
+    setIsThemeMounted(true)
+  }, [])
 
   return (
     <>
@@ -197,11 +205,19 @@ export function Header() {
                 <span className="sr-only">Danh sách yêu thích</span>
               </Link>
 
-              {/* Theme Toggle */}
-              <ThemeToggle
-                align="end"
-                buttonClassName="text-foreground hover:store-accent-text"
-              />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground hover:store-accent-text"
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                aria-label="Toggle theme"
+              >
+                {isThemeMounted && resolvedTheme === "dark" ? (
+                  <Moon className="h-5 w-5" />
+                ) : (
+                  <Sun className="h-5 w-5" />
+                )}
+              </Button>
 
               <Button
                 variant="ghost"
