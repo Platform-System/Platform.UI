@@ -1,12 +1,16 @@
 "use client"
 
 import * as React from "react"
-import { Button, Input, Textarea } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
+import { Input } from "@platform/design-system/components/input"
+import { Textarea } from "@platform/design-system/components/textarea"
 import { ShieldCheck, Rocket, Percent, CheckCircle2, Loader2 } from "lucide-react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { createStore } from "@/features/seller/queries/seller-queries"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
+import { fetchMyStore, storeManageQueryKeys } from "@/features/store/queries/store-manage-queries"
+import { Link } from "@/i18n/navigation"
 
 export default function BecomeSellerPage() {
   const t = useTranslations("BecomeSeller")
@@ -17,6 +21,11 @@ export default function BecomeSellerPage() {
     description: "",
     location: "",
     responseTime: t("defaultResponseTime"),
+  })
+  const { data: myStore, isLoading: isCheckingStore } = useQuery({
+    queryKey: storeManageQueryKeys.me,
+    queryFn: fetchMyStore,
+    staleTime: 60 * 1000,
   })
 
   const mutation = useMutation({
@@ -92,8 +101,26 @@ export default function BecomeSellerPage() {
         </div>
 
         {/* Form */}
-        <div className="ds-glass-panel rounded-3xl p-8 shadow-2xl">
-          {isSubmitted ? (
+        <div className="ds-glass-panel !border-0 rounded-3xl p-8 shadow-2xl">
+          {isCheckingStore ? (
+            <div className="flex min-h-[320px] items-center justify-center">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          ) : myStore ? (
+            <div className="text-center py-12 flex flex-col items-center gap-4">
+              <CheckCircle2 className="store-accent-text h-16 w-16" />
+              <h3 className="mt-2 font-serif text-2xl font-bold text-foreground">{t("existingStoreTitle")}</h3>
+              <p className="text-muted-foreground max-w-md">
+                {t("existingStoreDesc", { name: myStore.profile.name })}
+              </p>
+              <div className="rounded-full border border-[rgb(var(--store-border-rgb)/0.8)] px-4 py-2 text-sm font-medium text-foreground">
+                {t("existingStoreStatus", { status: myStore.profile.status || "Draft" })}
+              </div>
+              <Button asChild className="store-accent-button store-accent-button-strong mt-4 rounded-xl">
+                <Link href="/account">{t("manageStore")}</Link>
+              </Button>
+            </div>
+          ) : isSubmitted ? (
             <div className="text-center py-12 flex flex-col items-center gap-4">
               <CheckCircle2 className="store-accent-text h-16 w-16" />
               <h3 className="mt-2 font-serif text-2xl font-bold text-foreground">{t("successTitle")}</h3>
@@ -124,6 +151,7 @@ export default function BecomeSellerPage() {
                     value={formData.name}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                     disabled={mutation.isPending}
+                    className="!border-0"
                   />
                 </div>
 
@@ -135,6 +163,7 @@ export default function BecomeSellerPage() {
                     value={formData.tagline}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, tagline: e.target.value }))}
                     disabled={mutation.isPending}
+                    className="!border-0"
                   />
                 </div>
               </div>
@@ -144,7 +173,7 @@ export default function BecomeSellerPage() {
                 <Textarea
                   required
                   placeholder={t("shortDescriptionPlaceholder")}
-                  className="min-h-[100px] rounded-xl"
+                  className="min-h-[100px] rounded-xl !border-0"
                   value={formData.description}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   disabled={mutation.isPending}
@@ -160,6 +189,7 @@ export default function BecomeSellerPage() {
                     value={formData.location}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                     disabled={mutation.isPending}
+                    className="!border-0"
                   />
                 </div>
 
@@ -171,6 +201,7 @@ export default function BecomeSellerPage() {
                     value={formData.responseTime}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData(prev => ({ ...prev, responseTime: e.target.value }))}
                     disabled={mutation.isPending}
+                    className="!border-0"
                   />
                 </div>
               </div>
@@ -201,4 +232,3 @@ export default function BecomeSellerPage() {
     </div>
   )
 }
-

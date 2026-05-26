@@ -1,4 +1,4 @@
-import { type ChartConfig } from "@platform/design-system"
+import { type ChartConfig } from "@platform/design-system/components/chart"
 import { Product } from "@/types/store"
 
 export const REVIEWS = [
@@ -77,7 +77,7 @@ export function getEnhancedProduct(baseProduct: Product) {
           ],
     seller: {
       ...baseProduct.seller,
-      slug: baseProduct.seller.name.toLowerCase().replace(/\s+/g, "-"),
+      slug: baseProduct.seller.slug || baseProduct.seller.name.toLowerCase().replace(/\s+/g, "-"),
       avatar: baseProduct.seller.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
       rating: baseProduct.seller.rating || 4.9,
       productCount: baseProduct.seller.productCount || 156,

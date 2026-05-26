@@ -1,13 +1,13 @@
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
-import { WishlistItem } from "../context/WishlistContext" // We'll move this type later if needed
+import { WishlistItem } from "../context/WishlistContext"
 
 interface WishlistState {
   items: WishlistItem[]
   addItem: (item: WishlistItem) => void
-  removeItem: (id: number) => void
+  removeItem: (id: string | number) => void
   clearItems: () => void
-  isInWishlist: (id: number) => boolean
+  isInWishlist: (id: string | number) => boolean
 }
 
 export const useWishlistStore = create<WishlistState>()(
@@ -35,4 +35,3 @@ export const useWishlistStore = create<WishlistState>()(
     }
   )
 )
-

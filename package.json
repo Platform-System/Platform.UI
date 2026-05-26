@@ -11,8 +11,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@platform/design-system": "git+https://github.com/Platform-System/Platform.DesignUI.git#main",
-    "@platform/api-client": "git+https://github.com/Platform-System/Platform.ApiClient.git#main",
+    "@platform/design-system": "*",
+    "@platform/api-client": "*",
     "@iconify/react": "^6.0.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -59,9 +59,9 @@
     "next": "16.2.4",
     "next-intl": "^4.9.1",
     "next-themes": "^0.4.6",
-    "react": "19.2.4",
+    "react": "^19.2.6",
     "react-day-picker": "^9.14.0",
-    "react-dom": "19.2.4",
+    "react-dom": "^19.2.6",
     "react-hook-form": "^7.75.0",
     "react-resizable-panels": "^2.0.23",
     "recharts": "^3.8.1",
@@ -84,7 +84,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",
-    "typescript": "^5",
+    "typescript": "~6.0.2",
     "@playwright/test": "^1.49.0"
   }
 }

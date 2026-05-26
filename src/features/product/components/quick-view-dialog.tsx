@@ -20,7 +20,7 @@ interface QuickViewDialogProps {
 export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDialogProps) {
   const { addToCart } = useCart()
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
-  const isWishlisted = isInWishlist(Number(product.id))
+  const isWishlisted = isInWishlist(product.id)
 
   const { data: allSellers = [] } = useQuery({
     queryKey: sellerQueryKeys.all,
@@ -56,7 +56,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="ds-glass-card sm:max-w-5xl md:max-w-5xl max-h-[90vh] md:max-h-[660px] flex flex-col overflow-hidden rounded-3xl p-0 text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
+      <DialogContent className="ds-glass-card sm:max-w-5xl md:max-w-5xl max-h-[90vh] md:max-h-[660px] flex flex-col overflow-hidden rounded-3xl p-0 text-foreground shadow-[0_24px_48px_rgb(0_0_0/0.16)]">
         <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-0 h-full overflow-hidden flex-1">
           
           {/* Cột trái - bộ sưu tập ảnh */}
@@ -119,7 +119,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                     }}
                     className={cn(
                       "relative h-12 w-12 shrink-0 overflow-hidden rounded-lg transition-all",
-                      currentModalImage === index ? "store-accent-glow shadow-[0_10px_24px_rgb(15_23_42/0.12)]" : "store-surface-soft"
+                      currentModalImage === index ? "store-accent-glow shadow-[0_10px_24px_rgb(0_0_0/0.12)]" : "store-surface-soft"
                     )}
                   >
                     <Image src={image} alt="" fill className="object-cover" />
@@ -134,7 +134,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
             <div>
               {/* Thông tin seller */}
               <div className="flex items-center gap-2 mb-2">
-                <Avatar className="h-6 w-6">
+                <Avatar className="size-6">
                   <AvatarImage src={sellerAvatar} alt={fullProduct.seller.name} className="object-cover" />
                   <AvatarFallback>{fullProduct.seller.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
@@ -292,7 +292,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   addToCart({
-                    id: Number(fullProduct.id),
+                    id: fullProduct.id,
                     name: fullProduct.name,
                     price: fullProduct.price,
                     image: fullProduct.images[0],
@@ -312,7 +312,7 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   addToCart({
-                    id: Number(fullProduct.id),
+                    id: fullProduct.id,
                     name: fullProduct.name,
                     price: fullProduct.price,
                     image: fullProduct.images[0],
@@ -336,10 +336,10 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   if (isWishlisted) {
-                    removeFromWishlist(Number(fullProduct.id))
+                    removeFromWishlist(fullProduct.id)
                   } else {
                     addToWishlist({
-                      id: Number(fullProduct.id),
+                      id: fullProduct.id,
                       name: fullProduct.name,
                       price: fullProduct.price,
                       image: fullProduct.images[0],

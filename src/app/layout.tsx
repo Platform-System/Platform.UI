@@ -46,11 +46,11 @@ export default async function RootLayout({
             <QueryProvider>
               <div
                 className="pointer-events-none fixed top-[-10%] left-[-10%] z-0 h-[40%] w-[40%] rounded-full opacity-100"
-                style={{ background: "rgb(255 255 255 / 0.08)", filter: "blur(120px)" }}
+                style={{ background: "rgb(255 255 255 / 0.03)", filter: "blur(140px)" }}
               />
               <div
                 className="pointer-events-none fixed right-[-10%] bottom-[-10%] z-0 h-[40%] w-[40%] rounded-full opacity-100"
-                style={{ background: "rgb(161 161 170 / 0.08)", filter: "blur(120px)" }}
+                style={{ background: "rgb(113 113 122 / 0.05)", filter: "blur(140px)" }}
               />
 
               <div className="relative z-10 flex h-full w-full flex-col bg-background text-foreground transition-colors duration-300">

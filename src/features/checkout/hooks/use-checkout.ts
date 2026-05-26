@@ -6,16 +6,10 @@ import {
   CheckoutFormData, 
   DEFAULT_FORM_DATA, 
   DeliveryMethod, 
-  PaymentMethod, 
-  STORE_ORDERS_KEY 
+  PaymentMethod 
 } from "../constants"
-
-function createOrderMeta() {
-  return {
-    orderId: `ORD-${Date.now().toString().slice(-8)}`,
-    createdAt: new Date().toISOString(),
-  }
-}
+import { apiClient } from "@/shared/api/api-client"
+import { Result } from "@/types/api"
 
 export function useCheckout() {
   const { cartItems, cartTotal, clearCart } = useCart()
@@ -59,36 +53,7 @@ export function useCheckout() {
     return null
   }
 
-  const buildOrderPayload = (orderId: string, createdAt: string): StoreOrder => ({
-    id: orderId,
-    createdAt,
-    customerName: formData.customerName.trim(),
-    email: formData.email.trim(),
-    phone: formData.phone.trim(),
-    city: formData.city.trim(),
-    district: formData.district.trim(),
-    ward: formData.ward.trim(),
-    addressLine: formData.addressLine.trim(),
-    deliveryNote: formData.deliveryNote.trim(),
-    deliveryMethod,
-    paymentMethod,
-    items: cartItems.map((item) => ({
-      id: item.id,
-      name: item.name,
-      image: item.image,
-      price: item.price,
-      quantity: item.quantity,
-      color: item.color,
-      size: item.size,
-    })),
-    subtotal: cartTotal,
-    shippingFee,
-    taxAmount,
-    total: grandTotal,
-    status: "processing",
-  })
-
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const validationError = validateForm()
     if (validationError) {
       setFormError(validationError)
@@ -99,22 +64,97 @@ export function useCheckout() {
     }
 
     setIsSubmitting(true)
-    const { orderId, createdAt } = createOrderMeta()
-    const orderPayload = buildOrderPayload(orderId, createdAt)
+    setFormError(null)
 
-    window.setTimeout(() => {
-      const existingOrders = window.localStorage.getItem(STORE_ORDERS_KEY)
-      const parsedOrders: StoreOrder[] = existingOrders ? JSON.parse(existingOrders) : []
-      window.localStorage.setItem(STORE_ORDERS_KEY, JSON.stringify([orderPayload, ...parsedOrders]))
+    const requestPayload = {
+      recipientName: formData.customerName.trim(),
+      phoneNumber: formData.phone.trim(),
+      city: formData.city.trim(),
+      district: formData.district.trim(),
+      ward: formData.ward.trim(),
+      streetAddress: formData.addressLine.trim(),
+      shipmentMethod: deliveryMethod,
+      shipmentFee: shippingFee,
+      shipmentNote: formData.deliveryNote.trim(),
+    }
 
-      setOrderSuccess(orderPayload)
-      clearCart()
-      setIsSubmitting(false)
-      setFormError(null)
-      toast.success("Đặt hàng thành công", {
-        description: `Đơn ${orderPayload.id} đã được tạo.`,
+    try {
+      const response = await apiClient.post<Result<any>>("/api/ordering/carts/checkout", requestPayload)
+      if (response.data && response.data.success && response.data.data) {
+        const order = response.data.data
+
+        let status: StoreOrder["status"] = "pending"
+        // Map OrderStatus enum to StoreOrder['status']
+        // Pending = 1, Paid = 2, Failed = 3, Cancelled = 4
+        switch (order.status) {
+          case 1:
+            status = "pending"
+            break
+          case 2:
+            status = "processing"
+            break
+          case 3:
+            status = "pending"
+            break
+          case 4:
+            status = "pending"
+            break
+        }
+
+        const expiredDate = order.expiredAt ? new Date(order.expiredAt) : new Date()
+        const createdDate = new Date(expiredDate.getTime() - 15 * 60 * 1000)
+
+        const orderPayload: StoreOrder = {
+          id: order.orderCode ? `#${order.orderCode}` : order.id,
+          createdAt: createdDate.toISOString(),
+          customerName: order.address?.recipientName || formData.customerName.trim(),
+          email: formData.email.trim(),
+          phone: order.address?.phoneNumber || formData.phone.trim(),
+          city: order.address?.city || formData.city.trim(),
+          district: order.address?.district || formData.district.trim(),
+          ward: order.address?.ward || formData.ward.trim(),
+          addressLine: order.address?.streetAddress || formData.addressLine.trim(),
+          deliveryNote: order.shipment?.note || formData.deliveryNote.trim(),
+          deliveryMethod: order.shipment?.method === "express" ? "express" : "standard",
+          paymentMethod: "payment",
+          items: (order.items || []).map((item: any) => ({
+            id: item.productId,
+            name: item.name,
+            image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200",
+            price: item.price,
+            quantity: item.quantity,
+            color: "Đen",
+            size: "Thường",
+          })),
+          subtotal: order.totalAmount - (order.shipment?.fee || 0),
+          shippingFee: order.shipment?.fee || 0,
+          taxAmount: 0,
+          total: order.totalAmount,
+          status: status,
+        }
+
+        setOrderSuccess(orderPayload)
+        clearCart()
+        toast.success("Đặt hàng thành công", {
+          description: `Đơn hàng ${orderPayload.id} đã được tạo.`,
+        })
+      } else {
+        const errorMsg = response.data?.message || "Đặt hàng không thành công. Vui lòng kiểm tra lại."
+        setFormError(errorMsg)
+        toast.error("Lỗi đặt hàng", {
+          description: errorMsg,
+        })
+      }
+    } catch (err: any) {
+      console.error("Failed to place order:", err)
+      const errorMsg = err.response?.data?.message || err.message || "Đã xảy ra lỗi khi đặt hàng."
+      setFormError(errorMsg)
+      toast.error("Lỗi kết nối", {
+        description: errorMsg,
       })
-    }, 1000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return {
@@ -135,4 +175,3 @@ export function useCheckout() {
     orderSuccess,
   }
 }
-

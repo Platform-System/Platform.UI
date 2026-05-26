@@ -18,21 +18,19 @@ import {
   LayoutGrid,
   ArrowLeft,
 } from "lucide-react"
+import { Button } from "@platform/design-system/components/button"
+import { cn } from "@platform/design-system/lib/cn"
 import {
-  Button,
-  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  RatingStars,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@platform/design-system"
+} from "@platform/design-system/components/dropdown-menu"
+import { RatingStars } from "@platform/design-system/components/rating-stars"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-system/components/tabs"
 import { ProductCard } from "@/features/product"
-import { FilterBar, EmptyStatePanel } from "@platform/design-system"
+import { FilterBar } from "@platform/design-system/components/filter-bar"
+import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
 import { useSellerStorefront } from "../hooks/use-seller-storefront"
 import { Link } from "@/i18n/navigation"
 
@@ -97,7 +95,7 @@ export function SellerStorefrontScreen() {
             {t("back")}
           </button>
 
-          <div className="relative h-64 overflow-hidden rounded-[2rem] shadow-[0_28px_60px_rgb(15_23_42/0.12)] sm:h-80 lg:h-96">
+          <div className="relative h-64 overflow-hidden rounded-[2rem] shadow-[0_28px_60px_rgb(0_0_0/0.12)] sm:h-80 lg:h-96">
             <Image
               src={seller.coverImage}
               alt={`${seller.name} cover`}
@@ -105,7 +103,7 @@ export function SellerStorefrontScreen() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
           </div>
         </div>
       </section>
@@ -116,11 +114,11 @@ export function SellerStorefrontScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="ds-glass-panel rounded-[2rem] p-6 shadow-[0_24px_56px_rgb(15_23_42/0.12)] sm:p-8"
+            className="ds-glass-panel rounded-[2rem] p-6 shadow-[0_24px_56px_rgb(0_0_0/0.12)] sm:p-8"
           >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
               <div className="relative">
-                <div className="store-surface-soft relative h-24 w-24 overflow-hidden rounded-[1.5rem] shadow-[0_18px_36px_rgb(15_23_42/0.12)] sm:h-32 sm:w-32">
+                <div className="store-surface-soft relative h-24 w-24 overflow-hidden rounded-[1.5rem] shadow-[0_18px_36px_rgb(0_0_0/0.12)] sm:h-32 sm:w-32">
                   <Image src={seller.avatar} alt={seller.name} fill className="object-cover" />
                 </div>
                 {seller.verified && (
@@ -324,7 +322,7 @@ export function SellerStorefrontScreen() {
 
             <TabsContent value="reviews" className="mt-0">
               <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
-                <div className="ds-glass-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(15_23_42/0.1)]">
+                <div className="ds-glass-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(0_0_0/0.1)]">
                   <div className="flex items-start gap-6">
                     <div className="min-w-[96px]">
                       <div className="text-5xl font-semibold tracking-[-0.03em]">{seller.rating}</div>
@@ -363,7 +361,7 @@ export function SellerStorefrontScreen() {
                   {(sellerMeta?.reviews ?? []).map((review) => (
                     <div
                       key={review.id}
-                      className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(15_23_42/0.1)]"
+                      className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(0_0_0/0.1)]"
                     >
                       <div className="flex items-start gap-4">
                         <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
@@ -401,15 +399,15 @@ export function SellerStorefrontScreen() {
                     {t("storePolicies")}
                   </h3>
                   <div className="grid gap-5 md:grid-cols-3">
-                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(0_0_0/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("shipping")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.shipping}</p>
                     </div>
-                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(0_0_0/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("returns")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.returns}</p>
                     </div>
-                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(15_23_42/0.08)]">
+                    <div className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_16px_32px_rgb(0_0_0/0.08)]">
                       <h4 className="mb-2 text-lg font-medium text-foreground">{t("warranty")}</h4>
                       <p className="store-muted-text text-sm leading-relaxed">{seller.policies?.warranty}</p>
                     </div>

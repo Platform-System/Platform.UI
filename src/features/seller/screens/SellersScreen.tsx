@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl"
 import { useState, useLayoutEffect } from "react"
 import { Store } from "lucide-react"
-import { FilterBar } from "@platform/design-system"
+import { FilterBar } from "@platform/design-system/components/filter-bar"
 import { SellerCard } from "../components/seller-card"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllSellers, sellerQueryKeys } from "../queries/seller-queries"
@@ -79,7 +79,7 @@ export function SellersScreen() {
             ))}
           </div>
         ) : (
-          <div className="ds-glass-panel rounded-2xl py-24 text-center shadow-[0_18px_32px_rgb(15_23_42/0.1)]">
+          <div className="ds-glass-panel rounded-2xl py-24 text-center shadow-[0_18px_32px_rgb(0_0_0/0.1)]">
             <Store className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
             <h3 className="mb-2 text-xl font-semibold text-foreground">
               {allSellers.length === 0 ? t("noSellers") : t("noSellersFound")}

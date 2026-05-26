@@ -21,25 +21,18 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react"
-import {
-  Button,
-  Calendar,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  RatingStars,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  cn,
-} from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
+import { Calendar } from "@platform/design-system/components/calendar"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@platform/design-system/components/chart"
+import { RatingStars } from "@platform/design-system/components/rating-stars"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-system/components/tabs"
+import { cn } from "@platform/design-system/lib/cn"
 import { Link } from "@/i18n/navigation"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { ProductDetailSkeleton } from "../index"
 import { useProductDetail } from "../hooks/use-product-detail"
 import { REVIEWS, PRICE_HISTORY, PRICE_CHART_CONFIG } from "../constants"
-import { EmptyStatePanel } from "@platform/design-system"
+import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
 
 export function ProductDetailScreen() {
   const params = useParams()
@@ -378,7 +371,7 @@ export function ProductDetailScreen() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="ds-glass-panel mt-16 overflow-hidden rounded-[28px] p-6 shadow-[0_20px_48px_rgb(15_23_42/0.1)]"
+            className="ds-glass-panel mt-16 overflow-hidden rounded-[28px] p-6 shadow-[0_20px_48px_rgb(0_0_0/0.1)]"
           >
             <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
               <div className="flex items-start gap-4">
@@ -482,7 +475,7 @@ export function ProductDetailScreen() {
             </TabsContent>
 
             <TabsContent value="delivery" className="mt-8">
-              <div className="ds-glass-panel rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
+              <div className="ds-glass-panel rounded-[30px] p-6 shadow-[0_18px_44px_rgb(0_0_0/0.1)]">
                 <div className="flex flex-col gap-4 pb-5 lg:flex-row lg:items-end lg:justify-between">
                   <div>
                       <p className="store-muted-text text-[11px] uppercase tracking-[0.18em]">{t("deliveryWindow")}</p>
@@ -598,7 +591,7 @@ export function ProductDetailScreen() {
                 {REVIEWS.map((review) => (
                   <article
                     key={review.id}
-                    className="ds-glass-panel rounded-[28px] p-6 shadow-[0_16px_36px_rgb(15_23_42/0.08)]"
+                    className="ds-glass-panel rounded-[28px] p-6 shadow-[0_16px_36px_rgb(0_0_0/0.08)]"
                   >
                     <div className="flex items-start gap-4">
                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
@@ -652,7 +645,7 @@ export function ProductDetailScreen() {
             </TabsContent>
 
             <TabsContent value="pricing" className="mt-8">
-              <div className="ds-glass-panel rounded-[30px] p-8 shadow-[0_18px_44px_rgb(15_23_42/0.1)]">
+              <div className="ds-glass-panel rounded-[30px] p-8 shadow-[0_18px_44px_rgb(0_0_0/0.1)]">
                 <div className="mb-8">
                   <h3 className="text-xl font-semibold">{t("priceHistory.title")}</h3>
                   <p className="mt-2 text-muted-foreground">{t("priceHistory.description")}</p>

@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
 
 export interface CartItem {
-  id: number
+  id: string | number
   name: string
   price: number
   image: string
@@ -15,11 +15,12 @@ interface CartState {
   items: CartItem[]
   isOpen: boolean
   setIsOpen: (open: boolean) => void
+  setItems: (items: CartItem[]) => void
   addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void
-  removeItem: (id: number, color?: string, size?: string) => void
-  updateQuantity: (id: number, quantity: number, color?: string, size?: string) => void
+  removeItem: (id: string | number, color?: string, size?: string) => void
+  updateQuantity: (id: string | number, quantity: number, color?: string, size?: string) => void
   updateItemVariant: (
-    id: number,
+    id: string | number,
     currentColor: string | undefined,
     currentSize: string | undefined,
     updates: { color?: string; size?: string }
@@ -35,6 +36,7 @@ export const useCartStore = create<CartState>()(
       items: [],
       isOpen: false,
       setIsOpen: (open) => set({ isOpen: open }),
+      setItems: (items) => set({ items }),
       addItem: (item) => {
         const { items } = get()
         const nextQuantity = Math.max(1, item.quantity ?? 1)
@@ -126,4 +128,3 @@ export const useCartStore = create<CartState>()(
     }
   )
 )
-

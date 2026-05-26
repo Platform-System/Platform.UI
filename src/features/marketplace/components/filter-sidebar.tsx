@@ -2,9 +2,15 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button, Checkbox, RatingStars, Slider, cn } from "@platform/design-system"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform/design-system/components/accordion"
+import { Button } from "@platform/design-system/components/button"
+import { Checkbox } from "@platform/design-system/components/checkbox"
+import { RatingStars } from "@platform/design-system/components/rating-stars"
+import { Slider } from "@platform/design-system/components/slider"
+import { cn } from "@platform/design-system/lib/cn"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllCategories, categoryQueryKeys } from "@/shared/lib/category-queries"
+import { fetchAllSellers, sellerQueryKeys } from "@/features/seller"
 
 interface FilterSidebarProps {
   isOpen: boolean
@@ -18,8 +24,6 @@ interface FilterSidebarProps {
   onSelectedRatingChange: (rating: number | null) => void
   selectedSellers: string[]
   onSelectedSellersChange: (sellers: string[]) => void
-  verifiedOnly: boolean
-  onVerifiedOnlyChange: (verifiedOnly: boolean) => void
   onClearAll: () => void
 }
 
@@ -33,15 +37,6 @@ const priceRanges = [
 
 const ratings = [5, 4, 3, 2, 1]
 
-const sellers = [
-  { id: "luxe-leather", name: "Luxe Leather Co.", productCount: 156 },
-  { id: "nordic-home", name: "Nordic Home", productCount: 234 },
-  { id: "techvault", name: "TechVault", productCount: 89 },
-  { id: "artisan-gems", name: "Artisan Gems", productCount: 78 },
-]
-
-
-
 export function FilterSidebar({
   isOpen,
   onClose,
@@ -54,14 +49,17 @@ export function FilterSidebar({
   onSelectedRatingChange,
   selectedSellers,
   onSelectedSellersChange,
-  verifiedOnly,
-  onVerifiedOnlyChange,
   onClearAll,
 }: FilterSidebarProps) {
   const { data: categories = [] } = useQuery({
     queryKey: categoryQueryKeys.all,
     queryFn: fetchAllCategories,
     staleTime: 10 * 60 * 1000,
+  })
+  const { data: sellers = [] } = useQuery({
+    queryKey: sellerQueryKeys.all,
+    queryFn: fetchAllSellers,
+    staleTime: 5 * 60 * 1000,
   })
   const toggleCategory = (id: string) => {
     const nextCategories = selectedCategories.includes(id)
@@ -134,7 +132,7 @@ export function FilterSidebar({
           <AccordionItem value="price" className="border-none">
             <AccordionTrigger className="text-sm font-medium hover:no-underline py-4 text-foreground">Khoảng giá</AccordionTrigger>
             <AccordionContent>
-              <div className="space-y-4 pt-2">
+              <div className="space-y-4 pt-2 px-3">
                 <Slider
                   value={priceRange}
                   onValueChange={(value: number[]) => onPriceRangeChange([value[0] ?? 0, value[1] ?? 1000])}
@@ -187,13 +185,9 @@ export function FilterSidebar({
             <AccordionTrigger className="text-sm font-medium hover:no-underline py-4 text-foreground">Nhà bán hàng</AccordionTrigger>
             <AccordionContent>
               <div className="space-y-3 pt-2">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <Checkbox checked={verifiedOnly} onCheckedChange={() => onVerifiedOnlyChange(!verifiedOnly)} />
-                  <span className="text-sm font-medium text-foreground">Chỉ hiện nhà bán hàng đã xác minh</span>
-                </label>
                 {sellers.map((seller) => (
-                  <label key={seller.id} className="flex items-center gap-3 cursor-pointer group">
-                    <Checkbox checked={selectedSellers.includes(seller.id)} onCheckedChange={() => toggleSeller(seller.id)} />
+                  <label key={seller.slug} className="flex items-center gap-3 cursor-pointer group">
+                    <Checkbox checked={selectedSellers.includes(seller.slug)} onCheckedChange={() => toggleSeller(seller.slug)} />
                     <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                       {seller.name}
                     </span>

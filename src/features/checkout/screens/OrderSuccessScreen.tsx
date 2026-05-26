@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import confetti from "canvas-confetti"
 import { CheckCircle2, ShoppingBag, ArrowRight, Package, Truck, Clock } from "lucide-react"
 import { Link } from "@/i18n/navigation"
-import { Button } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
 import { useTranslations } from "next-intl"
 import { StoreOrder } from "@/types/store"
 
@@ -46,7 +46,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="ds-glass-panel rounded-[40px] p-8 text-center shadow-[0_24px_64px_rgb(15_23_42/0.12)] sm:p-12"
+          className="ds-glass-panel rounded-[40px] p-8 text-center shadow-[0_24px_64px_rgb(0_0_0/0.12)] sm:p-12"
         >
           <motion.div
             initial={{ scale: 0 }}

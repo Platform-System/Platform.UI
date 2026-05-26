@@ -6,7 +6,7 @@ import { toast } from "sonner"
 import { useWishlistStore } from "../store/wishlist-store"
 
 export interface WishlistItem {
-  id: number
+  id: string | number
   name: string
   price: number
   image: string
@@ -32,7 +32,7 @@ export function useWishlist() {
     addItem(item)
   }
 
-  const removeFromWishlist = (id: number) => {
+  const removeFromWishlist = (id: string | number) => {
     const item = items.find((i) => i.id === id)
     if (item) {
       toast.info(t("toastTitle"), {
@@ -42,7 +42,7 @@ export function useWishlist() {
     removeItem(id)
   }
 
-  const isInWishlist = (id: number) => {
+  const isInWishlist = (id: string | number) => {
     return storeIsInWishlist(id)
   }
 
@@ -61,4 +61,3 @@ export function useWishlist() {
     wishlistCount,
   }
 }
-

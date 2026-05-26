@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react"
 import { useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
-import { fetchAllProducts, productQueryKeys } from "../queries/product-queries"
+import { fetchProductById, productQueryKeys } from "../queries/product-queries"
 import { useCart } from "@/features/cart"
 import { useWishlist } from "@/features/wishlist"
 import { toast } from "sonner"
@@ -10,17 +10,18 @@ import { CARE_INSTRUCTIONS, getEnhancedProduct } from "../constants"
 export function useProductDetail(id: string) {
   const t = useTranslations("Product")
 
-  const { data: allProducts = [], isLoading, isError } = useQuery({
-    queryKey: productQueryKeys.all,
-    queryFn: fetchAllProducts,
-    staleTime: 5 * 60 * 1000, // 5 minutes — ready for real API
+  const { data: baseProduct, isLoading, isError } = useQuery({
+    queryKey: productQueryKeys.detail(id),
+    queryFn: () => fetchProductById(id),
+    enabled: Boolean(id),
+    staleTime: 5 * 60 * 1000,
   })
 
-  const baseProduct = useMemo(() => allProducts.find((item) => item.id === id), [allProducts, id])
-
   const product = useMemo(() =>
-    baseProduct ? getEnhancedProduct(baseProduct) : getEnhancedProduct(allProducts[0] ?? { id: "", name: "", price: 0, image: "", rating: 0, reviewCount: 0, seller: { name: "", verified: false } }),
-    [baseProduct, allProducts]
+    baseProduct
+      ? getEnhancedProduct(baseProduct)
+      : getEnhancedProduct({ id: "", name: "", price: 0, image: "", rating: 0, reviewCount: 0, seller: { name: "", verified: false } }),
+    [baseProduct]
   )
 
   const currentCare = useMemo(() =>
@@ -41,7 +42,7 @@ export function useProductDetail(id: string) {
   const { addToCart, setIsOpen: setIsCartOpen } = useCart()
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
   
-  const isWishlisted = isInWishlist(Number(product.id))
+  const isWishlisted = isInWishlist(product.id)
 
   const discount = useMemo(() => 
     product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0,
@@ -50,7 +51,7 @@ export function useProductDetail(id: string) {
 
   const handleAddToCart = () => {
     addToCart({
-      id: Number(product.id),
+      id: product.id,
       name: product.name,
       price: product.price,
       image: product.images[0],
@@ -67,12 +68,12 @@ export function useProductDetail(id: string) {
 
   const handleWishlistToggle = () => {
     if (isWishlisted) {
-      removeFromWishlist(Number(product.id))
+      removeFromWishlist(product.id)
       return
     }
 
     addToWishlist({
-      id: Number(product.id),
+      id: product.id,
       name: product.name,
       price: product.price,
       image: product.images[0],

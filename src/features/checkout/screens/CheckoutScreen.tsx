@@ -4,11 +4,13 @@ import React from "react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { ArrowLeft, CheckCircle2, CreditCard, MapPin, ShieldCheck, Truck } from "lucide-react"
-import { Button, Input, Textarea } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
+import { Input } from "@platform/design-system/components/input"
+import { Textarea } from "@platform/design-system/components/textarea"
 import { Link } from "@/i18n/navigation"
 import { useCheckout } from "../hooks/use-checkout"
 import { OrderSuccessScreen } from "./OrderSuccessScreen"
-import { EmptyStatePanel } from "@platform/design-system"
+import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
 
 export function CheckoutScreen() {
   const t = useTranslations("Checkout")
@@ -87,7 +89,7 @@ export function CheckoutScreen() {
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
           <section className="space-y-6">
-            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(15_23_42/0.08)]">
+            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(0_0_0/0.08)]">
               <div className="mb-6 flex items-center gap-3">
                 <MapPin className="store-accent-text h-5 w-5" />
                 <h2 className="text-xl font-semibold text-foreground">{t("customerInfo")}</h2>
@@ -107,7 +109,7 @@ export function CheckoutScreen() {
               {formError && <p className="mt-4 text-sm font-medium text-destructive">{formError}</p>}
             </div>
 
-            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(15_23_42/0.08)]">
+            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(0_0_0/0.08)]">
               <div className="mb-6 flex items-center gap-3">
                 <Truck className="store-accent-text h-5 w-5" />
                 <h2 className="text-xl font-semibold text-foreground">{t("deliveryMethod")}</h2>
@@ -136,7 +138,7 @@ export function CheckoutScreen() {
               </div>
             </div>
 
-            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(15_23_42/0.08)]">
+            <div className="ds-glass-panel rounded-[28px] p-6 shadow-[0_14px_36px_rgb(0_0_0/0.08)]">
               <div className="mb-6 flex items-center gap-3">
                 <ShieldCheck className="store-accent-text h-5 w-5" />
                 <h2 className="text-xl font-semibold text-foreground">{t("paymentMethod")}</h2>
@@ -156,7 +158,7 @@ export function CheckoutScreen() {
             </div>
           </section>
 
-          <aside className="ds-glass-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)] lg:sticky lg:top-28">
+          <aside className="ds-glass-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(0_0_0/0.1)] lg:sticky lg:top-28">
             <p className="store-muted-text text-[11px] uppercase tracking-[0.18em]">{t("paymentSummary")}</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">{t("yourOrder")}</h2>
 

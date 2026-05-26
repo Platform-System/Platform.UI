@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { X, Plus, Minus, Trash2, ShoppingBag, Truck } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
@@ -14,19 +15,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Empty,
-  EmptyMedia,
-  EmptyTitle,
+} from "@platform/design-system/components/alert-dialog"
+import { Button } from "@platform/design-system/components/button"
+import { Empty, EmptyMedia, EmptyTitle } from "@platform/design-system/components/empty"
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+} from "@platform/design-system/components/select"
+import {
   Sheet,
   SheetContent,
   SheetTitle,
-} from "@platform/design-system"
+} from "@platform/design-system/components/sheet"
 import { useCart } from "../context/CartContext"
 import type { CartItem } from "../store/cart-store"
 import { Link } from "@/i18n/navigation"
@@ -40,9 +43,9 @@ const CartItemRow = React.memo(({
   removeFromCart
 }: { 
   item: CartItem; 
-  updateQuantity: (id: number, quantity: number, color?: string, size?: string) => void; 
-  updateItemVariant: (id: number, currentColor: string | undefined, currentSize: string | undefined, updates: { color?: string; size?: string }) => void; 
-  removeFromCart: (id: number, color?: string, size?: string) => void;
+  updateQuantity: (id: string | number, quantity: number, color?: string, size?: string) => void; 
+  updateItemVariant: (id: string | number, currentColor: string | undefined, currentSize: string | undefined, updates: { color?: string; size?: string }) => void; 
+  removeFromCart: (id: string | number, color?: string, size?: string) => void;
 }) => (
   <div className="flex items-center gap-4 pb-6 last:border-none">
     <div className="store-surface-soft relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
@@ -156,10 +159,11 @@ export function CartDrawer() {
   }, [isOpen, cartItems.length]);
 
   return (
+    <>
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetContent 
         side="right" 
-        className="ds-glass-card z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-[-20px_0_40px_rgba(0,0,0,0.1)] [&>button]:hidden rounded-l-[32px] border-l border-white/10 overflow-hidden"
+        className="bg-[rgb(var(--store-surface-rgb))] z-[1000] flex w-full max-w-[392px] flex-col gap-0 p-0 text-foreground shadow-[-20px_0_60px_rgba(0,0,0,0.15)] [&>button]:hidden rounded-l-[32px] overflow-hidden"
       >
         <SheetTitle className="sr-only">{t("title")}</SheetTitle>
             {/* Header */}
@@ -181,7 +185,7 @@ export function CartDrawer() {
                         {t("clearAll")}
                       </Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent className="ds-glass-card max-w-sm rounded-2xl text-foreground shadow-[0_24px_48px_rgb(15_23_42/0.16)]">
+                    <AlertDialogContent className="ds-glass-card max-w-sm rounded-2xl text-foreground shadow-[0_24px_48px_rgb(0_0_0/0.16)]">
                       <AlertDialogHeader>
                         <AlertDialogTitle className="font-serif text-lg text-foreground">{t("confirmClear")}</AlertDialogTitle>
                         <AlertDialogDescription className="store-muted-text text-sm">
@@ -202,47 +206,41 @@ export function CartDrawer() {
                     </AlertDialogContent>
                   </AlertDialog>
                 )}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                  className="store-icon-button rounded-full"
-                >
-                  <X className="h-5 w-5" />
-                </Button>
               </div>
             </div>
 
             {/* Free Shipping Progress */}
-            <div className="bg-muted/30 px-6 py-4 border-b border-border/50">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                  {cartTotal >= 200 ? "Chúc mừng! Bạn đã được Freeship" : `Mua thêm $${(200 - cartTotal).toLocaleString()} để được Freeship`}
-                </span>
-                <span className="text-[11px] font-bold text-foreground">
-                  {Math.min(100, Math.round((cartTotal / 200) * 100))}%
-                </span>
-              </div>
-              <div className="h-1.5 w-full bg-border/40 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-primary transition-all duration-700 ease-out"
-                  style={{ width: `${Math.min(100, (cartTotal / 200) * 100)}%` }}
-                />
-              </div>
-              {cartTotal >= 200 && (
-                <div className="mt-2 flex items-center gap-1.5 text-[10px] text-primary font-medium">
-                  <Truck className="h-3 w-3" />
-                  <span>Đã áp dụng ưu đãi vận chuyển cao cấp</span>
+            {cartItems.length > 0 && (
+              <div className="bg-muted/30 px-6 py-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                    {cartTotal >= 200 ? "Chúc mừng! Bạn đã được Freeship" : `Mua thêm $${(200 - cartTotal).toLocaleString()} để được Freeship`}
+                  </span>
+                  <span className="text-[11px] font-bold text-foreground">
+                    {Math.min(100, Math.round((cartTotal / 200) * 100))}%
+                  </span>
                 </div>
-              )}
-            </div>
+                <div className="h-1.5 w-full bg-border/40 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-primary transition-all duration-700 ease-out"
+                    style={{ width: `${Math.min(100, (cartTotal / 200) * 100)}%` }}
+                  />
+                </div>
+                {cartTotal >= 200 && (
+                  <div className="mt-2 flex items-center gap-1.5 text-[10px] text-primary font-medium">
+                    <Truck className="h-3 w-3" />
+                    <span>Đã áp dụng ưu đãi vận chuyển cao cấp</span>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* List items */}
             <div className="no-scrollbar flex-1 space-y-6 overflow-y-auto bg-transparent px-6 pt-2 pb-6">
               {cartItems.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
                   <Empty className="bg-transparent border-none">
-                    <EmptyMedia variant="icon" className="store-surface-soft store-muted-text h-16 w-16 rounded-full shadow-[0_8px_24px_rgb(15_23_42/0.08)]">
+                    <EmptyMedia variant="icon" className="store-surface-soft store-muted-text h-16 w-16 rounded-full shadow-[0_8px_24px_rgb(0_0_0/0.08)]">
                       <ShoppingBag className="h-8 w-8" />
                     </EmptyMedia>
                     <EmptyTitle className="store-muted-text text-sm font-medium">{t("empty")}</EmptyTitle>
@@ -295,6 +293,7 @@ export function CartDrawer() {
             )}
       </SheetContent>
     </Sheet>
+    </>
   )
 }
 

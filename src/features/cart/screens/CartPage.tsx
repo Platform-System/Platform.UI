@@ -4,18 +4,18 @@ import React from "react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react"
+import { Button } from "@platform/design-system/components/button"
 import {
-  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@platform/design-system"
+} from "@platform/design-system/components/select"
 import { Link } from "@/i18n/navigation"
 import { useCart } from "../context/CartContext"
 import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
-import { EmptyStatePanel } from "@platform/design-system"
+import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
 
 export function CartPage() {
   const t = useTranslations("Cart")
@@ -78,7 +78,7 @@ export function CartPage() {
               {cartItems.map((item) => (
                 <article
                   key={`${item.id}-${item.color}-${item.size}`}
-                  className="ds-glass-panel grid gap-5 rounded-[28px] p-5 shadow-[0_14px_36px_rgb(15_23_42/0.08)] sm:grid-cols-[140px_minmax(0,1fr)]"
+                  className="ds-glass-panel grid gap-5 rounded-[28px] p-5 shadow-[0_14px_36px_rgb(0_0_0/0.08)] sm:grid-cols-[140px_minmax(0,1fr)]"
                 >
                   <div className="store-surface-soft relative aspect-square overflow-hidden rounded-2xl">
                     <Image src={item.image} alt={item.name} fill className="object-cover" />
@@ -171,7 +171,7 @@ export function CartPage() {
               ))}
             </section>
 
-            <aside className="ds-glass-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(15_23_42/0.1)] lg:sticky lg:top-28">
+            <aside className="ds-glass-panel h-fit rounded-[30px] p-6 shadow-[0_18px_44px_rgb(0_0_0/0.1)] lg:sticky lg:top-28">
               <p className="store-muted-text text-[11px] uppercase tracking-[0.18em]">
                 {t("orderSummary")}
               </p>

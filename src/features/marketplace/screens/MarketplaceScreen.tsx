@@ -4,21 +4,23 @@ import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
+import { Button } from "@platform/design-system/components/button"
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Input,
+} from "@platform/design-system/components/dropdown-menu"
+import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  cn,
-} from "@platform/design-system"
+} from "@platform/design-system/components/pagination"
+import { Input } from "@platform/design-system/components/input"
+import { cn } from "@platform/design-system/lib/cn"
 import { ProductCard } from "@/features/product"
 import { FilterSidebar } from "../components/filter-sidebar"
 import { useQuery } from "@tanstack/react-query"
@@ -48,7 +50,6 @@ function MarketplaceScreenContent() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
   const [selectedRating, setSelectedRating] = useState<number | null>(null)
   const [selectedSellers, setSelectedSellers] = useState<string[]>([])
-  const [verifiedOnly, setVerifiedOnly] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = gridCols === 6 ? 24 : 16
 
@@ -65,7 +66,6 @@ function MarketplaceScreenContent() {
     setPriceRange([0, 1000])
     setSelectedRating(null)
     setSelectedSellers([])
-    setVerifiedOnly(false)
     setCurrentPage(1)
   }
 
@@ -94,10 +94,7 @@ function MarketplaceScreenContent() {
     setCurrentPage(1)
   }
 
-  const handleVerifiedOnlyChange = (value: boolean) => {
-    setVerifiedOnly(value)
-    setCurrentPage(1)
-  }
+
 
   const handleGridColsChange = (value: 2 | 3 | 4 | 5 | 6) => {
     setGridCols(value)
@@ -123,14 +120,12 @@ function MarketplaceScreenContent() {
       return false
     }
     if (selectedSellers.length > 0) {
-      const sellerSlug = product.seller.name.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "")
+      const sellerSlug = product.seller.slug ?? product.seller.name.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "")
       if (!selectedSellers.includes(sellerSlug)) {
         return false
       }
     }
-    if (verifiedOnly && !product.seller.verified) {
-      return false
-    }
+
     return true
   })
 
@@ -223,8 +218,6 @@ function MarketplaceScreenContent() {
                 onSelectedRatingChange={handleSelectedRatingChange}
                 selectedSellers={selectedSellers}
                 onSelectedSellersChange={handleSelectedSellersChange}
-                verifiedOnly={verifiedOnly}
-                onVerifiedOnlyChange={handleVerifiedOnlyChange}
                 onClearAll={clearAllFilters}
               />
             </div>
@@ -407,8 +400,6 @@ function MarketplaceScreenContent() {
         onSelectedRatingChange={handleSelectedRatingChange}
         selectedSellers={selectedSellers}
         onSelectedSellersChange={handleSelectedSellersChange}
-        verifiedOnly={verifiedOnly}
-        onVerifiedOnlyChange={handleVerifiedOnlyChange}
         onClearAll={clearAllFilters}
       />
     </div>

@@ -5,28 +5,20 @@ import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
+import { cn } from "@platform/design-system/lib/cn"
+import { ThemeToggle } from "@platform/design-system/components/theme-toggle"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform/design-system/components/accordion"
+import { Avatar, AvatarFallback, AvatarImage } from "@platform/design-system/components/avatar"
+import { Badge } from "@platform/design-system/components/badge"
+import { Button } from "@platform/design-system/components/button"
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Badge,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  cn,
-  useTheme,
-  type Theme,
-  THEMES,
-  THEME_LABELS,
-} from "@platform/design-system"
+} from "@platform/design-system/components/dropdown-menu"
 import {
   Search,
   ShoppingBag,
@@ -52,10 +44,9 @@ export function Header() {
   const t = useTranslations("Common")
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const { setIsOpen: setIsCartOpen, cartCount } = useCart()
+  const { setIsOpen: setIsCartOpen, cartCount, isOpen: isCartOpen } = useCart()
   const { wishlistCount } = useWishlist()
   const { isAuthenticated, login, logout, keycloak } = useAuth()
-  const { theme, resolvedTheme, setTheme } = useTheme()
   const { data: categories = [] } = useCategories()
 
   const isActive = (path: string) => {
@@ -108,10 +99,10 @@ export function Header() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "sticky top-0 left-0 right-0 z-40 transition-all duration-500",
+          "sticky top-0 left-0 right-0 z-[1002] transition-all duration-500",
           isScrolled
-            ? "border-b border-[rgb(var(--store-border-rgb)/0.8)] bg-[rgb(var(--store-surface-strong-rgb)/0.88)] shadow-[0_14px_32px_rgb(var(--store-accent-rgb)/0.1)] backdrop-blur-xl"
-            : "border-b border-[rgb(var(--store-border-rgb)/0.7)] bg-[rgb(var(--store-surface-rgb)/0.8)] backdrop-blur-sm"
+            ? "border-b border-[rgb(var(--store-border-rgb)/0.8)] dark:border-b-transparent bg-[rgb(var(--store-surface-strong-rgb)/0.88)] shadow-[0_14px_32px_rgb(var(--store-accent-rgb)/0.1)] backdrop-blur-xl"
+            : "border-b border-[rgb(var(--store-border-rgb)/0.7)] dark:border-b-transparent bg-[rgb(var(--store-surface-rgb)/0.8)] backdrop-blur-sm"
         )}
       >
         <div className="w-full px-4">
@@ -139,32 +130,29 @@ export function Header() {
                 Cửa hàng
               </Link>
 
-              <div
-                className="relative group"
-                onMouseEnter={() => setIsCategoryOpen(true)}
-                onMouseLeave={() => setIsCategoryOpen(false)}
-              >
-                <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none">
-                  Danh mục <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-                </button>
-
-                <div className={cn(
-                  "ds-glass-card pointer-events-none absolute top-full left-1/2 z-50 mt-2 w-48 origin-top -translate-x-1/2 rounded-xl p-1.5 shadow-[0_20px_40px_rgb(31_42_55/0.14)] transition-all duration-200 opacity-0 scale-95",
-                  isCategoryOpen && "opacity-100 scale-100 pointer-events-auto"
-                )}>
-                  <div className="absolute -top-3 left-0 right-0 h-3 bg-transparent" />
+              <DropdownMenu open={isCategoryOpen} onOpenChange={setIsCategoryOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors focus:outline-none cursor-pointer">
+                    Danh mục <ChevronDown className={cn("h-4 w-4 transition-transform duration-200", isCategoryOpen && "rotate-180")} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="center"
+                  className="w-48 p-1.5 ds-glass-card border-[rgb(var(--store-border-rgb)/0.7)] bg-[rgb(var(--store-surface-rgb)/0.8)] backdrop-blur-md"
+                >
                   {categories.map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/marketplace?category=${category.slug}`}
-                      onClick={() => setIsCategoryOpen(false)}
-                      className="store-muted-text block w-full rounded-lg px-3 py-2 text-sm transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground"
-                    >
-                      {category.name}
-                    </Link>
+                    <DropdownMenuItem key={category.id} asChild>
+                      <Link
+                        href={`/marketplace?category=${category.slug}`}
+                        onClick={() => setIsCategoryOpen(false)}
+                        className="store-muted-text block w-full rounded-lg px-3 py-2 text-sm transition-colors hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground cursor-pointer focus:bg-[rgb(var(--store-accent-rgb)/0.1)] focus:text-foreground"
+                      >
+                        {category.name}
+                      </Link>
+                    </DropdownMenuItem>
                   ))}
-                </div>
-              </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <Link
                 href="/sellers"
@@ -199,48 +187,24 @@ export function Header() {
                 <span className="sr-only">Tìm kiếm</span>
               </Button>
 
-              <Button variant="ghost" size="icon" asChild className="relative hidden sm:flex text-foreground hover:store-accent-text">
-                <Link href="/wishlist">
-                  <Heart className="h-5 w-5" />
-                  {wishlistCount > 0 && (
-                    <Badge className="store-accent-button absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-none p-0 text-[9px] font-semibold shadow-sm">
-                      {wishlistCount}
-                    </Badge>
-                  )}
-                  <span className="sr-only">Danh sách yêu thích</span>
-                </Link>
-              </Button>
+              <Link
+                href="/wishlist"
+                className="relative hidden sm:inline-flex items-center justify-center size-9 rounded-md text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.1)] hover:text-foreground transition-colors"
+              >
+                <Heart className="h-5 w-5" />
+                {wishlistCount > 0 && (
+                  <Badge className="store-accent-button absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-none p-0 text-[9px] font-semibold shadow-sm">
+                    {wishlistCount}
+                  </Badge>
+                )}
+                <span className="sr-only">Danh sách yêu thích</span>
+              </Link>
 
               {/* Theme Toggle */}
-              <div className="relative group">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-foreground hover:store-accent-text"
-                  title="Chuyển theme"
-                >
-                  {resolvedTheme === 'dark' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-                </Button>
-                <div className="absolute right-0 top-full mt-1 w-36 rounded-xl border border-[rgb(var(--store-border-rgb)/0.8)] bg-background shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
-                  {THEMES.map((themeOption: Theme) => (
-                    <button
-                      key={themeOption}
-                      onClick={() => setTheme(themeOption)}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${
-                        theme === themeOption
-                          ? 'text-[rgb(var(--store-accent-rgb))] bg-[rgb(var(--store-accent-rgb)/0.08)]'
-                          : 'text-[rgb(var(--store-muted-rgb))] hover:text-foreground hover:bg-[rgb(var(--store-surface-strong-rgb))]'
-                      }`}
-                    >
-                      {themeOption === 'light' && <Sun className="h-3.5 w-3.5" />}
-                      {themeOption === 'dark' && <Moon className="h-3.5 w-3.5" />}
-                      {themeOption === 'system' && <Monitor className="h-3.5 w-3.5" />}
-                      {THEME_LABELS[themeOption]}
-                      {theme === themeOption && <span className="ml-auto text-[10px] font-bold opacity-70">✓</span>}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <ThemeToggle
+                align="end"
+                buttonClassName="text-foreground hover:store-accent-text"
+              />
 
               <Button
                 variant="ghost"
@@ -263,14 +227,35 @@ export function Header() {
                 <span className="sr-only">Giỏ hàng</span>
               </Button>
 
-              {isAuthenticated ? (
+              {/* Avatar / Close cart button */}
+              {isCartOpen ? (
+                <motion.div
+                  initial={{ scale: 0, rotate: -90, opacity: 0 }}
+                  animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                  exit={{ scale: 0, rotate: 90, opacity: 0 }}
+                  transition={{ type: "spring", bounce: 0.4, duration: 0.35 }}
+                >
+                  <Button
+                    variant="ghost"
+                    size="icon-lg"
+                    onClick={() => setIsCartOpen(false)}
+                    className="relative rounded-full ml-1 hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                  >
+                    <Avatar className="size-9">
+                      <AvatarFallback className="bg-foreground text-background">
+                        <X className="size-5" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </motion.div>
+              ) : isAuthenticated ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 ml-1 hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
-                      <Avatar className="h-9 w-9 transition-transform hover:scale-110 active:scale-95">
+                    <Button variant="ghost" size="icon-lg" className="relative rounded-full ml-1 hover:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
+                      <Avatar className="size-9 transition-transform hover:scale-110 active:scale-95">
                         <AvatarImage src="" alt="User" />
-                        <AvatarFallback className="bg-[rgb(var(--store-accent-rgb))] text-white">
-                          <User className="h-5 w-5" />
+                        <AvatarFallback className="bg-[rgb(var(--store-accent-rgb))] text-background">
+                          <User className="size-5" />
                         </AvatarFallback>
                       </Avatar>
                     </Button>

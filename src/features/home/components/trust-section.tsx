@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Quote } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { RatingStars } from "@platform/design-system"
+import { RatingStars } from "@platform/design-system/components/rating-stars"
 
 export function TrustSection() {
   const t = useTranslations("Home.trust")
@@ -73,7 +73,7 @@ export function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="ds-glass-panel rounded-2xl p-6 shadow-[0_18px_32px_rgb(15_23_42/0.1)] sm:p-8"
+              className="ds-glass-panel rounded-2xl p-6 shadow-[0_18px_32px_rgb(0_0_0/0.1)] sm:p-8"
             >
               {/* Quote Icon */}
               <Quote className="store-muted-text mb-4 h-8 w-8" />

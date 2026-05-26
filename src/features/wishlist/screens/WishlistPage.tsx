@@ -6,10 +6,10 @@ import { Heart, Trash2, ShoppingBag, ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "@/features/cart"
-import { Button } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
-import { EmptyStatePanel } from "@platform/design-system"
+import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
 
 export function Wishlist() {
   const t = useTranslations("Wishlist")
@@ -85,7 +85,7 @@ export function Wishlist() {
                 className="gap-4 flex flex-col items-center"
                 panelClassName="justify-center rounded-3xl p-8 py-20"
                 descriptionClassName="mb-4 max-w-sm"
-                iconClassName="shadow-[0_8px_24px_rgb(15_23_42/0.08)]"
+                iconClassName="shadow-[0_8px_24px_rgb(0_0_0/0.08)]"
               />
             </motion.div>
           ) : (
@@ -101,7 +101,7 @@ export function Wishlist() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  className="ds-glass-panel group relative flex flex-col overflow-hidden rounded-2xl transition-all hover:shadow-[0_12px_32px_rgb(15_23_42/0.12)]"
+                  className="ds-glass-panel group relative flex flex-col overflow-hidden rounded-2xl transition-all hover:shadow-[0_12px_32px_rgb(0_0_0/0.12)]"
                 >
                   <div className="store-surface-soft relative aspect-square w-full overflow-hidden">
                     <Image

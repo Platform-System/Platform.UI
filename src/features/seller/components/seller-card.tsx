@@ -31,12 +31,12 @@ export function SellerCard({ seller }: SellerCardProps) {
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
       {/* Avatar */}
       <div className="relative -mt-8 flex justify-center">
-        <Avatar className="store-surface-soft h-16 w-16 shadow-[0_10px_24px_rgb(15_23_42/0.1)]">
+        <Avatar className="store-surface-soft size-16 shadow-[0_10px_24px_rgb(0_0_0/0.1)]">
           <AvatarImage src={seller.avatar} alt={seller.name} className="object-cover" />
           <AvatarFallback>{seller.name.substring(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>

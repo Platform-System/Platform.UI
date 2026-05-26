@@ -3,7 +3,7 @@
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Store, TrendingUp, Users, Shield } from "lucide-react"
-import { Button } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
 import { useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
 import { fetchSellerStats, sellerQueryKeys } from "@/features/seller"
@@ -40,7 +40,7 @@ export function SellerCtaSection() {
     staleTime: 10 * 60 * 1000,
   })
   return (
-    <section className="relative overflow-hidden bg-[rgb(var(--store-ink-rgb))] py-24 text-white">
+    <section className="relative overflow-hidden bg-zinc-950 py-24 text-white">
       {/* Các lớp nền phụ trợ */}
       <div className="absolute inset-0">
         <motion.div
@@ -49,7 +49,7 @@ export function SellerCtaSection() {
             opacity: [0.1, 0.15, 0.1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="store-accent-glow absolute top-0 right-0 h-[600px] w-[600px] rounded-full blur-3xl"
+          className="bg-zinc-800 absolute top-0 right-0 h-[600px] w-[600px] rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -57,7 +57,7 @@ export function SellerCtaSection() {
             opacity: [0.05, 0.1, 0.05],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="store-accent-glow-subtle absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full blur-3xl"
+          className="bg-zinc-900 absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full blur-3xl"
         />
       </div>
 
@@ -70,7 +70,7 @@ export function SellerCtaSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="store-accent-subtitle text-sm font-medium uppercase tracking-widest">
+          <span className="text-zinc-400 text-sm font-medium uppercase tracking-widest">
             {t("eyebrow")}
           </span>
           <h2 className="mt-3 mb-4 text-balance font-serif text-3xl font-semibold text-white sm:text-4xl lg:text-5xl">
@@ -98,7 +98,7 @@ export function SellerCtaSection() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="store-accent-text font-serif text-3xl sm:text-4xl font-semibold mb-2">
+              <div className="text-white font-serif text-3xl sm:text-4xl font-semibold mb-2">
                 {stat.value}
               </div>
               <div className="text-sm text-white/65">{stat.label}</div>
@@ -117,8 +117,8 @@ export function SellerCtaSection() {
               viewport={{ once: true }}
               className="group rounded-2xl border border-white/10 bg-white/6 p-6 shadow-[0_16px_36px_rgb(0_0_0/0.14)] transition-all hover:bg-white/10"
             >
-              <div className="store-accent-soft-hover w-fit rounded-xl p-3 mb-4">
-                <benefit.icon className="store-accent-text h-6 w-6" />
+              <div className="w-fit rounded-xl p-3 mb-4 bg-zinc-800 text-zinc-100 transition-colors group-hover:bg-zinc-700">
+                <benefit.icon className="h-6 w-6" />
               </div>
               <h3 className="mb-2 font-semibold text-white">{benefit.title}</h3>
               <p className="text-sm text-white/65">{benefit.description}</p>
@@ -152,5 +152,3 @@ export function SellerCtaSection() {
     </section>
   )
 }
-
-

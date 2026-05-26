@@ -25,7 +25,7 @@ export function AccountSidebar() {
   return (
     <aside className="w-full shrink-0 lg:w-64">
       {/* User Info */}
-      <div className="ds-glass-panel mb-4 rounded-2xl p-6 shadow-[0_16px_32px_rgb(15_23_42/0.1)]">
+      <div className="ds-glass-panel mb-4 rounded-2xl p-6 shadow-[0_16px_32px_rgb(0_0_0/0.1)]">
         <div className="flex items-center gap-4">
           <div className="relative h-14 w-14 rounded-full overflow-hidden">
             <Image
@@ -43,7 +43,7 @@ export function AccountSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="ds-glass-panel rounded-2xl p-2 shadow-[0_16px_32px_rgb(15_23_42/0.1)]">
+      <nav className="ds-glass-panel rounded-2xl p-2 shadow-[0_16px_32px_rgb(0_0_0/0.1)]">
         <ul className="space-y-1">
           {links.map((link) => {
             const isActive = pathname === link.href

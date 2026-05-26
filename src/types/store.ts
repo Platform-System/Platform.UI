@@ -31,6 +31,7 @@ export interface Product {
   reviewCount: number
   seller: {
     name: string
+    slug?: string
     verified: boolean
     avatar?: string
     rating?: number

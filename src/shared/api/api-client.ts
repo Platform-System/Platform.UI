@@ -1,4 +1,4 @@
-import { getApiClient, getPublicApiClient, configurePlatformApi } from '@platform/api-client';
+import { getApiClient, getPublicApiClient, getKeycloak, getValidToken as getValidTokenShared, configurePlatformApi } from '@platform/api-client';
 import { toast } from 'sonner';
 import { ENV } from '../config/env';
 
@@ -29,5 +29,7 @@ configurePlatformApi({
 
 export const apiClient = getApiClient();
 export const publicApiClient = getPublicApiClient();
+export const keycloak = getKeycloak();
+export const getValidToken = getValidTokenShared;
 
 

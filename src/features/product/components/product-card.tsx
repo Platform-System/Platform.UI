@@ -21,7 +21,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
   const { addToCart } = useCart()
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
-  const isWishlisted = isInWishlist(Number(product.id))
+  const isWishlisted = isInWishlist(product.id)
 
   return (
     <motion.div
@@ -68,7 +68,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 "absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold border-none",
                 product.badge === "new" && "ds-glass-panel text-foreground hover:bg-[rgb(var(--store-surface-strong-rgb)/0.98)]",
                 product.badge === "sale" && "store-accent-soft text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.16)]",
-                product.badge === "bestseller" && "bg-[rgb(var(--store-ink-rgb)/0.9)] text-white hover:bg-[rgb(var(--store-ink-rgb)/0.9)]"
+                product.badge === "bestseller" && "bg-[rgb(var(--store-ink-rgb)/0.9)] text-[rgb(var(--store-surface-rgb))] hover:bg-[rgb(var(--store-ink-rgb)/0.9)]"
               )}
             >
               {product.badge === "new" ? "MỚI" : product.badge === "sale" ? "GIẢM GIÁ" : "BÁN CHẠY"}
@@ -87,10 +87,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
               onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault()
                 if (isWishlisted) {
-                  removeFromWishlist(Number(product.id))
+                  removeFromWishlist(product.id)
                 } else {
                   addToWishlist({
-                    id: Number(product.id),
+                    id: product.id,
                     name: product.name,
                     price: product.price,
                     image: product.image,
@@ -132,7 +132,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 e.preventDefault()
                 e.stopPropagation()
                 addToCart({
-                  id: Number(product.id),
+                  id: product.id,
                   name: product.name,
                   price: product.price,
                   image: product.image,
@@ -152,7 +152,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <div className="mt-4 space-y-2.5">
         {/* Seller */}
         <Link
-          href={`/seller/${product.seller.name.toLowerCase().replace(/\s+/g, "-")}`}
+          href={`/seller/${product.seller.slug ?? product.seller.name.toLowerCase().replace(/\s+/g, "-")}`}
           className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
           {product.seller.name}

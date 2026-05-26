@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Clock } from "lucide-react"
-import { Button } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
 
 export function PromoBanner() {
   return (
@@ -17,7 +17,7 @@ export function PromoBanner() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="relative rounded-3xl overflow-hidden bg-charcoal group cursor-pointer"
+            className="relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-pointer"
           >
             <Link href="/marketplace?filter=summer-sale" scroll={false} className="absolute inset-0 z-20" aria-label="Mua ngay ưu đãi" />
             <div className="absolute inset-0">
@@ -27,11 +27,11 @@ export function PromoBanner() {
                 fill
                 className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-900/80 to-transparent" />
             </div>
             
             <div className="relative p-8 sm:p-12 min-h-[400px] flex flex-col justify-center z-10">
-              <span className="store-accent-subtitle inline-flex items-center gap-2 text-sm font-medium mb-4">
+              <span className="text-zinc-400 inline-flex items-center gap-2 text-sm font-medium mb-4">
                 <Clock className="h-4 w-4" />
                 Ưu đãi có hạn
               </span>
@@ -98,7 +98,7 @@ export function PromoBanner() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="relative rounded-3xl overflow-hidden bg-charcoal group cursor-pointer"
+              className="relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-pointer"
             >
               <Link href="/marketplace?category=home" scroll={false} className="absolute inset-0 z-20" aria-label="Nhà cửa & Đời sống" />
               <div className="absolute inset-0">
@@ -112,7 +112,7 @@ export function PromoBanner() {
               
               <div className="relative p-8 flex items-center justify-between z-10">
                 <div>
-                  <span className="store-accent-subtitle text-sm font-medium">Đang thịnh hành</span>
+                  <span className="text-zinc-400 text-sm font-medium">Đang thịnh hành</span>
                   <h3 className="mt-2 mb-2 font-serif text-2xl font-semibold text-white">
                     Nhà cửa & Đời sống
                   </h3>
@@ -135,5 +135,3 @@ export function PromoBanner() {
     </section>
   )
 }
-
-

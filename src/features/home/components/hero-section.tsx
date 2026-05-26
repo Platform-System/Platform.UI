@@ -5,12 +5,12 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, Play, Sparkles, BadgeCheck } from "lucide-react"
-import { Button } from "@platform/design-system"
+import { Button } from "@platform/design-system/components/button"
 
 export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null)
-  
-  // Sử dụng scrollY trực tiếp thay vì target offset để tránh bug warning của framer-motion 
+
+  // Sử dụng scrollY trực tiếp thay vì target offset để tránh bug warning của framer-motion
   // đối với section nằm ở đầu trang
   const { scrollY } = useScroll()
 
@@ -20,40 +20,34 @@ export function HeroSection() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative min-h-screen overflow-hidden bg-transparent"
-      style={{ position: "relative" }} // Đảm bảo luôn là non-static để fix warning scroll offset
+      style={{ position: "relative" }}
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient Overlay */}
         <div className="absolute inset-0 z-10 bg-gradient-to-br from-[rgb(var(--store-ink-rgb)/0.22)] via-[rgb(var(--store-accent-rgb)/0.08)] to-transparent" />
-        
+
         {/* Animated Grid Pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(rgb(var(--store-surface-strong-rgb) / 0.1) 1px, transparent 1px), 
+            backgroundImage: `linear-gradient(rgb(var(--store-surface-strong-rgb) / 0.1) 1px, transparent 1px),
                              linear-gradient(90deg, rgb(var(--store-surface-strong-rgb) / 0.1) 1px, transparent 1px)`,
             backgroundSize: '50px 50px',
           }}
         />
-        
+
         {/* Floating Shapes */}
         <motion.div
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0],
-          }}
+          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute right-1/4 top-1/4 h-64 w-64 rounded-full bg-[rgb(var(--store-accent-rgb)/0.12)] blur-3xl"
         />
         <motion.div
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -5, 0],
-          }}
+          animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-1/4 left-1/4 h-96 w-96 rounded-full bg-[rgb(var(--store-border-rgb)/0.24)] blur-3xl"
         />
@@ -111,27 +105,22 @@ export function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
               >
-                <Button
-                  asChild
-                  size="lg"
-                  className="store-accent-button store-accent-button-strong h-14 px-8 text-base font-semibold"
+                <Link
+                  href="/marketplace"
+                  scroll={false}
+                  className="store-accent-button store-accent-button-strong inline-flex items-center justify-center h-14 px-8 text-base font-semibold rounded-md transition-all"
                 >
-                  <Link href="/marketplace" scroll={false}>
-                    Khám phá cửa hàng
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="store-surface-soft h-14 px-8 text-base text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.1)]"
+                  Khám phá cửa hàng
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+                <Link
+                  href="/become-seller"
+                  scroll={false}
+                  className="store-surface-soft inline-flex items-center justify-center h-14 px-8 text-base text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.1)] border border-[rgb(var(--store-border-rgb)/0.95)] rounded-md transition-all"
                 >
-                  <Link href="/become-seller" scroll={false}>
-                    <Play className="mr-2 h-5 w-5" />
-                    Mở gian hàng
-                  </Link>
-                </Button>
+                  <Play className="mr-2 h-5 w-5" />
+                  Mở gian hàng
+                </Link>
               </motion.div>
 
               {/* Stats */}
@@ -177,13 +166,13 @@ export function HeroSection() {
                 <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl">
                   <Image
                     src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&h=1000&fit=crop"
-                          alt="Bộ sưu tập nổi bật"
+                    alt="Bộ sưu tập nổi bật"
                     fill
                     className="object-cover"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-                  
+
                   {/* Floating Product Card */}
                   <motion.div
                     animate={{ y: [0, -5, 0] }}
@@ -275,5 +264,3 @@ export function HeroSection() {
     </section>
   )
 }
-
-
