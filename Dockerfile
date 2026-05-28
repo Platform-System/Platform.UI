@@ -5,8 +5,11 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat git
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci --legacy-peer-deps
+ARG GHCR_TOKEN
+ENV GHCR_TOKEN=$GHCR_TOKEN
+
+COPY package.json package-lock.json .npmrc ./
+RUN --mount=type=cache,target=/root/.npm npm install --legacy-peer-deps
 
 # 2. Rebuild the source code only when needed
 FROM base AS builder

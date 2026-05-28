@@ -49,6 +49,7 @@ jobs:
       image_name: 'platform-merchant-ui'
       push_image: true
       build_args: |
+        GHCR_TOKEN=${{ secrets.GHCR_TOKEN }}
         NEXT_PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
         NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.PUBLIC_AUTH_URL }}
         NEXT_PUBLIC_KEYCLOAK_REALM=${{ vars.KEYCLOAK_REALM }}
