@@ -13,7 +13,7 @@
   "dependencies": {
     "@iconify/react": "^6.0.2",
     "@platform/api-client": "*",
-    "@platform/design-system": "github:Platform-System/Platform.DesignUI#b903f0bc7c65ad3a347130c84ca65c2626f669da",
+    "@platform/design-system": "github:Platform-System/Platform.DesignUI#2e6f10174ad24afe2e43d16edf2502be94596542",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
