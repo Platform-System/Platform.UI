@@ -1,4 +1,4 @@
-import { getApiClient, getPublicApiClient, getKeycloak, getValidToken as getValidTokenShared, configurePlatformApi } from '@platform/api-client';
+import { getApiClient, getPublicApiClient, getKeycloak, getValidToken as getValidTokenShared, configurePlatformApi } from '@platform-system/api-client';
 import { toast } from 'sonner';
 import { ENV } from '../config/env';
 
