@@ -33,6 +33,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
       - name: Run Linter
         run: npm run lint
