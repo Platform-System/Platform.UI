@@ -104,7 +104,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <X className="h-4 w-4" />
                     </Button>
                   ) : undefined}
-                  className="h-14 border-0 bg-[rgb(var(--store-surface-rgb)/0.74)] pr-12 pl-12 text-lg focus-visible:ring-0"
+                  className="h-14 border-[1.5px] border-dashed border-[rgb(var(--store-border-rgb))] bg-[rgb(var(--store-surface-rgb)/0.74)] pr-12 pl-12 text-lg rounded-2xl focus:border-solid focus:border-[rgb(var(--store-accent-rgb))] focus:ring-[1px] focus:ring-[rgb(var(--store-accent-rgb))] focus-visible:ring-0 focus-visible:border-solid focus-visible:border-[rgb(var(--store-accent-rgb))] transition-all duration-200"
                 />
               </div>
 

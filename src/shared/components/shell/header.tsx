@@ -5,7 +5,6 @@ import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { useTheme } from "next-themes"
 import { cn } from "@platform/design-system/lib/cn"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform/design-system/components/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from "@platform/design-system/components/avatar"
@@ -30,8 +29,6 @@ import {
   LogOut,
   LogIn,
   Settings,
-  Sun,
-  Moon,
 } from "lucide-react"
 import { useAuth } from "@/core/providers/AuthProvider"
 import { SearchModal } from "@/features/search/components/search-modal"
@@ -47,7 +44,6 @@ export function Header() {
   const { wishlistCount } = useWishlist()
   const { isAuthenticated, login, logout, keycloak } = useAuth()
   const { data: categories = [] } = useCategories()
-  const { resolvedTheme, setTheme } = useTheme()
 
   const isActive = (path: string) => {
     const fullPath = pathname.startsWith("/") ? pathname : `/${pathname}`
@@ -102,7 +98,7 @@ export function Header() {
           "sticky top-0 left-0 right-0 z-[1002] transition-all duration-500",
           isScrolled
             ? "border-b border-[rgb(var(--store-border-rgb)/0.8)] dark:border-b-transparent bg-[rgb(var(--store-surface-strong-rgb)/0.88)] shadow-[0_14px_32px_rgb(var(--store-accent-rgb)/0.1)] backdrop-blur-xl"
-            : "border-b border-[rgb(var(--store-border-rgb)/0.7)] dark:border-b-transparent bg-[rgb(var(--store-surface-rgb)/0.8)] backdrop-blur-sm"
+            : "border-b border-transparent dark:border-b-transparent bg-[rgb(var(--store-surface-rgb)/0.8)] backdrop-blur-sm"
         )}
       >
         <div className="w-full px-4">
@@ -193,26 +189,14 @@ export function Header() {
               >
                 <Heart className="h-5 w-5" />
                 {wishlistCount > 0 && (
-                  <Badge className="store-accent-button absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-none p-0 text-[9px] font-semibold shadow-sm">
+                  <Badge variant="counter" className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border-none p-0 text-[9px] font-semibold shadow-sm">
                     {wishlistCount}
                   </Badge>
                 )}
                 <span className="sr-only">Danh sách yêu thích</span>
               </Link>
 
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-foreground hover:store-accent-text"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                aria-label="Toggle theme"
-              >
-                {resolvedTheme === "dark" ? (
-                  <Moon className="h-5 w-5" />
-                ) : (
-                  <Sun className="h-5 w-5" />
-                )}
-              </Button>
+
 
               <Button
                 variant="ghost"
@@ -227,7 +211,7 @@ export function Header() {
                 >
                   <ShoppingBag className="h-5 w-5" />
                   {cartCount > 0 && (
-                    <Badge className="store-accent-button absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-none p-0 text-[10px] font-semibold shadow-sm">
+                    <Badge variant="counter" className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-none p-0 text-[10px] font-semibold shadow-sm">
                       {cartCount}
                     </Badge>
                   )}
