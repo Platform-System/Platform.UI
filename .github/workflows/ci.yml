@@ -11,6 +11,8 @@ on:
     paths-ignore:
       - '**.md'
       - '.gitignore'
+  repository_dispatch:
+    types: [ design-system-updated ]
 
 permissions:
   contents: read
