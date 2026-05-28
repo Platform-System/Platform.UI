@@ -12,7 +12,7 @@ on:
       - '**.md'
       - '.gitignore'
   repository_dispatch:
-    types: [ design-system-updated ]
+    types: [ design-ui-updated ]
 
 permissions:
   contents: read

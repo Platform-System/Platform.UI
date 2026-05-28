@@ -1,4 +1,4 @@
-import { type ChartConfig } from "@platform/design-system/components/chart"
+import { type ChartConfig } from "@platform/design-ui/components/chart"
 import { Product } from "@/types/store"
 
 export const REVIEWS = [

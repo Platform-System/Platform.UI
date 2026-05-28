@@ -17,19 +17,19 @@ import {
   LayoutGrid,
   ArrowLeft,
 } from "lucide-react"
-import { Button } from "@platform/design-system/components/button"
-import { cn } from "@platform/design-system/lib/cn"
+import { Button } from "@platform/design-ui/components/button"
+import { cn } from "@platform/design-ui/lib/cn"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@platform/design-system/components/dropdown-menu"
-import { RatingStars } from "@platform/design-system/components/rating-stars"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-system/components/tabs"
+} from "@platform/design-ui/components/dropdown-menu"
+import { RatingStars } from "@platform/design-ui/components/rating-stars"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-ui/components/tabs"
 import { ProductCard } from "@/features/product"
-import { FilterBar } from "@platform/design-system/components/filter-bar"
-import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
+import { FilterBar } from "@platform/design-ui/components/filter-bar"
+import { EmptyStatePanel } from "@platform/design-ui/components/empty-state-panel"
 import { useSellerStorefront } from "../hooks/use-seller-storefront"
 import { Link } from "@/i18n/navigation"
 

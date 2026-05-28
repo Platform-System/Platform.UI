@@ -21,18 +21,18 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react"
-import { Button } from "@platform/design-system/components/button"
-import { Calendar } from "@platform/design-system/components/calendar"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@platform/design-system/components/chart"
-import { RatingStars } from "@platform/design-system/components/rating-stars"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-system/components/tabs"
-import { cn } from "@platform/design-system/lib/cn"
+import { Button } from "@platform/design-ui/components/button"
+import { Calendar } from "@platform/design-ui/components/calendar"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@platform/design-ui/components/chart"
+import { RatingStars } from "@platform/design-ui/components/rating-stars"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@platform/design-ui/components/tabs"
+import { cn } from "@platform/design-ui/lib/cn"
 import { Link } from "@/i18n/navigation"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { ProductDetailSkeleton } from "../index"
 import { useProductDetail } from "../hooks/use-product-detail"
 import { REVIEWS, PRICE_HISTORY, PRICE_CHART_CONFIG } from "../constants"
-import { EmptyStatePanel } from "@platform/design-system/components/empty-state-panel"
+import { EmptyStatePanel } from "@platform/design-ui/components/empty-state-panel"
 
 export function ProductDetailScreen() {
   const params = useParams()
