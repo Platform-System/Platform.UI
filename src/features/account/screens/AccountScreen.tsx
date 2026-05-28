@@ -155,7 +155,7 @@ export function AccountScreen() {
                 </button>
               )
             })}
-            <button className="mt-0 flex items-center gap-3 border-t border-[rgb(var(--store-border-rgb)/0.6)] px-4 py-3 pt-4 text-sm font-medium text-red-400 transition-all hover:bg-red-500/10 md:mt-auto">
+            <button className="mt-0 flex items-center gap-3 border-t border-[rgb(var(--store-border-rgb)/0.6)] px-4 py-3 pt-4 text-sm font-medium text-destructive transition-all hover:bg-destructive/10 md:mt-auto">
               <LogOut className="h-5 w-5" />
               <span>{t("logout")}</span>
             </button>

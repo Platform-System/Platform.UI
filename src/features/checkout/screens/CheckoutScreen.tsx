@@ -46,14 +46,14 @@ export function CheckoutScreen() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-transparent pt-24 pb-16">
+      <div className="min-h-screen bg-background pt-24 pb-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <EmptyStatePanel
             icon={<CreditCard className="h-10 w-10" />}
             title={t("emptyOrder")}
             description={t("emptyOrderDesc")}
             primaryActionNode={
-              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+              <Button asChild variant="brand" className="rounded-full px-8">
                 <Link href="/marketplace">{tc("exploreProducts")}</Link>
               </Button>
             }
@@ -69,7 +69,7 @@ export function CheckoutScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-transparent pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <Link
@@ -212,7 +212,7 @@ export function CheckoutScreen() {
               </div>
             </div>
 
-            <Button className="store-accent-button store-accent-button-strong mt-6 h-12 w-full rounded-full" onClick={handlePlaceOrder} disabled={isSubmitting}>
+            <Button variant="brand" className="mt-6 h-12 w-full rounded-full" onClick={handlePlaceOrder} disabled={isSubmitting}>
               {isSubmitting ? t("processing") : t("confirmOrder")}
             </Button>
 

@@ -2,7 +2,6 @@ import * as React from "react"
 import { useTranslations } from "next-intl"
 import { useQuery } from "@tanstack/react-query"
 import { fetchSellerBySlug, fetchSellerProductsBySlug, sellerQueryKeys } from "../queries/seller-queries"
-import { SELLER_META_BY_SLUG } from "../constants"
 import { slugify } from "@/shared/lib/storefront-normalizers"
 
 export function useSellerStorefront(slug: string) {
@@ -14,19 +13,14 @@ export function useSellerStorefront(slug: string) {
   const [activeTab, setActiveTab] = React.useState("products")
   const [searchQuery, setSearchQuery] = React.useState("")
 
-  const { data: seller } = useQuery({
+  const { data: seller, isLoading: isLoadingSeller } = useQuery({
     queryKey: sellerQueryKeys.detail(slug),
     queryFn: () => fetchSellerBySlug(slug),
     enabled: Boolean(slug),
     staleTime: 5 * 60 * 1000,
   })
 
-  const sellerMeta = React.useMemo(() =>
-    seller ? (SELLER_META_BY_SLUG[seller.slug] || SELLER_META_BY_SLUG["luxe-leather-co"]) : undefined,
-    [seller]
-  )
-
-  const { data: sellerProducts = [] } = useQuery({
+  const { data: sellerProducts = [], isLoading: isLoadingProducts } = useQuery({
     queryKey: ["sellers", slug, "products"],
     queryFn: () => fetchSellerProductsBySlug(slug),
     enabled: Boolean(slug),
@@ -59,19 +53,12 @@ export function useSellerStorefront(slug: string) {
     })
   }, [sellerProducts, sortBy, searchQuery, activeCategory, t])
 
-  const ratingDistribution = [
-    { stars: 5, width: 78 },
-    { stars: 4, width: 18 },
-    { stars: 3, width: 6 },
-    { stars: 2, width: 3 },
-    { stars: 1, width: 2 },
-  ]
+  const isLoading = isLoadingSeller || isLoadingProducts
 
   return {
     seller,
-    sellerMeta,
     filteredProducts,
-    ratingDistribution,
+    isLoading,
     isFollowing,
     setIsFollowing,
     gridCols,

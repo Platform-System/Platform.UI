@@ -29,7 +29,7 @@ export function CartPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-transparent pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -66,7 +66,7 @@ export function CartPage() {
             title={t("empty")}
             description={t("emptyDescAction")}
             primaryActionNode={
-              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+              <Button asChild variant="brand" className="rounded-full px-8">
                 <Link href="/marketplace">{t("exploreProducts")}</Link>
               </Button>
             }
@@ -206,7 +206,7 @@ export function CartPage() {
               </p>
 
               <div className="mt-6 space-y-3">
-                <Button asChild className="store-accent-button store-accent-button-strong h-12 w-full rounded-full">
+                <Button asChild variant="brand" className="h-12 w-full rounded-full">
                   <Link href="/checkout">{t("proceedToCheckout")}</Link>
                 </Button>
                 <Button asChild variant="outline" className="h-12 w-full rounded-full">

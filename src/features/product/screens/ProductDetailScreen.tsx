@@ -74,14 +74,14 @@ export function ProductDetailScreen() {
 
   if (!baseProduct) {
     return (
-      <main className="relative min-h-screen bg-transparent pt-32 pb-16">
+      <main className="relative min-h-screen bg-background pt-32 pb-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <EmptyStatePanel
             icon={<ShoppingBag className="h-10 w-10" />}
             title={t("productNotFound")}
             description={t("productNotFoundDesc")}
             primaryActionNode={
-              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+              <Button asChild variant="brand" className="rounded-full px-8">
                 <Link href="/marketplace">{ts("backToStore")}</Link>
               </Button>
             }
@@ -105,12 +105,7 @@ export function ProductDetailScreen() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-transparent">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--store-accent-rgb)/0.12),transparent_42%),radial-gradient(circle_at_20%_30%,rgb(var(--store-border-rgb)/0.18),transparent_30%),linear-gradient(180deg,rgb(var(--store-surface-strong-rgb)/0.88)_0%,rgb(var(--store-surface-rgb)/0.96)_45%,rgb(241_244_246)_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-32" />
-      </div>
-
+    <main className="relative min-h-screen overflow-hidden bg-background">
       <div className="relative pt-32 pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8 text-sm">
@@ -322,7 +317,8 @@ export function ProductDetailScreen() {
               <div className="mb-8 grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] gap-3">
                 <Button
                   size="lg"
-                  className="store-accent-button store-accent-button-strong h-14 w-full"
+                  variant="brand"
+                  className="h-14 w-full"
                   onClick={handleAddToCart}
                 >
                   <ShoppingBag className="mr-2 h-5 w-5" />
@@ -406,7 +402,7 @@ export function ProductDetailScreen() {
                 <Button variant="outline" asChild className="rounded-2xl px-5">
                   <Link href={`/seller/${product.seller.slug}`}>{t("viewStore")}</Link>
                 </Button>
-                <Button className="store-accent-button rounded-2xl">
+                <Button variant="brand" className="rounded-2xl">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   {t("messageSeller")}
                 </Button>

@@ -6,6 +6,7 @@ import confetti from "canvas-confetti"
 import { CheckCircle2, ShoppingBag, ArrowRight, Package, Truck, Clock } from "lucide-react"
 import { Link } from "@/i18n/navigation"
 import { Button } from "@platform/design-system/components/button"
+import { BRAND_NAME } from "@platform/design-system"
 import { useTranslations } from "next-intl"
 import { StoreOrder } from "@/types/store"
 
@@ -40,7 +41,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-transparent pt-32 pb-16">
+    <div className="min-h-screen bg-background pt-32 pb-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -61,7 +62,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
             {t("orderPlacedTitle") || "Đặt hàng thành công!"}
           </h1>
           <p className="store-muted-text mt-4 text-base leading-7">
-            {t("orderPlacedDesc") || "Cảm ơn bạn đã tin tưởng NYXORIS. Đơn hàng của bạn đang được xử lý."}
+            {t("orderPlacedDesc") || `Cảm ơn bạn đã tin tưởng ${BRAND_NAME}. Đơn hàng của bạn đang được xử lý.`}
           </p>
 
           <div className="mt-10 rounded-3xl bg-muted/30 p-6 text-left sm:p-8">
@@ -108,7 +109,7 @@ export function OrderSuccessScreen({ order }: OrderSuccessScreenProps) {
           </div>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button asChild className="store-accent-button store-accent-button-strong h-14 rounded-full px-8">
+            <Button asChild variant="brand" className="h-14 rounded-full px-8">
               <Link href="/marketplace">
                 {tc("exploreProducts")}
                 <ArrowRight className="ml-2 h-4 w-4" />

@@ -37,7 +37,7 @@ export function Wishlist() {
   }
 
   return (
-    <div className="min-h-screen bg-transparent pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 mb-10">
           <div>
@@ -78,7 +78,7 @@ export function Wishlist() {
                 title={t("empty")}
                 description={t("emptyDesc")}
                 primaryActionNode={
-                  <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8 h-12 font-semibold">
+                  <Button asChild variant="brand" className="rounded-full px-8 h-12 font-semibold">
                     <Link href="/marketplace">{t("exploreNow")}</Link>
                   </Button>
                 }
@@ -139,7 +139,8 @@ export function Wishlist() {
 
                       <Button
                         onClick={() => handleAddToCart(item)}
-                        className="store-accent-button store-accent-button-strong group/btn flex h-10 w-full items-center justify-center gap-2 rounded-full font-semibold transition-all"
+                        variant="brand"
+                        className="group/btn flex h-10 w-full items-center justify-center gap-2 rounded-full font-semibold transition-all"
                       >
                         <ShoppingBag className="h-4 w-4 group-hover/btn:scale-110 transition-transform" />
                         {tp("addToCart")}

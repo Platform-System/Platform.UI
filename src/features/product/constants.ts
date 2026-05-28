@@ -62,19 +62,20 @@ export const CARE_INSTRUCTIONS = {
 }
 
 export function getEnhancedProduct(baseProduct: Product) {
+  const galleryImages = (baseProduct.images || []).filter((image) => image && image !== baseProduct.image)
+
   return {
     ...baseProduct,
     description:
       "Được chế tác từ loại da Ý tốt nhất, chiếc túi tote cao cấp này kết hợp vẻ đẹp sang trọng vượt thời gian với tính năng hiện đại. Hoàn hảo cho những chuyên gia tinh tế, những người coi trọng cả phong cách và chất lượng.",
-    images:
-      baseProduct.images && baseProduct.images.length > 0
-        ? [baseProduct.image, ...baseProduct.images]
-        : [
-            baseProduct.image,
-            "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&h=1000&fit=crop",
-          ],
+    images: galleryImages.length > 0
+      ? [baseProduct.image, ...galleryImages]
+      : [
+          baseProduct.image,
+          "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=1000&fit=crop",
+          "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&h=1000&fit=crop",
+          "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=800&h=1000&fit=crop",
+        ],
     seller: {
       ...baseProduct.seller,
       slug: baseProduct.seller.slug || baseProduct.seller.name.toLowerCase().replace(/\s+/g, "-"),

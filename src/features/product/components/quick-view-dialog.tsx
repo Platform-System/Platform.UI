@@ -10,6 +10,7 @@ import { useWishlist } from "@/features/wishlist"
 import { Product } from "@/types/store"
 import { useQuery } from "@tanstack/react-query"
 import { fetchAllSellers, sellerQueryKeys } from "@/features/seller"
+import { fetchProductById, productQueryKeys } from "../queries/product-queries"
 
 interface QuickViewDialogProps {
   product: Product
@@ -28,19 +29,28 @@ export function QuickViewDialog({ product, isOpen, onOpenChange }: QuickViewDial
     staleTime: 5 * 60 * 1000,
   })
 
-  const sellerAvatar = allSellers.find(s => s.name === product.seller?.name)?.avatar
-    || `https://api.dicebear.com/7.x/adventurer/svg?seed=${product.seller?.name}`
+  const { data: liveProduct } = useQuery({
+    queryKey: productQueryKeys.detail(product.id),
+    queryFn: () => fetchProductById(product.id),
+    enabled: isOpen,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  const resolvedProduct = liveProduct ?? product
+
+  const sellerAvatar = allSellers.find(s => s.name === resolvedProduct.seller?.name)?.avatar
+    || `https://api.dicebear.com/7.x/adventurer/svg?seed=${resolvedProduct.seller?.name}`
 
   const fullProduct = {
-    ...product,
+    ...resolvedProduct,
     stock: 12,
-    images: product.images ?? [product.image],
+    images: resolvedProduct.images ?? [resolvedProduct.image],
     variants: 
-      product.category?.toLowerCase() === "fashion"
+      resolvedProduct.category?.toLowerCase() === "fashion"
         ? { colors: [{ name: "Đen", value: "#1a1a1a" }, { name: "Nâu", value: "#8B4513" }, { name: "Vàng đồng", value: "#D2B48C" }, { name: "Xanh Navy", value: "#000080" }], sizes: ["Nhỏ", "Vừa", "Lớn"] }
-        : product.category?.toLowerCase() === "beauty"
+        : resolvedProduct.category?.toLowerCase() === "beauty"
           ? { colors: [{ name: "Bản gốc", value: "#ffffff" }], sizes: ["50ml", "100ml", "200ml"] }
-          : product.category?.toLowerCase() === "electronics"
+          : resolvedProduct.category?.toLowerCase() === "electronics"
             ? { colors: [{ name: "Đen", value: "#1a1a1a" }, { name: "Bạc", value: "#c0c0c0" }], sizes: ["Thường", "Lớn"] }
             : { colors: [{ name: "Đen", value: "#1a1a1a" }, { name: "Xám", value: "#808080" }], sizes: ["Thường", "Lớn"] }
   }

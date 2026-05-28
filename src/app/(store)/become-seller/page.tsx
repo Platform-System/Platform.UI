@@ -108,12 +108,12 @@ export default function BecomeSellerPage() {
         </div>
 
         {/* Form */}
-        <div className="ds-glass-panel !border-0 rounded-3xl p-8 shadow-2xl">
+        <div className="ds-dark-panel p-8">
           {alreadyHasStore ? (
             <div className="text-center py-12 flex flex-col items-center gap-4">
-              <CheckCircle2 className="store-accent-text h-16 w-16" />
-              <h3 className="mt-2 font-serif text-2xl font-bold text-foreground">{t("existingStoreTitle")}</h3>
-              <p className="text-muted-foreground max-w-md">
+              <CheckCircle2 className="h-16 w-16 text-foreground" />
+              <h3 className="mt-2 font-serif text-2xl font-bold">{t("existingStoreTitle")}</h3>
+              <p className="max-w-md text-muted-foreground">
                 {t("existingStoreDescNoName")}
               </p>
               <Button asChild className="store-accent-button store-accent-button-strong mt-4 rounded-xl">
@@ -122,9 +122,9 @@ export default function BecomeSellerPage() {
             </div>
           ) : isSubmitted ? (
             <div className="text-center py-12 flex flex-col items-center gap-4">
-              <CheckCircle2 className="store-accent-text h-16 w-16" />
-              <h3 className="mt-2 font-serif text-2xl font-bold text-foreground">{t("successTitle")}</h3>
-              <p className="text-muted-foreground max-w-xs">
+              <CheckCircle2 className="h-16 w-16 text-foreground" />
+              <h3 className="mt-2 font-serif text-2xl font-bold">{t("successTitle")}</h3>
+              <p className="max-w-xs text-muted-foreground">
                 {t("successDesc")}
               </p>
               <Button 
@@ -143,8 +143,8 @@ export default function BecomeSellerPage() {
               <h3 className="mb-2 font-serif text-2xl font-semibold text-foreground">{t("formTitle")}</h3>
               
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div className="flex flex-col gap-1">
-                  <label className="store-muted-text text-sm font-medium">{t("storeName")}</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium">{t("storeName")}</label>
                   <Input 
                     required 
                     placeholder={t("storeNamePlaceholder")} 
@@ -155,8 +155,8 @@ export default function BecomeSellerPage() {
                   />
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <label className="store-muted-text text-sm font-medium">{t("tagline")}</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium">{t("tagline")}</label>
                   <Input 
                     required 
                     placeholder={t("taglinePlaceholder")} 
@@ -168,8 +168,8 @@ export default function BecomeSellerPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1">
-                <label className="store-muted-text text-sm font-medium">{t("shortDescription")}</label>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium">{t("shortDescription")}</label>
                 <Textarea
                   required
                   placeholder={t("shortDescriptionPlaceholder")}
@@ -181,8 +181,8 @@ export default function BecomeSellerPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <div className="flex flex-col gap-1">
-                  <label className="store-muted-text text-sm font-medium">{t("location")}</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium">{t("location")}</label>
                   <Input 
                     required 
                     placeholder={t("locationPlaceholder")} 
@@ -193,8 +193,8 @@ export default function BecomeSellerPage() {
                   />
                 </div>
 
-                <div className="flex flex-col gap-1">
-                  <label className="store-muted-text text-sm font-medium">{t("responseTime")}</label>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-medium">{t("responseTime")}</label>
                   <Input 
                     required 
                     placeholder={t("responseTimePlaceholder")} 

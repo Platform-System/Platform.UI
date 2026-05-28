@@ -124,9 +124,9 @@ export function useAccount() {
   }
 
   const statusClassName = (status: StoreOrder["status"]) => {
-    if (status === "delivered") return "bg-emerald-500/20 text-emerald-400"
-    if (status === "shipped") return "bg-sky-500/20 text-sky-400"
-    return "bg-gold/20 text-gold"
+    if (status === "delivered") return "bg-emerald-500/10 text-emerald-700"
+    if (status === "shipped") return "bg-sky-500/10 text-sky-700"
+    return "bg-[rgb(var(--store-accent-rgb)/0.08)] text-[rgb(var(--store-accent-rgb))]"
   }
 
   const orders = React.useMemo(() => {

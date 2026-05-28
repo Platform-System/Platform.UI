@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl"
-import { useState, useLayoutEffect } from "react"
+import { useState, useLayoutEffect, useMemo } from "react"
 import { Store } from "lucide-react"
 import { FilterBar } from "@platform/design-system/components/filter-bar"
 import { SellerCard } from "../components/seller-card"
@@ -7,8 +7,8 @@ import { useQuery } from "@tanstack/react-query"
 import { fetchAllSellers, sellerQueryKeys } from "../queries/seller-queries"
 
 export function SellersScreen() {
+  // Trigger hot-reload for design-system updates
   const t = useTranslations("Seller")
-  const categories = t.raw("categories") as string[]
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState(t("all"))
 
@@ -24,6 +24,20 @@ export function SellersScreen() {
       container.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [])
+
+  const categories = useMemo(() => {
+    const categorySet = new Set<string>()
+
+    allSellers.forEach((seller) => {
+      seller.categories.forEach((category) => {
+        if (category.trim()) {
+          categorySet.add(category)
+        }
+      })
+    })
+
+    return [t("all"), ...Array.from(categorySet).sort((left, right) => left.localeCompare(right, "vi"))]
+  }, [allSellers, t])
 
   if (isLoading) {
     return (
@@ -44,7 +58,7 @@ export function SellersScreen() {
   })
 
   return (
-    <div className="min-h-screen bg-transparent pt-32 pb-16">
+    <div className="min-h-screen bg-background pt-32 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Hero Header */}
         <div className="text-center mb-12">

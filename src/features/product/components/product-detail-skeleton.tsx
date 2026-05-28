@@ -4,12 +4,7 @@ import { Skeleton } from "@platform/design-system/components/skeleton"
 
 export function ProductDetailSkeleton() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-transparent">
-      {/* Background Decor */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--store-accent-rgb)/0.08),transparent_42%),linear-gradient(180deg,rgb(var(--store-surface-strong-rgb)/0.88)_0%,rgb(var(--store-surface-rgb)/0.96)_45%,rgb(241_244_246)_100%)]" />
-      </div>
-
+    <main className="relative min-h-screen overflow-hidden bg-background">
       <div className="relative pt-32 pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Skeleton */}

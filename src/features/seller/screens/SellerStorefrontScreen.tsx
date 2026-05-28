@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl"
 import {
   Star,
   MapPin,
-  Calendar,
   Package,
   Users,
   MessageCircle,
@@ -42,9 +41,8 @@ export function SellerStorefrontScreen() {
 
   const {
     seller,
-    sellerMeta,
     filteredProducts,
-    ratingDistribution,
+    isLoading,
     isFollowing,
     setIsFollowing,
     gridCols,
@@ -59,16 +57,24 @@ export function SellerStorefrontScreen() {
     setSearchQuery,
   } = useSellerStorefront(slug)
 
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center pt-32">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    )
+  }
+
   if (!seller) {
     return (
-      <div className="relative z-10 min-h-screen bg-transparent pb-28 pt-32 text-foreground">
+      <div className="relative z-10 min-h-screen bg-background pb-28 pt-32 text-foreground">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <EmptyStatePanel
             icon={<Users className="h-10 w-10" />}
             title={t("sellerNotFound")}
             description={t("sellerNotFoundDesc")}
             primaryActionNode={
-              <Button asChild className="store-accent-button store-accent-button-strong rounded-full px-8">
+              <Button asChild variant="brand" className="rounded-full px-8">
                 <Link href="/sellers">{t("viewAllSellers")}</Link>
               </Button>
             }
@@ -84,7 +90,7 @@ export function SellerStorefrontScreen() {
   }
 
   return (
-    <div className="relative z-10 min-h-screen bg-transparent pb-28 pt-32 text-foreground">
+    <div className="relative z-10 min-h-screen bg-background pb-28 pt-32 text-foreground">
       <section className="relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <button
@@ -160,16 +166,8 @@ export function SellerStorefrontScreen() {
                         <span>{seller.productCount} {t("products")}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Users className="h-4 w-4" />
-                        <span>{sellerMeta?.followers?.toLocaleString()} {t("followers")}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
                         <MapPin className="h-4 w-4" />
                         <span>{seller.location}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4" />
-                        <span>{t("memberSince")} {sellerMeta?.memberSince}</span>
                       </div>
                     </div>
                   </div>
@@ -177,11 +175,12 @@ export function SellerStorefrontScreen() {
                   <div className="flex flex-wrap gap-3">
                     <Button
                       onClick={() => setIsFollowing((current) => !current)}
+                      variant={isFollowing ? "outline" : "brand"}
                       className={cn(
                         "rounded-xl px-5 shadow-none",
                         isFollowing
-                          ? "store-surface-soft text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.1)]"
-                          : "store-accent-button"
+                          ? "border-[rgb(var(--store-border-rgb)/0.75)] bg-[rgb(var(--store-surface-rgb)/0.7)] text-foreground hover:bg-[rgb(var(--store-accent-rgb)/0.12)]"
+                          : ""
                       )}
                     >
                       {isFollowing ? t("following") : t("follow")}
@@ -321,68 +320,39 @@ export function SellerStorefrontScreen() {
             </TabsContent>
 
             <TabsContent value="reviews" className="mt-0">
-              <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
-                <div className="ds-glass-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(0_0_0/0.1)]">
-                  <div className="flex items-start gap-6">
-                    <div className="min-w-[96px]">
-                      <div className="text-5xl font-semibold tracking-[-0.03em]">{seller.rating}</div>
-                      <div className="mt-3">
-                        <RatingStars rating={seller.rating} />
-                      </div>
-                      <p className="store-muted-text mt-2 text-sm">{seller.reviewCount} {t("reviews")}</p>
-                    </div>
-
-                    <div className="flex-1 space-y-3">
-                      {ratingDistribution.map((item) => (
-                        <div key={item.stars} className="flex items-center gap-3">
-                          <span className="store-muted-text flex min-w-[44px] items-center gap-1 text-sm">
-                            {item.stars}
-                            <Star
-                              className="h-3.5 w-3.5"
-                              style={{ fill: "var(--color-star)", color: "var(--color-star)" }}
-                            />
-                          </span>
-                          <div className="h-2 flex-1 overflow-hidden rounded-full bg-[rgb(var(--store-border-rgb)/0.5)]">
-                            <div
-                              className="h-full rounded-full"
-                              style={{
-                                width: `${item.width}%`,
-                                backgroundColor: "var(--color-star)",
-                              }}
-                            />
-                          </div>
+              {seller.reviewCount > 0 ? (
+                <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
+                  <div className="ds-glass-panel rounded-[1.75rem] p-6 shadow-[0_18px_36px_rgb(0_0_0/0.1)]">
+                    <div className="flex items-start gap-6">
+                      <div className="min-w-[96px]">
+                        <div className="text-5xl font-semibold tracking-[-0.03em]">{seller.rating}</div>
+                        <div className="mt-3">
+                          <RatingStars rating={seller.rating} />
                         </div>
-                      ))}
+                        <p className="store-muted-text mt-2 text-sm">{seller.reviewCount} {t("reviews")}</p>
+                      </div>
+
+                      <div className="flex-1">
+                        <p className="store-muted-text text-sm leading-relaxed">
+                          {t("reviewsSummaryPending")}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="space-y-5">
-                  {(sellerMeta?.reviews ?? []).map((review) => (
-                    <div
-                      key={review.id}
-                      className="ds-glass-panel rounded-[1.5rem] p-5 shadow-[0_18px_36px_rgb(0_0_0/0.1)]"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full">
-                          <Image src={review.avatar} alt={review.author} fill className="object-cover" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="mb-1 flex items-center justify-between gap-4">
-                            <p className="font-medium text-foreground">{review.author}</p>
-                            <span className="store-muted-text text-sm">{review.date}</span>
-                          </div>
-                          <div className="mb-3 flex flex-wrap items-center gap-2">
-                            <RatingStars rating={review.rating} size="sm" />
-                            <span className="store-muted-text text-sm">{t("bought")}: {review.product}</span>
-                          </div>
-                          <p className="store-muted-text leading-relaxed">{review.content}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <EmptyStatePanel
+                    icon={<MessageCircle className="h-10 w-10" />}
+                    title={t("reviews")}
+                    description={t("reviewsUnavailable")}
+                  />
                 </div>
-              </div>
+              ) : (
+                <EmptyStatePanel
+                  icon={<MessageCircle className="h-10 w-10" />}
+                  title={t("noReviewsYet")}
+                  description={t("reviewsUnavailable")}
+                />
+              )}
             </TabsContent>
 
             <TabsContent value="about" className="mt-0">
