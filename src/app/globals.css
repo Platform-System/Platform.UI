@@ -15,6 +15,6 @@ body {
 }
 
 :root {
-  --scrollbar-thumb: rgba(24, 24, 27, 0.12);
-  --scrollbar-thumb-hover: rgba(24, 24, 27, 0.25);
+  --scrollbar-thumb: var(--scrollbar-thumb-zinc);
+  --scrollbar-thumb-hover: var(--scrollbar-thumb-zinc-hover);
 }

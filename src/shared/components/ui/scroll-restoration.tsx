@@ -11,6 +11,10 @@ export function ScrollRestoration() {
   const pathname = usePathname()
 
   useLayoutEffect(() => {
+    const container = document.getElementById("store-scroll-container")
+    if (container) {
+      container.scrollTo({ top: 0, behavior: "instant" })
+    }
     window.scrollTo({ top: 0, behavior: "instant" })
   }, [pathname])
 

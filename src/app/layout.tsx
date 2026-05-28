@@ -5,6 +5,7 @@ import QueryProvider from "@/core/providers/QueryProvider";
 import AuthProvider from "@/core/providers/AuthProvider";
 import { GlobalLoadingBar } from "@/shared/layout/GlobalLoadingBar";
 import { Toaster } from "sonner";
+import { BRAND_METADATA } from "@platform/design-system";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -26,8 +27,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "NYXORIS - Nyx's Radiance",
-  description: "The official digital atelier of NYXORIS.",
+  title: BRAND_METADATA.title,
+  description: BRAND_METADATA.description,
 };
 
 export default async function RootLayout({
@@ -40,7 +41,7 @@ export default async function RootLayout({
       <body
         className={`${plusJakarta.variable} ${geistMono.variable} ${playfair.variable} relative h-screen overflow-hidden bg-background text-foreground antialiased transition-colors duration-300`}
       >
-        <ThemeProvider defaultTheme="system">
+        <ThemeProvider defaultTheme="light">
           <Toaster richColors closeButton position="top-right" />
           <AuthProvider>
             <QueryProvider>
