@@ -53,6 +53,5 @@ jobs:
         NEXT_PUBLIC_KEYCLOAK_URL=${{ vars.PUBLIC_AUTH_URL }}
         NEXT_PUBLIC_KEYCLOAK_REALM=${{ vars.KEYCLOAK_REALM }}
         NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ vars.MERCHANT_CLIENT_ID }}
-    secrets:
-      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+    secrets: inherit
 
