@@ -6,10 +6,10 @@ import { Heart, Trash2, ShoppingBag, ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useWishlist } from "../context/WishlistContext"
 import { useCart } from "@/features/cart"
-import { Button } from "@platform/design-ui/components/button"
+import { Button } from "@platform-system/design-ui/components/button"
 import { Link } from "@/i18n/navigation"
 import Image from "next/image"
-import { EmptyStatePanel } from "@platform/design-ui/components/empty-state-panel"
+import { EmptyStatePanel } from "@platform-system/design-ui/components/empty-state-panel"
 
 export function Wishlist() {
   const t = useTranslations("Wishlist")

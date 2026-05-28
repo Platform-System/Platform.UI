@@ -5,11 +5,11 @@ import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { cn } from "@platform/design-ui/lib/cn"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform/design-ui/components/accordion"
-import { Avatar, AvatarFallback, AvatarImage } from "@platform/design-ui/components/avatar"
-import { Badge } from "@platform/design-ui/components/badge"
-import { Button } from "@platform/design-ui/components/button"
+import { cn } from "@platform-system/design-ui/lib/cn"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@platform-system/design-ui/components/accordion"
+import { Avatar, AvatarFallback, AvatarImage } from "@platform-system/design-ui/components/avatar"
+import { Badge } from "@platform-system/design-ui/components/badge"
+import { Button } from "@platform-system/design-ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@platform/design-ui/components/dropdown-menu"
+} from "@platform-system/design-ui/components/dropdown-menu"
 import {
   Search,
   ShoppingBag,

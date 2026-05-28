@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Link } from "@/i18n/navigation"
 import { motion } from "framer-motion"
 import { Star, MapPin, Package, Check } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage, Badge, Button } from "@platform/design-ui"
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button } from "@platform-system/design-ui"
 import { Seller } from "@/types/store"
 
 interface SellerCardProps {

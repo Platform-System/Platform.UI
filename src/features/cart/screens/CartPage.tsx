@@ -4,18 +4,18 @@ import React from "react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react"
-import { Button } from "@platform/design-ui/components/button"
+import { Button } from "@platform-system/design-ui/components/button"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@platform/design-ui/components/select"
+} from "@platform-system/design-ui/components/select"
 import { Link } from "@/i18n/navigation"
 import { useCart } from "../context/CartContext"
 import { CART_COLOR_OPTIONS, CART_SIZE_OPTIONS } from "../constants"
-import { EmptyStatePanel } from "@platform/design-ui/components/empty-state-panel"
+import { EmptyStatePanel } from "@platform-system/design-ui/components/empty-state-panel"
 
 export function CartPage() {
   const t = useTranslations("Cart")

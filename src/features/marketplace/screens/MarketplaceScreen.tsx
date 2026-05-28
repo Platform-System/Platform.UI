@@ -4,13 +4,13 @@ import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, SlidersHorizontal, Grid3X3, LayoutGrid, ChevronDown, X } from "lucide-react"
-import { Button } from "@platform/design-ui/components/button"
+import { Button } from "@platform-system/design-ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@platform/design-ui/components/dropdown-menu"
+} from "@platform-system/design-ui/components/dropdown-menu"
 import {
   Pagination,
   PaginationContent,
@@ -18,9 +18,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@platform/design-ui/components/pagination"
-import { Input } from "@platform/design-ui/components/input"
-import { cn } from "@platform/design-ui/lib/cn"
+} from "@platform-system/design-ui/components/pagination"
+import { Input } from "@platform-system/design-ui/components/input"
+import { cn } from "@platform-system/design-ui/lib/cn"
 import { ProductCard } from "@/features/product"
 import { FilterSidebar } from "../components/filter-sidebar"
 import { useQuery } from "@tanstack/react-query"

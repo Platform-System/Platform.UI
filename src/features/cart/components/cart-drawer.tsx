@@ -14,21 +14,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@platform/design-ui/components/alert-dialog"
-import { Button } from "@platform/design-ui/components/button"
-import { Empty, EmptyMedia, EmptyTitle } from "@platform/design-ui/components/empty"
+} from "@platform-system/design-ui/components/alert-dialog"
+import { Button } from "@platform-system/design-ui/components/button"
+import { Empty, EmptyMedia, EmptyTitle } from "@platform-system/design-ui/components/empty"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@platform/design-ui/components/select"
+} from "@platform-system/design-ui/components/select"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
-} from "@platform/design-ui/components/sheet"
+} from "@platform-system/design-ui/components/sheet"
 import { useCart } from "../context/CartContext"
 import type { CartItem } from "../store/cart-store"
 import { Link } from "@/i18n/navigation"
