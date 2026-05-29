@@ -108,8 +108,8 @@ export function Header() {
           )}>
             {/* Nhãn store */}
             <Link href="/home" className="flex items-center group">
-              <span className="font-serif text-xl font-bold tracking-[0.05em] text-foreground uppercase transition-all duration-300 group-hover:store-accent-text">
-                {t("brandName")}
+              <span className="font-sans text-xl font-black tracking-tighter text-foreground transition-all duration-300 group-hover:store-accent-text">
+                Nyxoris
               </span>
               <div className="h-4 w-px bg-border mx-6 hidden sm:block opacity-30" />
             </Link>
